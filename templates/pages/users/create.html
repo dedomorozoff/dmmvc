@@ -1,0 +1,50 @@
+{{define "pages/users/create.html"}}
+{{template "layouts/base.html" .}}
+{{define "content"}}
+{{template "partials/header.html" .}}
+
+<main class="main">
+    <div class="container">
+        <h1 class="page-title">Создать пользователя</h1>
+
+        {{if .error}}
+        <div class="alert alert-error">{{.error}}</div>
+        {{end}}
+
+        <div class="form-card">
+            <form method="POST" action="/admin/users">
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Роль</label>
+                    <select id="role" name="role" required>
+                        <option value="user">Пользователь</option>
+                        <option value="admin">Администратор</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                    <a href="/admin/users" class="btn btn-secondary">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+{{template "partials/footer.html" .}}
+{{end}}
+{{end}}

@@ -1,0 +1,40 @@
+{{define "pages/home.html"}}
+{{template "layouts/base.html" .}}
+{{define "content"}}
+{{template "partials/header.html" .}}
+
+<main class="main">
+    <div class="container">
+        <div class="hero">
+            <h1 class="hero-title">Добро пожаловать в DMMVC</h1>
+            <p class="hero-subtitle">Минималистичный и мощный MVC веб-фреймворк на Go</p>
+            <div class="hero-buttons">
+                <a href="/login" class="btn btn-primary">Войти</a>
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>🎯 MVC Архитектура</h3>
+                <p>Четкое разделение Model-View-Controller для легкой поддержки</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔐 Безопасность</h3>
+                <p>Встроенная аутентификация и управление сессиями</p>
+            </div>
+            <div class="feature-card">
+                <h3>💾 База данных</h3>
+                <p>GORM ORM с поддержкой SQLite и MySQL</p>
+            </div>
+            <div class="feature-card">
+                <h3>📝 Логирование</h3>
+                <p>Структурированное логирование с Logrus</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+{{template "partials/footer.html" .}}
+{{end}}
+{{end}}

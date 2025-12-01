@@ -1,0 +1,22 @@
+{{define "partials/header.html"}}
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <h1 class="logo">DMMVC</h1>
+            <nav class="nav">
+                <a href="/" class="nav-link">Главная</a>
+                {{if .username}}
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/profile" class="nav-link">Профиль</a>
+                {{if eq .role "admin"}}
+                <a href="/admin/users" class="nav-link">Пользователи</a>
+                {{end}}
+                <a href="/logout" class="nav-link">Выход ({{.username}})</a>
+                {{else}}
+                <a href="/login" class="nav-link">Вход</a>
+                {{end}}
+            </nav>
+        </div>
+    </div>
+</header>
+{{end}}
