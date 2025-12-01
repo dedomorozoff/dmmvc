@@ -1,15 +1,45 @@
-*.db
-*.log
-.env
-tmp/
-.DS_Store
+# Binaries
 *.exe
-*.exe~
 *.dll
 *.so
 *.dylib
+
+# Test binary
 *.test
+
+# Output of the go coverage tool
 *.out
+
+# Dependency directories
 vendor/
-.idea/
+
+# Go workspace file
+go.work
+
+# Environment variables
+.env
+
+# Database
+*.db
+
+# Logs
+*.log
+
+# IDE
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+
+# Swagger generated files (regenerate with make swagger)
+docs/swagger/docs.go
+docs/swagger/swagger.json
+docs/swagger/swagger.yaml

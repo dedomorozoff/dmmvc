@@ -33,7 +33,7 @@ func WebSocketHandler(hub *websocket.Hub) gin.HandlerFunc {
 			ID:   c.Query("id"),
 		}
 
-		client.Hub.register <- client
+		hub.Register <- client
 
 		go client.WritePump()
 		go client.ReadPump()

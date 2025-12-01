@@ -273,11 +273,11 @@ CMD ["./dmmvc"]
 
 MIT License
 
-## CLI Tool
+## Advanced Features
 
-DMMVC includes a powerful CLI tool for code generation!
+### CLI Tool
 
-### Quick Start with CLI
+DMMVC includes a powerful CLI tool for code generation:
 
 ```bash
 # Build CLI
@@ -298,7 +298,7 @@ dmmvc list
 
 **Full documentation**: [docs/CLI.md](docs/CLI.md)
 
-## Database Support
+### Database Support
 
 DMMVC supports three types of databases:
 
@@ -306,18 +306,50 @@ DMMVC supports three types of databases:
 - **MySQL** - Popular relational database
 - **PostgreSQL** - Powerful open-source database
 
-**PostgreSQL Documentation**: [docs/POSTGRESQL.md](docs/POSTGRESQL.md)
+**Documentation**: [docs/POSTGRESQL.md](docs/POSTGRESQL.md)
+
+### WebSocket Support
+
+Real-time bidirectional communication:
+
+```go
+// WebSocket endpoint available at /ws
+// Demo page at /websocket
+```
+
+**Documentation**: [docs/WEBSOCKET.md](docs/WEBSOCKET.md)
+
+### API Documentation (Swagger)
+
+Automatic API documentation generation:
+
+```bash
+# Generate Swagger docs
+make swagger
+
+# Access Swagger UI
+# http://localhost:8080/swagger/index.html
+```
+
+**Documentation**: [docs/SWAGGER.md](docs/SWAGGER.md)
 
 ## Roadmap
 
 - [x] CLI tool for code generation
 - [x] PostgreSQL support
 - [x] WebSocket support
-- [ ] API documentation (Swagger)
+- [x] API documentation (Swagger)
 - [ ] Caching (Redis)
 - [ ] Task queues
 - [ ] Email sending
 - [ ] File upload helper
 - [ ] Localization (i18n)
 
-**WebSocket Documentation**: [docs/WEBSOCKET.md](docs/WEBSOCKET.md)
+## Documentation
+
+- [CLI Tool](docs/CLI.md) - Code generation commands
+- [PostgreSQL](docs/POSTGRESQL.md) - PostgreSQL setup guide
+- [WebSocket](docs/WEBSOCKET.md) - Real-time communication
+- [Swagger API](docs/SWAGGER.md) - API documentation
+- [Examples](docs/EXAMPLES.md) - Usage examples
+- [Deployment](docs/DEPLOYMENT.md) - Production deployment

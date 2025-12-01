@@ -1,6 +1,6 @@
 # DMMVC Makefile
 
-.PHONY: help build install clean run test cli
+.PHONY: help build install clean run test cli swagger
 
 # Default target
 help:
@@ -11,6 +11,7 @@ help:
 	@echo "  make run        - Run the web server"
 	@echo "  make test       - Run tests"
 	@echo "  make cli        - Build CLI tool only"
+	@echo "  make swagger    - Generate Swagger documentation"
 
 # Build CLI tool
 build: cli
@@ -49,3 +50,10 @@ server:
 	@echo "Building server..."
 	@go build -o server.exe cmd/server/main.go
 	@echo "✓ Server built successfully: server.exe"
+
+# Generate Swagger documentation
+swagger:
+	@echo "Generating Swagger documentation..."
+	@swag init -g cmd/server/main.go -o docs/swagger --parseDependency --parseInternal
+	@echo "✓ Swagger docs generated at docs/swagger/"
+	@echo "Access at: http://localhost:8080/swagger/index.html"

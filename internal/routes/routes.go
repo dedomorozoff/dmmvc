@@ -9,6 +9,11 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	
+	_ "dmmvc/docs/swagger"
 )
 
 // SetupRouter настраивает все маршруты приложения
@@ -48,6 +53,9 @@ func SetupRouter() *gin.Engine {
 	// WebSocket маршрут
 	r.GET("/ws", controllers.WebSocketHandler(hub))
 
+	// Swagger документация (доступна без авторизации для удобства разработки)
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	// Защищенные маршруты
 	authorized := r.Group("/")
 	authorized.Use(middleware.AuthRequired())
@@ -66,6 +74,15 @@ func SetupRouter() *gin.Engine {
 			admin.GET("/users/:id/edit", controllers.UserEdit)
 			admin.POST("/users/:id/update", controllers.UserUpdate)
 			admin.POST("/users/:id/delete", controllers.UserDelete)
+		}
+
+		// API маршруты (примеры)
+		api := authorized.Group("/api")
+		{
+			api.GET("/users", controllers.APIUserList)
+			api.GET("/users/:id", controllers.APIUserGet)
+			api.POST("/users", controllers.APIUserCreate)
+			api.DELETE("/users/:id", controllers.APIUserDelete)
 		}
 	}
 

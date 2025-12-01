@@ -11,6 +11,24 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// @title DMMVC API
+// @version 1.0
+// @description Lightweight MVC Web Framework API
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.email support@dmmvc.com
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /
+
+// @securityDefinitions.apikey SessionAuth
+// @in cookie
+// @name session_token
+
 func main() {
 	// Загрузка переменных окружения
 	if err := godotenv.Load(); err != nil {

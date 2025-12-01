@@ -273,11 +273,11 @@ CMD ["./dmmvc"]
 
 MIT License
 
-## CLI Инструмент
+## Расширенные возможности
 
-DMMVC включает мощный CLI инструмент для генерации кода!
+### CLI Инструмент
 
-### Быстрый старт с CLI
+DMMVC включает мощный CLI инструмент для генерации кода:
 
 ```bash
 # Собрать CLI
@@ -298,7 +298,7 @@ dmmvc list
 
 **Полная документация**: [docs/CLI.ru.md](docs/CLI.ru.md)
 
-## Поддержка баз данных
+### Поддержка баз данных
 
 DMMVC поддерживает три типа баз данных:
 
@@ -306,18 +306,50 @@ DMMVC поддерживает три типа баз данных:
 - **MySQL** - Популярная реляционная БД
 - **PostgreSQL** - Мощная open-source БД
 
-**Документация PostgreSQL**: [docs/POSTGRESQL.ru.md](docs/POSTGRESQL.ru.md)
+**Документация**: [docs/POSTGRESQL.ru.md](docs/POSTGRESQL.ru.md)
+
+### WebSocket поддержка
+
+Реал-тайм двунаправленная коммуникация:
+
+```go
+// WebSocket эндпоинт доступен по /ws
+// Демо страница по /websocket
+```
+
+**Документация**: [docs/WEBSOCKET.ru.md](docs/WEBSOCKET.ru.md)
+
+### API Документация (Swagger)
+
+Автоматическая генерация документации API:
+
+```bash
+# Генерация Swagger документации
+make swagger
+
+# Доступ к Swagger UI
+# http://localhost:8080/swagger/index.html
+```
+
+**Документация**: [docs/SWAGGER.ru.md](docs/SWAGGER.ru.md)
 
 ## Roadmap
 
 - [x] CLI инструмент для генерации кода
 - [x] Поддержка PostgreSQL
 - [x] WebSocket поддержка
-- [ ] API документация (Swagger)
+- [x] API документация (Swagger)
 - [ ] Кеширование (Redis)
 - [ ] Очереди задач
 - [ ] Email отправка
 - [ ] File upload helper
 - [ ] Локализация (i18n)
 
-**Документация WebSocket**: [docs/WEBSOCKET.ru.md](docs/WEBSOCKET.ru.md)
+## Документация
+
+- [CLI Инструмент](docs/CLI.ru.md) - Команды генерации кода
+- [PostgreSQL](docs/POSTGRESQL.ru.md) - Настройка PostgreSQL
+- [WebSocket](docs/WEBSOCKET.ru.md) - Реал-тайм коммуникация
+- [Swagger API](docs/SWAGGER.ru.md) - API документация
+- [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
+- [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание

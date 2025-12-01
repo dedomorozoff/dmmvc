@@ -21,7 +21,7 @@ type Conn struct {
 // ReadPump читает сообщения от клиента
 func (c *Client) ReadPump() {
 	defer func() {
-		c.Hub.unregister <- c
+		c.Hub.Unregister <- c
 		c.Conn.Close()
 	}()
 
