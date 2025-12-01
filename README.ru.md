@@ -348,6 +348,21 @@ r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
 
 **Документация**: [docs/CACHE.ru.md](docs/CACHE.ru.md)
 
+### Очереди задач
+
+Асинхронная обработка фоновых задач:
+
+```go
+// Создать и добавить задачу в очередь
+task, _ := queue.NewEmailDeliveryTask("user@example.com", "Тема", "Текст")
+queue.EnqueueTask(task)
+
+// Отложенная задача
+queue.EnqueueTaskIn(task, 5*time.Minute)
+```
+
+**Документация**: [docs/QUEUE.ru.md](docs/QUEUE.ru.md)
+
 ## Roadmap
 
 - [x] CLI инструмент для генерации кода
@@ -355,7 +370,7 @@ r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
 - [x] WebSocket поддержка
 - [x] API документация (Swagger)
 - [x] Кеширование (Redis)
-- [ ] Очереди задач
+- [x] Очереди задач
 - [ ] Email отправка
 - [ ] File upload helper
 - [ ] Локализация (i18n)
@@ -367,5 +382,6 @@ r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
 - [WebSocket](docs/WEBSOCKET.ru.md) - Реал-тайм коммуникация
 - [Swagger API](docs/SWAGGER.ru.md) - API документация
 - [Redis Cache](docs/CACHE.ru.md) - Кеширование с Redis
+- [Очереди задач](docs/QUEUE.ru.md) - Фоновая обработка задач
 - [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
 - [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание

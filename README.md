@@ -348,6 +348,21 @@ r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
 
 **Documentation**: [docs/CACHE.md](docs/CACHE.md)
 
+### Task Queue
+
+Process background jobs asynchronously:
+
+```go
+// Create and enqueue task
+task, _ := queue.NewEmailDeliveryTask("user@example.com", "Subject", "Body")
+queue.EnqueueTask(task)
+
+// Delayed task
+queue.EnqueueTaskIn(task, 5*time.Minute)
+```
+
+**Documentation**: [docs/QUEUE.md](docs/QUEUE.md)
+
 ## Roadmap
 
 - [x] CLI tool for code generation
@@ -355,7 +370,7 @@ r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
 - [x] WebSocket support
 - [x] API documentation (Swagger)
 - [x] Caching (Redis)
-- [ ] Task queues
+- [x] Task queues
 - [ ] Email sending
 - [ ] File upload helper
 - [ ] Localization (i18n)
@@ -367,5 +382,6 @@ r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
 - [WebSocket](docs/WEBSOCKET.md) - Real-time communication
 - [Swagger API](docs/SWAGGER.md) - API documentation
 - [Redis Cache](docs/CACHE.md) - Caching with Redis
+- [Task Queue](docs/QUEUE.md) - Background job processing
 - [Examples](docs/EXAMPLES.md) - Usage examples
 - [Deployment](docs/DEPLOYMENT.md) - Production deployment

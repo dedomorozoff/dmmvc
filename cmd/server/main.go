@@ -5,6 +5,7 @@ import (
 	"dmmvc/internal/database"
 	"dmmvc/internal/logger"
 	"dmmvc/internal/models"
+	"dmmvc/internal/queue"
 	"dmmvc/internal/routes"
 	"log"
 	"os"
@@ -52,6 +53,18 @@ func main() {
 	// Подключение к Redis (опционально)
 	if err := cache.Connect(); err != nil {
 		logger.Log.Warn("Redis not available, caching disabled")
+	}
+
+	// Инициализация клиента очереди задач (опционально)
+	if err := queue.InitClient(); err != nil {
+		logger.Log.Warn("Task queue client initialization failed")
+	}
+
+	// Запуск worker для обработки задач (опционально)
+	if os.Getenv("QUEUE_WORKER_ENABLED") == "true" {
+		if err := queue.StartWorker(); err != nil {
+			logger.Log.Warn("Task queue worker failed to start")
+		}
 	}
 
 	// Настройка роутов

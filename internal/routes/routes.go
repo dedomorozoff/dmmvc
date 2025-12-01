@@ -88,6 +88,12 @@ func SetupRouter() *gin.Engine {
 			api.GET("/users/cached", controllers.CachedUserList)
 			api.POST("/cache/clear", controllers.ClearUserCache)
 			api.GET("/cache/stats", controllers.CacheStats)
+
+			// Queue примеры
+			api.POST("/queue/email", controllers.EnqueueEmailTask)
+			api.POST("/queue/email/delayed", controllers.EnqueueDelayedTask)
+			api.POST("/queue/image", controllers.EnqueueImageTask)
+			api.GET("/queue/stats", controllers.QueueStats)
 		}
 	}
 
