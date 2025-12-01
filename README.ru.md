@@ -377,6 +377,20 @@ email.WelcomeEmail("user@example.com", "Иван Иванов")
 
 **Документация**: [docs/EMAIL.ru.md](docs/EMAIL.ru.md)
 
+### Загрузка файлов
+
+Загрузка и обработка файлов с изменением размера изображений:
+
+```go
+// Загрузить файл
+fileInfo, _ := upload.UploadFile(file)
+
+// Создать миниатюру
+upload.CreateThumbnail(fileInfo.Path, 300, 300)
+```
+
+**Документация**: [docs/UPLOAD.ru.md](docs/UPLOAD.ru.md)
+
 ## Roadmap
 
 - [x] CLI инструмент для генерации кода
@@ -386,7 +400,7 @@ email.WelcomeEmail("user@example.com", "Иван Иванов")
 - [x] Кеширование (Redis)
 - [x] Очереди задач
 - [x] Email отправка
-- [ ] File upload helper
+- [x] Загрузка файлов
 - [ ] Локализация (i18n)
 
 ## Документация
@@ -398,5 +412,6 @@ email.WelcomeEmail("user@example.com", "Иван Иванов")
 - [Redis Cache](docs/CACHE.ru.md) - Кеширование с Redis
 - [Очереди задач](docs/QUEUE.ru.md) - Фоновая обработка задач
 - [Отправка Email](docs/EMAIL.ru.md) - SMTP доставка email
+- [Загрузка файлов](docs/UPLOAD.ru.md) - Загрузка и обработка файлов
 - [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
 - [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание

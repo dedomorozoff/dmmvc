@@ -377,6 +377,20 @@ email.WelcomeEmail("user@example.com", "John Doe")
 
 **Documentation**: [docs/EMAIL.md](docs/EMAIL.md)
 
+### File Upload
+
+Upload and process files with image resizing:
+
+```go
+// Upload file
+fileInfo, _ := upload.UploadFile(file)
+
+// Create thumbnail
+upload.CreateThumbnail(fileInfo.Path, 300, 300)
+```
+
+**Documentation**: [docs/UPLOAD.md](docs/UPLOAD.md)
+
 ## Roadmap
 
 - [x] CLI tool for code generation
@@ -386,7 +400,7 @@ email.WelcomeEmail("user@example.com", "John Doe")
 - [x] Caching (Redis)
 - [x] Task queues
 - [x] Email sending
-- [ ] File upload helper
+- [x] File upload helper
 - [ ] Localization (i18n)
 
 ## Documentation
@@ -398,5 +412,6 @@ email.WelcomeEmail("user@example.com", "John Doe")
 - [Redis Cache](docs/CACHE.md) - Caching with Redis
 - [Task Queue](docs/QUEUE.md) - Background job processing
 - [Email Sending](docs/EMAIL.md) - SMTP email delivery
+- [File Upload](docs/UPLOAD.md) - File upload and processing
 - [Examples](docs/EXAMPLES.md) - Usage examples
 - [Deployment](docs/DEPLOYMENT.md) - Production deployment

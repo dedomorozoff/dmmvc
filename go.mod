@@ -6,9 +6,11 @@ require (
 	github.com/gin-contrib/sessions v1.0.4
 	github.com/gin-gonic/gin v1.11.0
 	github.com/glebarez/sqlite v1.11.0
+	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.1
 	github.com/hibiken/asynq v0.25.1
 	github.com/joho/godotenv v1.5.1
+	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/redis/go-redis/v9 v9.17.2
 	github.com/sirupsen/logrus v1.9.3
 	github.com/swaggo/files v1.0.1
@@ -49,7 +51,6 @@ require (
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/goccy/go-yaml v1.19.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/context v1.1.2 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/gorilla/sessions v1.4.0 // indirect

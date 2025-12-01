@@ -1,0 +1,185 @@
+{{define "pages/upload.html"}}
+{{template "partials/base_head.html" .}}
+{{template "partials/header.html" .}}
+
+<main class="main">
+    <div class="container">
+        <h1 class="page-title">File Upload Demo</h1>
+
+        <div class="upload-section">
+            <!-- Single File Upload -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Upload Single File</h3>
+                </div>
+                <div class="card-body">
+                    <form id="singleFileForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" id="singleFile" name="file" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload File</button>
+                    </form>
+                    <div id="singleFileResult" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- Multiple Files Upload -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Upload Multiple Files</h3>
+                </div>
+                <div class="card-body">
+                    <form id="multipleFilesForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" id="multipleFiles" name="files" class="form-control" multiple required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Files</button>
+                    </form>
+                    <div id="multipleFilesResult" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- Image Upload with Thumbnail -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Upload Image (with thumbnail)</h3>
+                </div>
+                <div class="card-body">
+                    <form id="imageForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" id="imageFile" name="image" class="form-control" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Image</button>
+                    </form>
+                    <div id="imageResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+// Single File Upload
+document.getElementById('singleFileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const fileInput = document.getElementById('singleFile');
+    formData.append('file', fileInput.files[0]);
+
+    try {
+        const response = await fetch('/api/upload/file', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            document.getElementById('singleFileResult').innerHTML = `
+                <div class="alert alert-success">
+                    <strong>Success!</strong> File uploaded: ${result.data.filename}
+                    <br>Size: ${(result.data.size / 1024).toFixed(2)} KB
+                    <br><a href="/api/upload/file/${result.data.filename}" target="_blank">Download</a>
+                </div>
+            `;
+            fileInput.value = '';
+        } else {
+            document.getElementById('singleFileResult').innerHTML = `
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> ${result.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        document.getElementById('singleFileResult').innerHTML = `
+            <div class="alert alert-danger">
+                <strong>Error!</strong> ${error.message}
+            </div>
+        `;
+    }
+});
+
+// Multiple Files Upload
+document.getElementById('multipleFilesForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const fileInput = document.getElementById('multipleFiles');
+    
+    for (let file of fileInput.files) {
+        formData.append('files', file);
+    }
+
+    try {
+        const response = await fetch('/api/upload/files', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            let html = '<div class="alert alert-success"><strong>Success!</strong> Files uploaded:<ul>';
+            result.data.forEach(file => {
+                html += `<li>${file.filename} (${(file.size / 1024).toFixed(2)} KB)</li>`;
+            });
+            html += '</ul></div>';
+            document.getElementById('multipleFilesResult').innerHTML = html;
+            fileInput.value = '';
+        } else {
+            document.getElementById('multipleFilesResult').innerHTML = `
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> ${result.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        document.getElementById('multipleFilesResult').innerHTML = `
+            <div class="alert alert-danger">
+                <strong>Error!</strong> ${error.message}
+            </div>
+        `;
+    }
+});
+
+// Image Upload
+document.getElementById('imageForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const fileInput = document.getElementById('imageFile');
+    formData.append('image', fileInput.files[0]);
+
+    try {
+        const response = await fetch('/api/upload/image', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            document.getElementById('imageResult').innerHTML = `
+                <div class="alert alert-success">
+                    <strong>Success!</strong> Image uploaded!
+                    <br>Original: <a href="/api/upload/file/${result.data.file.filename}" target="_blank">${result.data.file.filename}</a>
+                    <br>Thumbnail: <a href="/api/upload/file/${result.data.thumbnail}" target="_blank">${result.data.thumbnail}</a>
+                    <br><img src="/api/upload/file/${result.data.thumbnail}" alt="Thumbnail" style="max-width: 300px; margin-top: 10px;">
+                </div>
+            `;
+            fileInput.value = '';
+        } else {
+            document.getElementById('imageResult').innerHTML = `
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> ${result.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        document.getElementById('imageResult').innerHTML = `
+            <div class="alert alert-danger">
+                <strong>Error!</strong> ${error.message}
+            </div>
+        `;
+    }
+});
+</script>
+
+{{template "partials/footer.html" .}}
+{{template "partials/base_foot.html" .}}
+{{end}}

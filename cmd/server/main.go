@@ -8,6 +8,7 @@ import (
 	"dmmvc/internal/models"
 	"dmmvc/internal/queue"
 	"dmmvc/internal/routes"
+	"dmmvc/internal/upload"
 	"log"
 	"os"
 
@@ -65,6 +66,9 @@ func main() {
 	if err := email.Init(); err != nil {
 		logger.Log.Warn("Email service not configured")
 	}
+
+	// Инициализация сервиса загрузки файлов
+	upload.Init()
 
 	// Запуск worker для обработки задач (опционально)
 	if os.Getenv("QUEUE_WORKER_ENABLED") == "true" {

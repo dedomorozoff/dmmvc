@@ -101,7 +101,17 @@ func SetupRouter() *gin.Engine {
 			api.POST("/email/welcome", controllers.SendWelcomeEmail)
 			api.POST("/email/password-reset", controllers.SendPasswordResetEmail)
 			api.GET("/email/status", controllers.EmailStatus)
+
+			// Upload примеры
+			api.POST("/upload/file", controllers.UploadSingleFile)
+			api.POST("/upload/files", controllers.UploadMultipleFiles)
+			api.POST("/upload/image", controllers.UploadImage)
+			api.GET("/upload/file/:filename", controllers.DownloadFile)
+			api.DELETE("/upload/file/:filename", controllers.DeleteUploadedFile)
 		}
+
+		// Upload страница
+		authorized.GET("/upload", controllers.UploadPage)
 	}
 
 	return r
