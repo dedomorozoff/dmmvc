@@ -333,13 +333,28 @@ make swagger
 
 **Documentation**: [docs/SWAGGER.md](docs/SWAGGER.md)
 
+### Redis Caching
+
+Improve performance with Redis caching:
+
+```go
+// Manual caching
+cache.Set("key", "value", 5*time.Minute)
+value, _ := cache.Get("key")
+
+// Cache middleware
+r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
+```
+
+**Documentation**: [docs/CACHE.md](docs/CACHE.md)
+
 ## Roadmap
 
 - [x] CLI tool for code generation
 - [x] PostgreSQL support
 - [x] WebSocket support
 - [x] API documentation (Swagger)
-- [ ] Caching (Redis)
+- [x] Caching (Redis)
 - [ ] Task queues
 - [ ] Email sending
 - [ ] File upload helper
@@ -351,5 +366,6 @@ make swagger
 - [PostgreSQL](docs/POSTGRESQL.md) - PostgreSQL setup guide
 - [WebSocket](docs/WEBSOCKET.md) - Real-time communication
 - [Swagger API](docs/SWAGGER.md) - API documentation
+- [Redis Cache](docs/CACHE.md) - Caching with Redis
 - [Examples](docs/EXAMPLES.md) - Usage examples
 - [Deployment](docs/DEPLOYMENT.md) - Production deployment

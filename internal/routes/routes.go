@@ -83,6 +83,11 @@ func SetupRouter() *gin.Engine {
 			api.GET("/users/:id", controllers.APIUserGet)
 			api.POST("/users", controllers.APIUserCreate)
 			api.DELETE("/users/:id", controllers.APIUserDelete)
+
+			// Cache примеры
+			api.GET("/users/cached", controllers.CachedUserList)
+			api.POST("/cache/clear", controllers.ClearUserCache)
+			api.GET("/cache/stats", controllers.CacheStats)
 		}
 	}
 

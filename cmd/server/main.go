@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dmmvc/internal/cache"
 	"dmmvc/internal/database"
 	"dmmvc/internal/logger"
 	"dmmvc/internal/models"
@@ -47,6 +48,11 @@ func main() {
 	
 	// Создание администратора по умолчанию
 	database.SeedAdmin()
+
+	// Подключение к Redis (опционально)
+	if err := cache.Connect(); err != nil {
+		logger.Log.Warn("Redis not available, caching disabled")
+	}
 
 	// Настройка роутов
 	r := routes.SetupRouter()

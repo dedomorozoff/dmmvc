@@ -333,13 +333,28 @@ make swagger
 
 **Документация**: [docs/SWAGGER.ru.md](docs/SWAGGER.ru.md)
 
+### Redis Кеширование
+
+Улучшение производительности с Redis кешированием:
+
+```go
+// Ручное кеширование
+cache.Set("key", "value", 5*time.Minute)
+value, _ := cache.Get("key")
+
+// Cache middleware
+r.GET("/api/data", middleware.CacheMiddleware(5*time.Minute), handler)
+```
+
+**Документация**: [docs/CACHE.ru.md](docs/CACHE.ru.md)
+
 ## Roadmap
 
 - [x] CLI инструмент для генерации кода
 - [x] Поддержка PostgreSQL
 - [x] WebSocket поддержка
 - [x] API документация (Swagger)
-- [ ] Кеширование (Redis)
+- [x] Кеширование (Redis)
 - [ ] Очереди задач
 - [ ] Email отправка
 - [ ] File upload helper
@@ -351,5 +366,6 @@ make swagger
 - [PostgreSQL](docs/POSTGRESQL.ru.md) - Настройка PostgreSQL
 - [WebSocket](docs/WEBSOCKET.ru.md) - Реал-тайм коммуникация
 - [Swagger API](docs/SWAGGER.ru.md) - API документация
+- [Redis Cache](docs/CACHE.ru.md) - Кеширование с Redis
 - [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
 - [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание
