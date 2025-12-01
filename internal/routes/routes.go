@@ -94,6 +94,13 @@ func SetupRouter() *gin.Engine {
 			api.POST("/queue/email/delayed", controllers.EnqueueDelayedTask)
 			api.POST("/queue/image", controllers.EnqueueImageTask)
 			api.GET("/queue/stats", controllers.QueueStats)
+
+			// Email примеры
+			api.POST("/email/send", controllers.SendEmailDirect)
+			api.POST("/email/send/async", controllers.SendEmailAsync)
+			api.POST("/email/welcome", controllers.SendWelcomeEmail)
+			api.POST("/email/password-reset", controllers.SendPasswordResetEmail)
+			api.GET("/email/status", controllers.EmailStatus)
 		}
 	}
 

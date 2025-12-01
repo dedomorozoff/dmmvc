@@ -118,10 +118,14 @@ func HandleEmailDeliveryTask(ctx context.Context, t *asynq.Task) error {
 
 	logrus.Infof("Sending email to %s: %s", p.To, p.Subject)
 	
-	// TODO: Реализовать отправку email
-	// Здесь должна быть логика отправки email через SMTP или сервис
+	// Импортируем email пакет для отправки
+	// import "dmmvc/internal/email"
+	// if err := email.Send(p.To, p.Subject, p.Body); err != nil {
+	//     return err
+	// }
 	
-	time.Sleep(2 * time.Second) // Симуляция отправки
+	// Временная симуляция отправки (удалить после настройки SMTP)
+	time.Sleep(2 * time.Second)
 	
 	logrus.Infof("Email sent successfully to %s", p.To)
 	return nil

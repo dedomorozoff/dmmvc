@@ -3,6 +3,7 @@ package main
 import (
 	"dmmvc/internal/cache"
 	"dmmvc/internal/database"
+	"dmmvc/internal/email"
 	"dmmvc/internal/logger"
 	"dmmvc/internal/models"
 	"dmmvc/internal/queue"
@@ -58,6 +59,11 @@ func main() {
 	// Инициализация клиента очереди задач (опционально)
 	if err := queue.InitClient(); err != nil {
 		logger.Log.Warn("Task queue client initialization failed")
+	}
+
+	// Инициализация email сервиса (опционально)
+	if err := email.Init(); err != nil {
+		logger.Log.Warn("Email service not configured")
 	}
 
 	// Запуск worker для обработки задач (опционально)

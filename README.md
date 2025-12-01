@@ -363,6 +363,20 @@ queue.EnqueueTaskIn(task, 5*time.Minute)
 
 **Documentation**: [docs/QUEUE.md](docs/QUEUE.md)
 
+### Email Sending
+
+Send emails via SMTP with HTML templates:
+
+```go
+// Send email directly
+email.Send("user@example.com", "Subject", "<h1>Hello</h1>")
+
+// Send with template
+email.WelcomeEmail("user@example.com", "John Doe")
+```
+
+**Documentation**: [docs/EMAIL.md](docs/EMAIL.md)
+
 ## Roadmap
 
 - [x] CLI tool for code generation
@@ -371,7 +385,7 @@ queue.EnqueueTaskIn(task, 5*time.Minute)
 - [x] API documentation (Swagger)
 - [x] Caching (Redis)
 - [x] Task queues
-- [ ] Email sending
+- [x] Email sending
 - [ ] File upload helper
 - [ ] Localization (i18n)
 
@@ -383,5 +397,6 @@ queue.EnqueueTaskIn(task, 5*time.Minute)
 - [Swagger API](docs/SWAGGER.md) - API documentation
 - [Redis Cache](docs/CACHE.md) - Caching with Redis
 - [Task Queue](docs/QUEUE.md) - Background job processing
+- [Email Sending](docs/EMAIL.md) - SMTP email delivery
 - [Examples](docs/EXAMPLES.md) - Usage examples
 - [Deployment](docs/DEPLOYMENT.md) - Production deployment

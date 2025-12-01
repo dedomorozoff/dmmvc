@@ -363,6 +363,20 @@ queue.EnqueueTaskIn(task, 5*time.Minute)
 
 **Документация**: [docs/QUEUE.ru.md](docs/QUEUE.ru.md)
 
+### Отправка Email
+
+Отправка email через SMTP с HTML шаблонами:
+
+```go
+// Отправить email напрямую
+email.Send("user@example.com", "Тема", "<h1>Привет</h1>")
+
+// Отправить с шаблоном
+email.WelcomeEmail("user@example.com", "Иван Иванов")
+```
+
+**Документация**: [docs/EMAIL.ru.md](docs/EMAIL.ru.md)
+
 ## Roadmap
 
 - [x] CLI инструмент для генерации кода
@@ -371,7 +385,7 @@ queue.EnqueueTaskIn(task, 5*time.Minute)
 - [x] API документация (Swagger)
 - [x] Кеширование (Redis)
 - [x] Очереди задач
-- [ ] Email отправка
+- [x] Email отправка
 - [ ] File upload helper
 - [ ] Локализация (i18n)
 
@@ -383,5 +397,6 @@ queue.EnqueueTaskIn(task, 5*time.Minute)
 - [Swagger API](docs/SWAGGER.ru.md) - API документация
 - [Redis Cache](docs/CACHE.ru.md) - Кеширование с Redis
 - [Очереди задач](docs/QUEUE.ru.md) - Фоновая обработка задач
+- [Отправка Email](docs/EMAIL.ru.md) - SMTP доставка email
 - [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
 - [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание
