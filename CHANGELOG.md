@@ -2,6 +2,31 @@
 
 All notable changes to DMMVC will be documented in this file.
 
+## [1.3.0] - 2024-12-02
+
+### Added
+- **WebSocket Support** - Real-time bidirectional communication
+  - Hub system for managing multiple connections
+  - Client connection management with auto-reconnection
+  - Broadcast messaging to all connected clients
+  - Ping/Pong health checks
+  - Read/Write pumps for message handling
+  - WebSocket demo page with interactive chat interface
+- WebSocket Documentation (WEBSOCKET.md, WEBSOCKET.ru.md)
+  - Architecture overview (Hub and Client)
+  - Usage examples (chat, notifications, live updates)
+  - Client-side JavaScript integration
+  - Security and authentication guidelines
+  - Performance optimization tips
+  - Testing and troubleshooting guides
+- gorilla/websocket dependency
+
+### Changed
+- Updated routes to include WebSocket endpoint (/ws)
+- Added WebSocket demo page to authorized routes
+- Updated README.md and README.ru.md with WebSocket information
+- Marked "WebSocket support" as completed in roadmap
+
 ## [1.2.0] - 2024-12-02
 
 ### Added

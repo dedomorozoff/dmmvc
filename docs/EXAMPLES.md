@@ -358,3 +358,149 @@ func CacheMiddleware(duration time.Duration) gin.HandlerFunc {
 ---
 
 These examples show how easy it is to extend the DMMVC framework to build various web applications!
+
+## Example 9: WebSocket Chat
+
+### Create Chat Room
+
+```go
+// internal/controllers/chat.go
+package controllers
+
+import (
+    "dmmvc/internal/websocket"
+    "encoding/json"
+    "net/http"
+    "time"
+    
+    "github.com/gin-gonic/gin"
+    ws "github.com/gorilla/websocket"
+)
+
+type ChatMessage struct {
+    Username  string    `json:"username"`
+    Message   string    `json:"message"`
+    Timestamp time.Time `json:"timestamp"`
+}
+
+var upgrader = ws.Upgrader{
+    CheckOrigin: func(r *http.Request) bool {
+        return true
+    },
+}
+
+func ChatHandler(hub *websocket.Hub) gin.HandlerFunc {
+    return func(c *gin.Context) {
+        username := c.Query("username")
+        if username == "" {
+            username = "Anonymous"
+        }
+        
+        conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+        if err != nil {
+            return
+        }
+
+        client := &websocket.Client{
+            Hub:  hub,
+            Conn: &websocket.Conn{Conn: conn},
+            Send: make(chan []byte, 256),
+            ID:   username,
+        }
+
+        // Notify about new user
+        joinMsg := ChatMessage{
+            Username:  "System",
+            Message:   username + " joined the chat",
+            Timestamp: time.Now(),
+        }
+        data, _ := json.Marshal(joinMsg)
+        hub.Broadcast(data)
+
+        client.Hub.register <- client
+
+        go client.WritePump()
+        go client.ReadPump()
+    }
+}
+
+func ChatPage(c *gin.Context) {
+    c.HTML(http.StatusOK, "pages/chat.html", gin.H{
+        "title": "Chat Room",
+    })
+}
+```
+
+### Chat Template
+
+```html
+<!-- templates/pages/chat.html -->
+{{define "pages/chat.html"}}
+{{template "layouts/base.html" .}}
+{{define "content"}}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Chat Room</h3>
+            <span id="online" class="badge badge-success">0 online</span>
+        </div>
+        <div class="card-body">
+            <div id="messages" style="height: 400px; overflow-y: auto;"></div>
+            <div class="input-group mt-3">
+                <input type="text" id="username" class="form-control" placeholder="Your name">
+                <input type="text" id="message" class="form-control" placeholder="Message">
+                <button id="send" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let ws;
+const username = prompt("Enter your name:") || "Anonymous";
+
+function connect() {
+    ws = new WebSocket(`ws://${window.location.host}/chat?username=${username}`);
+    
+    ws.onmessage = function(event) {
+        const msg = JSON.parse(event.data);
+        addMessage(msg);
+    };
+}
+
+function addMessage(msg) {
+    const div = document.createElement('div');
+    div.className = 'alert alert-info';
+    div.innerHTML = `<strong>${msg.username}</strong>: ${msg.message}`;
+    document.getElementById('messages').appendChild(div);
+}
+
+document.getElementById('send').onclick = function() {
+    const message = document.getElementById('message').value;
+    if (message && ws.readyState === WebSocket.OPEN) {
+        const msg = {
+            username: username,
+            message: message,
+            timestamp: new Date()
+        };
+        ws.send(JSON.stringify(msg));
+        document.getElementById('message').value = '';
+    }
+};
+
+connect();
+</script>
+{{end}}
+{{end}}
+```
+
+### Add Route
+
+```go
+// internal/routes/routes.go
+hub := websocket.NewHub()
+go hub.Run()
+
+r.GET("/chat", controllers.ChatPage)
+r.GET("/ws/chat", controllers.ChatHandler(hub))
+```

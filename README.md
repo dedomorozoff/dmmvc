@@ -312,10 +312,12 @@ DMMVC supports three types of databases:
 
 - [x] CLI tool for code generation
 - [x] PostgreSQL support
-- [ ] WebSocket support
+- [x] WebSocket support
 - [ ] API documentation (Swagger)
 - [ ] Caching (Redis)
 - [ ] Task queues
 - [ ] Email sending
 - [ ] File upload helper
 - [ ] Localization (i18n)
+
+**WebSocket Documentation**: [docs/WEBSOCKET.md](docs/WEBSOCKET.md)

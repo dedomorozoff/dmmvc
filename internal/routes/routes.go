@@ -2,6 +2,7 @@ package routes
 
 import (
 	"dmmvc/internal/controllers"
+	"dmmvc/internal/websocket"
 	"dmmvc/internal/middleware"
 	"os"
 
@@ -13,6 +14,10 @@ import (
 // SetupRouter настраивает все маршруты приложения
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+
+	// Инициализация WebSocket Hub
+	hub := websocket.NewHub()
+	go hub.Run()
 
 	// Настройка доверенных прокси
 	r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
@@ -40,6 +45,9 @@ func SetupRouter() *gin.Engine {
 	r.POST("/login", controllers.LoginPost)
 	r.GET("/logout", controllers.Logout)
 
+	// WebSocket маршрут
+	r.GET("/ws", controllers.WebSocketHandler(hub))
+
 	// Защищенные маршруты
 	authorized := r.Group("/")
 	authorized.Use(middleware.AuthRequired())
@@ -47,6 +55,7 @@ func SetupRouter() *gin.Engine {
 	{
 		authorized.GET("/dashboard", controllers.DashboardPage)
 		authorized.GET("/profile", controllers.ProfilePage)
+		authorized.GET("/websocket", controllers.WebSocketDemo)
 		
 		// Пример CRUD маршрутов для пользователей (только для админа)
 		admin := authorized.Group("/admin")

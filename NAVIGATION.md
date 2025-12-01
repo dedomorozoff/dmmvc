@@ -16,6 +16,7 @@ Quick links to find what you need.
 ### Core Guides
 - [Architecture](docs/ARCHITECTURE.md) - How DMMVC works
 - [CLI Tool](docs/CLI.md) - Code generation
+- [WebSocket](docs/WEBSOCKET.md) - Real-time communication
 - [Examples](docs/EXAMPLES.md) - Code examples
 - [File Structure](docs/FILES.md) - Project organization
 
@@ -110,6 +111,9 @@ Example:
 
 **See examples**
 → [docs/EXAMPLES.md](docs/EXAMPLES.md)
+
+**Use WebSocket**
+→ [docs/WEBSOCKET.md](docs/WEBSOCKET.md)
 
 **Understand architecture**
 → [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)

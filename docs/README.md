@@ -11,6 +11,7 @@ Complete documentation for DMMVC framework.
 ### Core Documentation
 - [Architecture](ARCHITECTURE.md) | [Русский](ARCHITECTURE.ru.md) - Framework architecture and design patterns
 - [CLI Tool](CLI.md) | [Русский](CLI.ru.md) - Code generation tool
+- [WebSocket](WEBSOCKET.md) | [Русский](WEBSOCKET.ru.md) - Real-time communication
 - [Examples](EXAMPLES.md) | [Русский](EXAMPLES.ru.md) - Code examples and tutorials
 - [File Structure](FILES.md) | [Русский](FILES.ru.md) - Project structure explanation
 

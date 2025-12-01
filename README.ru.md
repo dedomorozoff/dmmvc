@@ -312,10 +312,12 @@ DMMVC поддерживает три типа баз данных:
 
 - [x] CLI инструмент для генерации кода
 - [x] Поддержка PostgreSQL
-- [ ] WebSocket поддержка
+- [x] WebSocket поддержка
 - [ ] API документация (Swagger)
 - [ ] Кеширование (Redis)
 - [ ] Очереди задач
 - [ ] Email отправка
 - [ ] File upload helper
 - [ ] Локализация (i18n)
+
+**Документация WebSocket**: [docs/WEBSOCKET.ru.md](docs/WEBSOCKET.ru.md)

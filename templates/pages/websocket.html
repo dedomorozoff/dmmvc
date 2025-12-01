@@ -1,0 +1,96 @@
+{{define "pages/websocket.html"}}
+{{template "layouts/base.html" .}}
+{{define "content"}}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>WebSocket Demo</h3>
+                    <span id="status" class="badge badge-secondary">Disconnected</span>
+                </div>
+                <div class="card-body">
+                    <div id="messages" class="border p-3 mb-3" style="height: 300px; overflow-y: auto;">
+                        <!-- Сообщения будут здесь -->
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="messageInput" class="form-control" placeholder="Введите сообщение...">
+                        <div class="input-group-append">
+                            <button id="sendBtn" class="btn btn-primary" disabled>Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let ws;
+const messagesDiv = document.getElementById('messages');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+const statusSpan = document.getElementById('status');
+
+function connect() {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    
+    ws = new WebSocket(wsUrl);
+    
+    ws.onopen = function() {
+        statusSpan.textContent = 'Connected';
+        statusSpan.className = 'badge badge-success';
+        sendBtn.disabled = false;
+        addMessage('System', 'Connected to server', 'success');
+    };
+    
+    ws.onmessage = function(event) {
+        addMessage('Server', event.data, 'info');
+    };
+    
+    ws.onerror = function(error) {
+        addMessage('System', 'Error: ' + error, 'danger');
+    };
+    
+    ws.onclose = function() {
+        statusSpan.textContent = 'Disconnected';
+        statusSpan.className = 'badge badge-secondary';
+        sendBtn.disabled = true;
+        addMessage('System', 'Disconnected from server', 'warning');
+        
+        // Переподключение через 3 секунды
+        setTimeout(connect, 3000);
+    };
+}
+
+function addMessage(sender, message, type = 'primary') {
+    const time = new Date().toLocaleTimeString();
+    const messageEl = document.createElement('div');
+    messageEl.className = `alert alert-${type} mb-2`;
+    messageEl.innerHTML = `<strong>${sender}</strong> [${time}]: ${message}`;
+    messagesDiv.appendChild(messageEl);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function sendMessage() {
+    const message = messageInput.value.trim();
+    if (message && ws.readyState === WebSocket.OPEN) {
+        ws.send(message);
+        addMessage('You', message, 'secondary');
+        messageInput.value = '';
+    }
+}
+
+sendBtn.addEventListener('click', sendMessage);
+messageInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+// Подключение при загрузке страницы
+connect();
+</script>
+{{end}}
+{{end}}
