@@ -1,193 +1,195 @@
-# DMMVC Framework - Полный список файлов
+**English** | [Русский](FILES.ru.md)
 
-## Созданные файлы
+# DMMVC Framework - Full File List
 
-### Документация
-- `README.md` - Основная документация фреймворка
-- `QUICKSTART.md` - Руководство по быстрому старту
-- `EXAMPLES.md` - Практические примеры использования
-- `ARCHITECTURE.md` - Описание архитектуры
-- `LICENSE` - MIT лицензия
+## Created Files
 
-### Конфигурация
-- `.env` - Файл конфигурации (для разработки)
-- `.env.example` - Пример конфигурации
-- `.gitignore` - Игнорируемые файлы для Git
-- `go.mod` - Go модули и зависимости
+### Documentation
+- `README.md` - Main framework documentation
+- `QUICKSTART.md` - Quick start guide
+- `EXAMPLES.md` - Practical usage examples
+- `ARCHITECTURE.md` - Architecture description
+- `LICENSE` - MIT License
 
-### Точка входа
-- `cmd/server/main.go` - Главный файл приложения
+### Configuration
+- `.env` - Configuration file (for development)
+- `.env.example` - Configuration example
+- `.gitignore` - Git ignore file
+- `go.mod` - Go modules and dependencies
 
-### База данных
-- `internal/database/db.go` - Подключение к БД
-- `internal/database/seeder.go` - Начальные данные
+### Entry Point
+- `cmd/server/main.go` - Main application file
 
-### Модели
-- `internal/models/user.go` - Модель пользователя
+### Database
+- `internal/database/db.go` - Database connection
+- `internal/database/seeder.go` - Initial data
 
-### Контроллеры
-- `internal/controllers/auth_controller.go` - Аутентификация
-- `internal/controllers/home_controller.go` - Главная, Dashboard, Профиль
-- `internal/controllers/user_controller.go` - CRUD пользователей
+### Models
+- `internal/models/user.go` - User model
+
+### Controllers
+- `internal/controllers/auth_controller.go` - Authentication
+- `internal/controllers/home_controller.go` - Home, Dashboard, Profile
+- `internal/controllers/user_controller.go` - User CRUD
 
 ### Middleware
-- `internal/middleware/auth.go` - Проверка авторизации
-- `internal/middleware/logger.go` - Логирование запросов
+- `internal/middleware/auth.go` - Authorization check
+- `internal/middleware/logger.go` - Request logging
 
-### Маршруты
-- `internal/routes/routes.go` - Определение всех маршрутов
+### Routes
+- `internal/routes/routes.go` - All routes definition
 
-### Логирование
-- `internal/logger/logger.go` - Настройка логгера
+### Logging
+- `internal/logger/logger.go` - Logger configuration
 
-### Шаблоны
+### Templates
 
 #### Layouts
-- `templates/layouts/base.html` - Базовый layout
+- `templates/layouts/base.html` - Base layout
 
 #### Partials
-- `templates/partials/header.html` - Шапка сайта
-- `templates/partials/footer.html` - Подвал сайта
+- `templates/partials/header.html` - Site header
+- `templates/partials/footer.html` - Site footer
 
 #### Pages
-- `templates/pages/home.html` - Главная страница
-- `templates/pages/login.html` - Страница входа
+- `templates/pages/home.html` - Home page
+- `templates/pages/login.html` - Login page
 - `templates/pages/dashboard.html` - Dashboard
-- `templates/pages/profile.html` - Профиль пользователя
+- `templates/pages/profile.html` - User profile
 
 #### Users
-- `templates/pages/users/list.html` - Список пользователей
-- `templates/pages/users/create.html` - Создание пользователя
-- `templates/pages/users/edit.html` - Редактирование пользователя
+- `templates/pages/users/list.html` - User list
+- `templates/pages/users/create.html` - Create user
+- `templates/pages/users/edit.html` - Edit user
 
-### Статические файлы
-- `static/css/style.css` - Основные стили
-- `static/js/app.js` - JavaScript утилиты
+### Static Files
+- `static/css/style.css` - Main styles
+- `static/js/app.js` - JavaScript utilities
 
-## Статистика
+## Statistics
 
-- **Всего файлов**: 28
-- **Строк кода**: ~2000+
-- **Языки**: Go, HTML, CSS, JavaScript
-- **Зависимости**: Gin, GORM, Logrus, и др.
+- **Total Files**: 28
+- **Lines of Code**: ~2000+
+- **Languages**: Go, HTML, CSS, JavaScript
+- **Dependencies**: Gin, GORM, Logrus, etc.
 
-## Функциональность
+## Functionality
 
-### Реализовано
+### Implemented
 
-1. **MVC архитектура**
+1. **MVC Architecture**
    - Models (User)
    - Views (Templates)
    - Controllers (Auth, Home, User)
 
-2. **Аутентификация**
-   - Вход в систему
-   - Выход из системы
-   - Защита маршрутов
-   - Сессии
+2. **Authentication**
+   - Login
+   - Logout
+   - Route protection
+   - Sessions
 
-3. **CRUD операции**
-   - Создание пользователей
-   - Чтение списка
-   - Обновление данных
-   - Удаление
+3. **CRUD Operations**
+   - Create users
+   - Read list
+   - Update data
+   - Delete
 
-4. **База данных**
-   - Подключение SQLite/MySQL
-   - Миграции
+4. **Database**
+   - SQLite/MySQL connection
+   - Migrations
    - Seeding
 
 5. **Middleware**
-   - Логирование запросов
-   - Проверка авторизации
-   - Инъекция данных пользователя
+   - Request logging
+   - Authorization check
+   - User data injection
 
 6. **UI/UX**
-   - Современный дизайн
-   - Адаптивная верстка
-   - Темная тема для header/footer
-   - Красивые формы и таблицы
+   - Modern design
+   - Responsive layout
+   - Dark theme for header/footer
+   - Beautiful forms and tables
 
-7. **Безопасность**
-   - Хеширование паролей (bcrypt)
-   - Защита сессий
-   - Проверка ролей
+7. **Security**
+   - Password hashing (bcrypt)
+   - Session protection
+   - Role checking
 
-## Как использовать
+## How to Use
 
-### 1. Установка зависимостей
+### 1. Install Dependencies
 ```bash
 go mod tidy
 ```
 
-### 2. Запуск сервера
+### 2. Run Server
 ```bash
 go run cmd/server/main.go
 ```
 
-### 3. Открыть в браузере
+### 3. Open in Browser
 ```
 http://localhost:8080
 ```
 
-### 4. Вход
-- Логин: `admin`
-- Пароль: `admin`
+### 4. Login
+- Username: `admin`
+- Password: `admin`
 
-## Что можно добавить
+## What Can Be Added
 
-### Рекомендуемые расширения:
+### Recommended Extensions:
 
 1. **API**
    - RESTful API endpoints
    - JSON responses
    - API authentication (JWT)
 
-2. **Дополнительные модели**
-   - Posts (блог)
+2. **Additional Models**
+   - Posts (blog)
    - Comments
    - Categories
    - Tags
 
-3. **Функции**
-   - Загрузка файлов
-   - Отправка email
-   - Пагинация
-   - Поиск и фильтрация
+3. **Features**
+   - File upload
+   - Email sending
+   - Pagination
+   - Search and filtering
 
-4. **Безопасность**
-   - CSRF защита
+4. **Security**
+   - CSRF protection
    - Rate limiting
    - IP whitelist/blacklist
 
-5. **Производительность**
-   - Кеширование (Redis)
-   - Очереди задач
+5. **Performance**
+   - Caching (Redis)
+   - Task queues
    - WebSocket
 
-6. **Инструменты**
-   - CLI для генерации кода
-   - Тесты
+6. **Tools**
+   - CLI for code generation
+   - Tests
    - Docker
    - CI/CD
 
-## Документация
+## Documentation
 
-Для подробной информации смотрите:
-- `README.md` - Общая информация
-- `QUICKSTART.md` - Быстрый старт
-- `EXAMPLES.md` - Примеры кода
-- `ARCHITECTURE.md` - Архитектура
+For detailed information see:
+- `README.md` - General information
+- `QUICKSTART.md` - Quick start
+- `EXAMPLES.md` - Code examples
+- `ARCHITECTURE.md` - Architecture
 
-## Готово!
+## Done!
 
-Вы получили полностью рабочий MVC фреймворк на Go, готовый к созданию любого веб-приложения!
+You have a fully working MVC framework in Go, ready for building any web application!
 
-**Особенности:**
-- Чистая архитектура
-- Легко расширяемый
-- Хорошо документированный
-- Готов к production
-- Современный дизайн
+**Features:**
+- Clean architecture
+- Easily extensible
+- Well documented
+- Production ready
+- Modern design
 
-**Начните разработку прямо сейчас!**
+**Start developing right now!**

@@ -1,8 +1,10 @@
-# Архитектура DMMVC Framework
+**English** | [Русский](ARCHITECTURE.ru.md)
 
-## Обзор архитектуры
+# DMMVC Framework Architecture
 
-DMMVC следует классическому паттерну MVC (Model-View-Controller) с дополнительными слоями для middleware и сервисов.
+## Architecture Overview
+
+DMMVC follows the classic MVC (Model-View-Controller) pattern with additional layers for middleware and services.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -45,172 +47,172 @@ DMMVC следует классическому паттерну MVC (Model-View
 │  │   Database   │   │
 │  │   (GORM)     │   │
 │  └──────────────┘   │
-47: └─────────────────────┘
+└─────────────────────┘
 ```
 
-## Структура директорий
+## Directory Structure
 
 ```
 dmmvc/
 │
 ├── cmd/
 │   └── server/
-│       └── main.go                 # Точка входа приложения
+│       └── main.go                 # Application entry point
 │
-├── internal/                       # Внутренний код приложения
+├── internal/                       # Internal application code
 │   │
-│   ├── controllers/                # HTTP обработчики (Controller)
-│   │   ├── auth_controller.go      # Аутентификация
-│   │   ├── home_controller.go      # Главная страница
-│   │   └── user_controller.go      # CRUD пользователей
+│   ├── controllers/                # HTTP handlers (Controller)
+│   │   ├── auth_controller.go      # Authentication
+│   │   ├── home_controller.go      # Home page
+│   │   └── user_controller.go      # User CRUD
 │   │
-│   ├── models/                     # Модели данных (Model)
-│   │   └── user.go                 # Модель пользователя
+│   ├── models/                     # Data models (Model)
+│   │   └── user.go                 # User model
 │   │
-│   ├── database/                   # Работа с БД
-│   │   ├── db.go                   # Подключение к БД
-│   │   └── seeder.go               # Начальные данные
+│   ├── database/                   # Database operations
+│   │   ├── db.go                   # Database connection
+│   │   └── seeder.go               # Initial data
 │   │
-│   ├── middleware/                 # Middleware слой
-│   │   ├── auth.go                 # Проверка авторизации
-│   │   └── logger.go               # Логирование запросов
+│   ├── middleware/                 # Middleware layer
+│   │   ├── auth.go                 # Authorization check
+│   │   └── logger.go               # Request logging
 │   │
-│   ├── routes/                     # Маршрутизация
-│   │   └── routes.go               # Определение маршрутов
+│   ├── routes/                     # Routing
+│   │   └── routes.go               # Route definitions
 │   │
-│   └── logger/                     # Логирование
-│       └── logger.go               # Настройка логгера
+│   └── logger/                     # Logging
+│       └── logger.go               # Logger configuration
 │
-├── templates/                      # HTML шаблоны (View)
+├── templates/                      # HTML templates (View)
 │   ├── layouts/
-│   │   └── base.html               # Базовый layout
+│   │   └── base.html               # Base layout
 │   ├── partials/
-│   │   ├── header.html             # Шапка сайта
-│   │   └── footer.html             # Подвал сайта
+│   │   ├── header.html             # Site header
+│   │   └── footer.html             # Site footer
 │   └── pages/
-│       ├── home.html               # Главная страница
-│       ├── login.html              # Страница входа
+│       ├── home.html               # Home page
+│       ├── login.html              # Login page
 │       ├── dashboard.html          # Dashboard
 │       └── users/
-│           ├── list.html           # Список пользователей
-│           ├── create.html         # Создание пользователя
-│           └── edit.html           # Редактирование
+│           ├── list.html           # User list
+│           ├── create.html         # Create user
+│           └── edit.html           # Edit user
 │
-├── static/                         # Статические файлы
+├── static/                         # Static files
 │   ├── css/
-│   │   └── style.css               # Стили
+│   │   └── style.css               # Styles
 │   └── js/
 │       └── app.js                  # JavaScript
 │
-├── .env                            # Конфигурация
-├── .env.example                    # Пример конфигурации
-├── go.mod                          # Go модули
-├── README.md                       # Документация
-└── QUICKSTART.md                   # Быстрый старт
+├── .env                            # Configuration
+├── .env.example                    # Configuration example
+├── go.mod                          # Go modules
+├── README.md                       # Documentation
+└── QUICKSTART.md                   # Quick start
 ```
 
-## Поток данных
+## Data Flow
 
-### 1. Публичный запрос (например, главная страница)
+### 1. Public Request (e.g., Home Page)
 
 ```
 Browser → Router → Middleware (Logger) → Controller (HomePage) → View (home.html) → Browser
 ```
 
-### 2. Защищенный запрос (например, dashboard)
+### 2. Protected Request (e.g., Dashboard)
 
 ```
 Browser → Router → Middleware (Logger, Auth) → Controller (DashboardPage) → View (dashboard.html) → Browser
 ```
 
-### 3. CRUD операция (например, создание пользователя)
+### 3. CRUD Operation (e.g., Create User)
 
 ```
 Browser → Router → Middleware (Logger, Auth) → Controller (UserStore) → Model (User) → Database → Redirect → Browser
 ```
 
-## Компоненты
+## Components
 
 ### Router (routes/routes.go)
-- Определяет все маршруты приложения
-- Группирует маршруты (публичные, защищенные, admin)
-- Применяет middleware к группам маршрутов
+- Defines all application routes
+- Groups routes (public, protected, admin)
+- Applies middleware to route groups
 
 ### Middleware
-- **Logger**: Логирует все HTTP запросы
-- **Auth**: Проверяет авторизацию пользователя
-- **Custom**: Можно добавить свои middleware
+- **Logger**: Logs all HTTP requests
+- **Auth**: Checks user authorization
+- **Custom**: You can add your own middleware
 
 ### Controllers
-- Обрабатывают HTTP запросы
-- Взаимодействуют с моделями
-- Возвращают HTML или JSON ответы
+- Handle HTTP requests
+- Interact with models
+- Return HTML or JSON responses
 
 ### Models
-- Определяют структуру данных
-- Используют GORM для работы с БД
-- Содержат бизнес-логику
+- Define data structure
+- Use GORM for database interaction
+- Contain business logic
 
 ### Views (Templates)
-- **Layouts**: Базовая структура страниц
-- **Partials**: Переиспользуемые компоненты
-- **Pages**: Конкретные страницы
+- **Layouts**: Base page structure
+- **Partials**: Reusable components
+- **Pages**: Specific pages
 
 ### Database
-- Подключение к SQLite/MySQL
-- Автоматические миграции
-- Seeding начальных данных
+- Connection to SQLite/MySQL
+- Automatic migrations
+- Initial data seeding
 
-## Принципы разработки
+## Development Principles
 
 ### 1. Separation of Concerns
-Каждый компонент отвечает за свою задачу:
-- Controllers - обработка запросов
-- Models - работа с данными
-- Views - отображение
+Each component is responsible for its own task:
+- Controllers - request handling
+- Models - data operations
+- Views - display
 
 ### 2. DRY (Don't Repeat Yourself)
-- Переиспользование layouts и partials
-- Общие middleware для всех маршрутов
-- Базовые модели с GORM
+- Reuse layouts and partials
+- Common middleware for all routes
+- Base models with GORM
 
 ### 3. Convention over Configuration
-- Стандартная структура директорий
-- Именование по соглашению
-- Минимум конфигурации
+- Standard directory structure
+- Naming by convention
+- Minimal configuration
 
 ### 4. Security First
-- Хеширование паролей (bcrypt)
-- Защита сессий
-- Middleware для авторизации
+- Password hashing (bcrypt)
+- Session protection
+- Authorization middleware
 
-## Расширение фреймворка
+## Extending the Framework
 
-### Добавление нового функционала
+### Adding New Functionality
 
-1. **Создать модель** в `internal/models/`
-2. **Создать контроллер** в `internal/controllers/`
-3. **Добавить маршруты** в `internal/routes/routes.go`
-4. **Создать шаблоны** в `templates/pages/`
-5. **Добавить стили** в `static/css/style.css`
+1. **Create Model** in `internal/models/`
+2. **Create Controller** in `internal/controllers/`
+3. **Add Routes** in `internal/routes/routes.go`
+4. **Create Templates** in `templates/pages/`
+5. **Add Styles** in `static/css/style.css`
 
-### Добавление middleware
+### Adding Middleware
 
-1. Создать файл в `internal/middleware/`
-2. Реализовать `gin.HandlerFunc`
-3. Применить в `routes.go`
+1. Create file in `internal/middleware/`
+2. Implement `gin.HandlerFunc`
+3. Apply in `routes.go`
 
-### Добавление сервиса
+### Adding Service
 
-1. Создать директорию `internal/services/`
-2. Реализовать бизнес-логику
-3. Использовать в контроллерах
+1. Create directory `internal/services/`
+2. Implement business logic
+3. Use in controllers
 
 ---
 
-Эта архитектура обеспечивает:
-- Масштабируемость
-- Поддерживаемость
-- Тестируемость
-- Безопасность
-- Производительность
+This architecture ensures:
+- Scalability
+- Maintainability
+- Testability
+- Security
+- Performance

@@ -1,58 +1,60 @@
-# Быстрый старт DMMVC
+**English** | [Русский](QUICKSTART.ru.md)
 
-## Установка и запуск
+# DMMVC Quick Start
 
-### 1. Установка зависимостей
+## Installation and Run
+
+### 1. Install Dependencies
 
 ```bash
 go mod tidy
 ```
 
-### 2. Запуск сервера
+### 2. Run Server
 
 ```bash
 go run cmd/server/main.go
 ```
 
-### 3. Открыть в браузере
+### 3. Open in Browser
 
 ```
 http://localhost:8080
 ```
 
-### 4. Вход в систему
+### 4. Login
 
-- **Логин**: `admin`
-- **Пароль**: `admin`
+- **Username**: `admin`
+- **Password**: `admin`
 
-**Важно**: Смените пароль после первого входа!
+**Important**: Change the password after the first login!
 
-## Структура проекта
+## Project Structure
 
 ```
 dmmvc/
-├── cmd/server/main.go          # Точка входа
+├── cmd/server/main.go          # Entry point
 ├── internal/
-│   ├── controllers/            # Контроллеры (HTTP обработчики)
-│   ├── database/               # Работа с БД
-│   ├── logger/                 # Логирование
+│   ├── controllers/            # Controllers (HTTP handlers)
+│   ├── database/               # Database operations
+│   ├── logger/                 # Logging
 │   ├── middleware/             # Middleware
-│   ├── models/                 # Модели данных
-│   └── routes/                 # Маршруты
-├── static/                     # Статические файлы
+│   ├── models/                 # Data models
+│   └── routes/                 # Routes
+├── static/                     # Static files
 │   ├── css/style.css
 │   └── js/app.js
-├── templates/                  # HTML шаблоны
+├── templates/                  # HTML templates
 │   ├── layouts/base.html
 │   ├── partials/
 │   └── pages/
-├── .env                        # Конфигурация
-└── go.mod                      # Зависимости
+├── .env                        # Configuration
+└── go.mod                      # Dependencies
 ```
 
-## Создание нового функционала
+## Creating New Functionality
 
-### 1. Создать модель
+### 1. Create Model
 
 ```go
 // internal/models/post.go
@@ -68,14 +70,14 @@ type Post struct {
 }
 ```
 
-### 2. Добавить миграцию
+### 2. Add Migration
 
 ```go
 // cmd/server/main.go
 database.Migrate(&models.User{}, &models.Post{})
 ```
 
-### 3. Создать контроллер
+### 3. Create Controller
 
 ```go
 // internal/controllers/post_controller.go
@@ -88,19 +90,19 @@ import (
 
 func PostList(c *gin.Context) {
     c.HTML(http.StatusOK, "pages/posts/list.html", gin.H{
-        "title": "Посты",
+        "title": "Posts",
     })
 }
 ```
 
-### 4. Добавить маршрут
+### 4. Add Route
 
 ```go
 // internal/routes/routes.go
 authorized.GET("/posts", controllers.PostList)
 ```
 
-### 5. Создать шаблон
+### 5. Create Template
 
 ```html
 <!-- templates/pages/posts/list.html -->
@@ -111,7 +113,7 @@ authorized.GET("/posts", controllers.PostList)
 
 <main class="main">
     <div class="container">
-        <h1>Список постов</h1>
+        <h1>Posts List</h1>
     </div>
 </main>
 
@@ -120,25 +122,25 @@ authorized.GET("/posts", controllers.PostList)
 {{end}}
 ```
 
-## Полезные команды
+## Useful Commands
 
 ```bash
-# Запуск в режиме разработки
+# Run in development mode
 go run cmd/server/main.go
 
-# Сборка бинарника
+# Build binary
 go build -o dmmvc cmd/server/main.go
 
-# Запуск бинарника
+# Run binary
 ./dmmvc
 
-# Запуск тестов
+# Run tests
 go test ./...
 ```
 
-## Настройка базы данных
+## Database Configuration
 
-### SQLite (по умолчанию)
+### SQLite (default)
 
 ```env
 DB_TYPE=sqlite
@@ -152,6 +154,6 @@ DB_TYPE=mysql
 DB_DSN=user:password@tcp(localhost:3306)/dmmvc?charset=utf8mb4&parseTime=True&loc=Local
 ```
 
-## Готово!
+## Done!
 
-Теперь у вас есть полностью рабочий MVC фреймворк, готовый к созданию любого веб-приложения!
+Now you have a fully working MVC framework ready for building any web application!

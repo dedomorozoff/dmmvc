@@ -1,40 +1,42 @@
+**English** | [Русский](README.ru.md)
+
 # DMMVC - Lightweight MVC Web Framework
 
-**DMMVC** — минималистичный MVC веб-фреймворк на Go, готовый для создания любых веб-приложений.
+**DMMVC** is a minimalist MVC web framework in Go, ready for building any web application.
 
-## Особенности
+## Features
 
-### Архитектура
-- **MVC паттерн** - Model-View-Controller
-- **Модульная структура** - Расширяемая архитектура
-- **Middleware система** - Обработка запросов
-- **Роутинг** - Система маршрутов
+### Architecture
+- **MVC Pattern** - Model-View-Controller
+- **Modular Structure** - Extensible architecture
+- **Middleware System** - Request processing
+- **Routing** - Route system
 
-### Безопасность
-- **Аутентификация** - Система авторизации
-- **Сессии** - Безопасное управление сессиями
-- **Хеширование паролей** - bcrypt для безопасного хранения
-- **CSRF защита** - Готова к интеграции
+### Security
+- **Authentication** - Authorization system
+- **Sessions** - Secure session management
+- **Password Hashing** - bcrypt for secure storage
+- **CSRF Protection** - Ready for integration
 
-### База данных
-- **GORM ORM** - ORM для работы с БД
-- **Миграции** - Автоматическое создание структуры БД
-- **Поддержка SQLite** - Для быстрого старта
-- **Поддержка MySQL** - Для production окружения
+### Database
+- **GORM ORM** - ORM for database interaction
+- **Migrations** - Automatic database structure creation
+- **SQLite Support** - For quick start
+- **MySQL Support** - For production environment
 
-### Шаблоны
-- **Go Templates** - Шаблонизатор
-- **Layouts** - Система layouts для переиспользования
-- **Partials** - Компоненты для модульности
-- **Статические файлы** - Автоматическая раздача CSS/JS
+### Templates
+- **Go Templates** - Template engine
+- **Layouts** - Layout system for reusability
+- **Partials** - Components for modularity
+- **Static Files** - Automatic CSS/JS serving
 
-### Логирование
-- **Logrus** - Структурированное логирование
-- **Request logging** - Автоматическое логирование запросов
-- **Error tracking** - Отслеживание ошибок
-- **Panic recovery** - Обработка паник
+### Logging
+- **Logrus** - Structured logging
+- **Request logging** - Automatic request logging
+- **Error tracking** - Error tracking
+- **Panic recovery** - Panic handling
 
-## Технологический стек
+## Tech Stack
 
 - **Backend**: Go 1.20+
 - **Web Framework**: Gin
@@ -43,80 +45,80 @@
 - **Logger**: Logrus
 - **Sessions**: gorilla/sessions
 
-## Быстрый старт
+## Quick Start
 
-### Установка
+### Installation
 
 ```bash
-# Клонируйте репозиторий
+# Clone the repository
 git clone https://github.com/dedomorozoff/dmmvc
 cd dmmvc
 
-# Установите зависимости
+# Install dependencies
 go mod tidy
 
-# Запустите сервер
+# Run the server
 go run cmd/server/main.go
 ```
 
-### Первый вход
+### First Login
 
-Откройте браузер: **http://localhost:8080**
+Open browser: **http://localhost:8080**
 
-Учетные данные по умолчанию:
-- **Логин**: `admin`
-- **Пароль**: `admin`
+Default credentials:
+- **Username**: `admin`
+- **Password**: `admin`
 
-**Важно**: Смените пароль после первого входа!
+**Important**: Change the password after the first login!
 
-## Структура проекта
+## Project Structure
 
 ```
 dmmvc/
 ├── cmd/
-│   └── server/              # Точка входа приложения
+│   └── server/              # Application entry point
 │       └── main.go
 ├── internal/
-│   ├── controllers/         # HTTP контроллеры
+│   ├── controllers/         # HTTP controllers
 │   │   ├── auth_controller.go
 │   │   ├── home_controller.go
 │   │   └── user_controller.go
-│   ├── database/            # Подключение к БД
+│   ├── database/            # Database connection
 │   │   ├── db.go
 │   │   └── seeder.go
-│   ├── logger/              # Логирование
+│   ├── logger/              # Logging
 │   │   └── logger.go
 │   ├── middleware/          # Middleware
 │   │   ├── auth.go
 │   │   └── logger.go
-│   ├── models/              # Модели данных
+│   ├── models/              # Data models
 │   │   └── user.go
-│   └── routes/              # Маршруты
+│   └── routes/              # Routes
 │       └── routes.go
 ├── static/
-│   ├── css/                 # Стили
+│   ├── css/                 # Styles
 │   │   └── style.css
 │   └── js/                  # JavaScript
 │       └── app.js
 ├── templates/
 │   ├── layouts/             # Layouts
 │   │   └── base.html
-│   ├── partials/            # Переиспользуемые компоненты
+│   ├── partials/            # Reusable components
 │   │   ├── header.html
 │   │   ├── footer.html
 │   │   └── sidebar.html
-│   └── pages/               # Страницы
+│   └── pages/               # Pages
 │       ├── home.html
 │       ├── login.html
 │       └── dashboard.html
-├── .env.example             # Пример конфигурации
-├── go.mod                   # Go модули
-└── README.md                # Документация
+├── .env.example             # Configuration example
+├── go.mod                   # Go modules
+└── README.md                # Documentation
 ```
 
-## Конфигурация
+## Configuration
 
-Создайте файл `.env` в корне проекта:
+Create a `.env` file in the project root:
 
 ```env
 # Server Settings
@@ -142,7 +144,7 @@ LOG_FILE=dmmvc.log
 DEBUG=true
 ```
 
-## Создание нового контроллера
+## Creating a New Controller
 
 ```go
 package controllers
@@ -160,7 +162,7 @@ func MyController(c *gin.Context) {
 }
 ```
 
-## Создание новой модели
+## Creating a New Model
 
 ```go
 package models
@@ -174,14 +176,14 @@ type MyModel struct {
 }
 ```
 
-## Добавление маршрута
+## Adding a Route
 
 ```go
-// В файле internal/routes/routes.go
+// In internal/routes/routes.go
 authorized.GET("/mypage", controllers.MyController)
 ```
 
-## Создание шаблона
+## Creating a Template
 
 ```html
 {{define "pages/mypage.html"}}
@@ -197,67 +199,67 @@ authorized.GET("/mypage", controllers.MyController)
 
 ## Middleware
 
-### Создание собственного middleware
+### Creating Custom Middleware
 
 ```go
 func MyMiddleware() gin.HandlerFunc {
     return func(c *gin.Context) {
-        // Код до обработки запроса
+        // Code before request processing
         c.Next()
-        // Код после обработки запроса
+        // Code after request processing
     }
 }
 ```
 
-### Использование middleware
+### Using Middleware
 
 ```go
-// Глобально
+// Global
 r.Use(MyMiddleware())
 
-// Для группы маршрутов
+// For route group
 authorized := r.Group("/")
 authorized.Use(MyMiddleware())
 ```
 
-## Работа с базой данных
+## Database Operations
 
 ```go
 import "dmmvc/internal/database"
 
-// Создание записи
+// Create record
 user := models.User{Username: "john", Email: "john@example.com"}
 database.DB.Create(&user)
 
-// Поиск
+// Find
 var user models.User
-database.DB.First(&user, 1) // По ID
+database.DB.First(&user, 1) // By ID
 database.DB.Where("username = ?", "john").First(&user)
 
-// Обновление
+// Update
 database.DB.Model(&user).Update("Email", "newemail@example.com")
 
-// Удаление
+// Delete
 database.DB.Delete(&user)
 ```
 
-## Тестирование
+## Testing
 
 ```bash
-# Запуск тестов
+# Run tests
 go test ./...
 
-# С покрытием
+# With coverage
 go test -cover ./...
 ```
 
-## Сборка для production
+## Build for Production
 
 ```bash
-# Сборка бинарника
+# Build binary
 go build -o dmmvc cmd/server/main.go
 
-# Запуск
+# Run
 ./dmmvc
 ```
 
@@ -273,18 +275,18 @@ EXPOSE 8080
 CMD ["./dmmvc"]
 ```
 
-## Лицензия
+## License
 
 MIT License
 
 ## Roadmap
 
-- [ ] CLI инструмент для генерации кода
-- [ ] Поддержка PostgreSQL
-- [ ] WebSocket поддержка
-- [ ] API документация (Swagger)
-- [ ] Кеширование (Redis)
-- [ ] Очереди задач
-- [ ] Email отправка
+- [ ] CLI tool for code generation
+- [ ] PostgreSQL support
+- [ ] WebSocket support
+- [ ] API documentation (Swagger)
+- [ ] Caching (Redis)
+- [ ] Task queues
+- [ ] Email sending
 - [ ] File upload helper
-- [ ] Локализация (i18n)
+- [ ] Localization (i18n)

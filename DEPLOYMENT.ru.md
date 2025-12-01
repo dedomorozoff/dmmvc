@@ -1,38 +1,38 @@
-**English** | [Русский](DEPLOYMENT.ru.md)
+[English](DEPLOYMENT.md) | **Русский**
 
-# DMMVC Deployment
+# Развертывание DMMVC
 
-## Local Development
+## Локальная разработка
 
-### Requirements
-- Go 1.20 or higher
-- Git (optional)
+### Требования
+- Go 1.20 или выше
+- Git (опционально)
 
-### Installation
+### Установка
 
-1. **Navigate to project directory**
+1. **Перейдите в директорию проекта**
 ```bash
 cd c:\cygwin64\home\alexl\dmmvc
 ```
 
-2. **Install dependencies**
+2. **Установите зависимости**
 ```bash
 go mod tidy
 ```
 
-3. **Run server**
+3. **Запустите сервер**
 ```bash
 go run cmd/server/main.go
 ```
 
-4. **Open browser**
+4. **Откройте браузер**
 ```
 http://localhost:8080
 ```
 
-## Production Deployment
+## Production развертывание
 
-### 1. Build Binary
+### 1. Сборка бинарника
 
 ```bash
 # Windows
@@ -42,7 +42,7 @@ go build -o dmmvc.exe cmd/server/main.go
 go build -o dmmvc cmd/server/main.go
 ```
 
-### 2. Configure .env for Production
+### 2. Настройка .env для production
 
 ```env
 PORT=8080
@@ -59,15 +59,15 @@ LOG_FILE=/var/log/dmmvc/app.log
 DEBUG=false
 ```
 
-### 3. Run
+### 3. Запуск
 
 ```bash
 ./dmmvc
 ```
 
-## Docker Deployment
+## Docker развертывание
 
-### Create Dockerfile
+### Создайте Dockerfile
 
 ```dockerfile
 FROM golang:1.20-alpine AS builder
@@ -96,7 +96,7 @@ EXPOSE 8080
 CMD ["./dmmvc"]
 ```
 
-### Create docker-compose.yml
+### Создайте docker-compose.yml
 
 ```yaml
 version: '3.8'
@@ -128,15 +128,15 @@ volumes:
   mysql_data:
 ```
 
-### Run with Docker
+### Запуск с Docker
 
 ```bash
 docker-compose up -d
 ```
 
-## Systemd Service (Linux)
+## Systemd сервис (Linux)
 
-### Create file /etc/systemd/system/dmmvc.service
+### Создайте файл /etc/systemd/system/dmmvc.service
 
 ```ini
 [Unit]
@@ -155,31 +155,31 @@ RestartSec=5s
 WantedBy=multi-user.target
 ```
 
-### Manage Service
+### Управление сервисом
 
 ```bash
-# Start
+# Запуск
 sudo systemctl start dmmvc
 
-# Stop
+# Остановка
 sudo systemctl stop dmmvc
 
-# Restart
+# Перезапуск
 sudo systemctl restart dmmvc
 
-# Enable on boot
+# Автозапуск
 sudo systemctl enable dmmvc
 
-# Status
+# Статус
 sudo systemctl status dmmvc
 
-# Logs
+# Логи
 sudo journalctl -u dmmvc -f
 ```
 
-## Nginx Reverse Proxy
+## Nginx reverse proxy
 
-### Nginx Configuration
+### Конфигурация Nginx
 
 ```nginx
 server {
@@ -202,30 +202,30 @@ server {
 }
 ```
 
-### SSL with Let's Encrypt
+### SSL с Let's Encrypt
 
 ```bash
-# Install certbot
+# Установка certbot
 sudo apt install certbot python3-certbot-nginx
 
-# Get certificate
+# Получение сертификата
 sudo certbot --nginx -d yourdomain.com
 
-# Auto-renewal
+# Автообновление
 sudo certbot renew --dry-run
 ```
 
-## Monitoring and Logging
+## Мониторинг и логирование
 
-### 1. Logging
+### 1. Логирование
 
-Logs are saved to the file specified in `LOG_FILE`:
+Логи сохраняются в файл, указанный в `LOG_FILE`:
 
 ```bash
-# View logs
+# Просмотр логов
 tail -f /var/log/dmmvc/app.log
 
-# Log rotation (logrotate)
+# Ротация логов (logrotate)
 sudo nano /etc/logrotate.d/dmmvc
 ```
 
@@ -241,33 +241,33 @@ sudo nano /etc/logrotate.d/dmmvc
 }
 ```
 
-### 2. Monitoring
+### 2. Мониторинг
 
-Use monitoring tools:
+Используйте инструменты мониторинга:
 - Prometheus + Grafana
 - New Relic
 - Datadog
 
-## Backup
+## Резервное копирование
 
-### Database
+### База данных
 
 ```bash
 # MySQL backup
 mysqldump -u root -p dmmvc > backup_$(date +%Y%m%d).sql
 
-# Restore
+# Восстановление
 mysql -u root -p dmmvc < backup_20240101.sql
 ```
 
-### SQLite Backup
+### SQLite backup
 
 ```bash
-# Copy DB file
+# Копирование файла БД
 cp dmmvc.db dmmvc_backup_$(date +%Y%m%d).db
 ```
 
-## Security
+## Безопасность
 
 ### 1. Firewall
 
@@ -279,36 +279,36 @@ sudo ufw allow 443/tcp
 sudo ufw enable
 ```
 
-### 2. Updates
+### 2. Обновления
 
 ```bash
-# Update system
+# Обновление системы
 sudo apt update && sudo apt upgrade
 
-# Update Go
-# Download new version from golang.org
+# Обновление Go
+# Скачайте новую версию с golang.org
 ```
 
-### 3. Application Security
+### 3. Безопасность приложения
 
-- Use strong `SESSION_SECRET`
-- Change admin password
-- Use HTTPS
-- Regularly update dependencies
-- Limit database access
+- Используйте сильный `SESSION_SECRET`
+- Смените пароль администратора
+- Используйте HTTPS
+- Регулярно обновляйте зависимости
+- Ограничьте доступ к БД
 
-## Performance
+## Производительность
 
-### 1. Go Optimization
+### 1. Оптимизация Go
 
 ```bash
-# Build with optimization
+# Сборка с оптимизацией
 go build -ldflags="-s -w" -o dmmvc cmd/server/main.go
 ```
 
-### 2. Caching
+### 2. Кеширование
 
-Add Redis for caching:
+Добавьте Redis для кеширования:
 
 ```go
 import "github.com/go-redis/redis/v8"
@@ -320,14 +320,14 @@ var rdb = redis.NewClient(&redis.Options{
 
 ### 3. CDN
 
-Use CDN for static files:
+Используйте CDN для статических файлов:
 - Cloudflare
 - AWS CloudFront
 - Fastly
 
-## Scaling
+## Масштабирование
 
-### Horizontal Scaling
+### Горизонтальное масштабирование
 
 ```yaml
 # docker-compose.yml
@@ -345,64 +345,64 @@ services:
 
 ### Load Balancer
 
-Use:
+Используйте:
 - Nginx
 - HAProxy
 - AWS ELB
 
 ## Troubleshooting
 
-### Issue: Server won't start
+### Проблема: Сервер не запускается
 
 ```bash
-# Check logs
+# Проверьте логи
 tail -f dmmvc.log
 
-# Check port
+# Проверьте порт
 netstat -tulpn | grep 8080
 
-# Check permissions
+# Проверьте права
 ls -la dmmvc
 chmod +x dmmvc
 ```
 
-### Issue: Database connection error
+### Проблема: Ошибка подключения к БД
 
 ```bash
-# Check MySQL
+# Проверьте MySQL
 sudo systemctl status mysql
 
-# Check connection
+# Проверьте подключение
 mysql -u root -p
 
-# Check .env file
+# Проверьте .env файл
 cat .env
 ```
 
-### Issue: 502 Bad Gateway (Nginx)
+### Проблема: 502 Bad Gateway (Nginx)
 
 ```bash
-# Check if app is running
+# Проверьте, запущено ли приложение
 ps aux | grep dmmvc
 
-# Check Nginx logs
+# Проверьте логи Nginx
 tail -f /var/log/nginx/error.log
 ```
 
-## Deployment Checklist
+## Чеклист развертывания
 
-- [ ] Build application
-- [ ] Configure .env for production
-- [ ] Configure database
-- [ ] Configure web server (Nginx)
-- [ ] Configure SSL certificate
-- [ ] Configure firewall
-- [ ] Configure logging
-- [ ] Configure backup
-- [ ] Change admin password
-- [ ] Test all functions
-- [ ] Configure monitoring
+- [ ] Сборка приложения
+- [ ] Настройка .env для production
+- [ ] Настройка базы данных
+- [ ] Настройка веб-сервера (Nginx)
+- [ ] Настройка SSL сертификата
+- [ ] Настройка firewall
+- [ ] Настройка логирования
+- [ ] Настройка резервного копирования
+- [ ] Смена пароля администратора
+- [ ] Тестирование всех функций
+- [ ] Настройка мониторинга
 
 ---
 
-**Done!** Your application is ready for production!
+**Готово!** Ваше приложение готово к production!
