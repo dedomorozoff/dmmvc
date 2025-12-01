@@ -279,9 +279,34 @@ CMD ["./dmmvc"]
 
 MIT License
 
+## CLI Tool
+
+DMMVC includes a powerful CLI tool for code generation!
+
+### Quick Start with CLI
+
+```bash
+# Build CLI
+make build
+
+# Create CRUD for products
+dmmvc make:crud Product
+
+# Create controller
+dmmvc make:controller About
+
+# Create model
+dmmvc make:model Category --migration
+
+# List all resources
+dmmvc list
+```
+
+📖 **Full documentation**: [CLI.md](CLI.md)
+
 ## Roadmap
 
-- [ ] CLI tool for code generation
+- [x] CLI tool for code generation ✅
 - [ ] PostgreSQL support
 - [ ] WebSocket support
 - [ ] API documentation (Swagger)
