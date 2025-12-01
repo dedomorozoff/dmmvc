@@ -1,8 +1,10 @@
-[English](README.md) | **Русский**
+[English](README.md) | **Русский** | [🧭 Навигация](NAVIGATION.md)
 
 # DMMVC - Lightweight MVC Web Framework
 
 **DMMVC** — минималистичный MVC веб-фреймворк на Go, готовый для создания любых веб-приложений.
+
+> 📚 **Документация**: [docs/](docs/) | 🧭 **Навигация**: [NAVIGATION.md](NAVIGATION.md)
 
 ## Особенности
 
@@ -23,6 +25,7 @@
 - **Миграции** - Автоматическое создание структуры БД
 - **Поддержка SQLite** - Для быстрого старта
 - **Поддержка MySQL** - Для production окружения
+- **Поддержка PostgreSQL** - Мощная реляционная БД ✨
 
 ### Шаблоны
 - **Go Templates** - Шаблонизатор
@@ -41,7 +44,7 @@
 - **Backend**: Go 1.20+
 - **Web Framework**: Gin
 - **ORM**: GORM
-- **Database**: SQLite / MySQL
+- **Database**: SQLite / MySQL / PostgreSQL
 - **Logger**: Logrus
 - **Sessions**: gorilla/sessions
 
@@ -76,45 +79,32 @@ go run cmd/server/main.go
 ```
 dmmvc/
 ├── cmd/
+│   ├── cli/                 # CLI инструмент
 │   └── server/              # Точка входа приложения
-│       └── main.go
 ├── internal/
 │   ├── controllers/         # HTTP контроллеры
-│   │   ├── auth_controller.go
-│   │   ├── home_controller.go
-│   │   └── user_controller.go
 │   ├── database/            # Подключение к БД
-│   │   ├── db.go
-│   │   └── seeder.go
 │   ├── logger/              # Логирование
-│   │   └── logger.go
 │   ├── middleware/          # Middleware
-│   │   ├── auth.go
-│   │   └── logger.go
 │   ├── models/              # Модели данных
-│   │   └── user.go
 │   └── routes/              # Маршруты
-│       └── routes.go
 ├── static/
 │   ├── css/                 # Стили
-│   │   └── style.css
 │   └── js/                  # JavaScript
-│       └── app.js
 ├── templates/
 │   ├── layouts/             # Layouts
-│   │   └── base.html
-│   ├── partials/            # Переиспользуемые компоненты
-│   │   ├── header.html
-│   │   ├── footer.html
-│   │   └── sidebar.html
+│   ├── partials/            # Компоненты
 │   └── pages/               # Страницы
-│       ├── home.html
-│       ├── login.html
-│       └── dashboard.html
+├── docs/                    # 📚 Документация
+├── docker/                  # 🐳 Docker конфигурация
+├── scripts/                 # 🔧 Утилиты
 ├── .env.example             # Пример конфигурации
-├── go.mod                   # Go модули
+├── Dockerfile               # Docker образ
+├── Makefile                 # Команды сборки
 └── README.md                # Документация
 ```
+
+📖 **Полная документация**: [docs/](docs/)
 
 ## Конфигурация
 
@@ -132,6 +122,10 @@ DB_DSN=dmmvc.db
 # For MySQL:
 # DB_TYPE=mysql
 # DB_DSN=user:password@tcp(localhost:3306)/dmmvc?charset=utf8mb4&parseTime=True&loc=Local
+
+# For PostgreSQL:
+# DB_TYPE=postgres
+# DB_DSN=host=localhost user=postgres password=postgres dbname=dmmvc port=5432 sslmode=disable
 
 # Security Settings
 SESSION_SECRET=your-super-secret-key-change-this-in-production
@@ -302,12 +296,22 @@ dmmvc make:model Category --migration
 dmmvc list
 ```
 
-📖 **Полная документация**: [CLI.ru.md](CLI.ru.md)
+📖 **Полная документация**: [docs/CLI.ru.md](docs/CLI.ru.md)
+
+## Поддержка баз данных
+
+DMMVC поддерживает три типа баз данных:
+
+- **SQLite** - Для разработки и небольших проектов
+- **MySQL** - Популярная реляционная БД
+- **PostgreSQL** - Мощная open-source БД ✨
+
+📖 **Документация PostgreSQL**: [docs/POSTGRESQL.ru.md](docs/POSTGRESQL.ru.md)
 
 ## Roadmap
 
 - [x] CLI инструмент для генерации кода ✅
-- [ ] Поддержка PostgreSQL
+- [x] Поддержка PostgreSQL ✅
 - [ ] WebSocket поддержка
 - [ ] API документация (Swagger)
 - [ ] Кеширование (Redis)

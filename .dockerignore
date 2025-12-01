@@ -1,0 +1,46 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+dmmvc
+server
+
+# Test files
+*_test.go
+*.test
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
+# Temporary files
+tmp/
+temp/
+
+# Documentation (optional, uncomment if you don't want docs in image)
+# *.md
+# LICENSE
+
+# OS files
+.DS_Store
+Thumbs.db

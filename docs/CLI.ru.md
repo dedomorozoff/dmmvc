@@ -1,4 +1,4 @@
-[English](CLI.md) | **Русский**
+[English](CLI.md) | **Русский** | [📚 Docs](README.md)
 
 # DMMVC CLI Tool
 
