@@ -1,4 +1,4 @@
-[English](POSTGRESQL.md) | **Русский** | [📚 Docs](README.md)
+[English](POSTGRESQL.md) | **Русский** | [Docs](README.md)
 
 # Поддержка PostgreSQL в DMMVC
 

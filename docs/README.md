@@ -2,7 +2,7 @@
 
 Complete documentation for DMMVC framework.
 
-## 📚 Table of Contents
+## Table of Contents
 
 ### Getting Started
 - [Quick Start](QUICKSTART.md) | [Русский](QUICKSTART.ru.md)
@@ -22,7 +22,7 @@ Complete documentation for DMMVC framework.
 - [Deployment Guide](DEPLOYMENT.md) | [Русский](DEPLOYMENT.ru.md) - Production deployment
 - [Docker Guide](DOCKER.md) - Docker and Docker Compose setup
 
-## 🚀 Quick Links
+## Quick Links
 
 **For Beginners:**
 1. Start with [Quick Start](QUICKSTART.md)
@@ -34,19 +34,19 @@ Complete documentation for DMMVC framework.
 2. Setup [PostgreSQL](POSTGRESQL.md) for production
 3. Deploy with [Docker](DOCKER.md)
 
-## 📖 Language
+## Language
 
 All documentation is available in:
-- 🇬🇧 English
-- 🇷🇺 Русский (Russian)
+- English
+- Русский (Russian)
 
-## 🔗 External Resources
+## External Resources
 
 - [Go Documentation](https://go.dev/doc/)
 - [Gin Framework](https://gin-gonic.com/docs/)
 - [GORM](https://gorm.io/docs/)
 - [PostgreSQL](https://www.postgresql.org/docs/)
 
-## 💡 Contributing
+## Contributing
 
 Found an error in documentation? Please open an issue or submit a pull request!

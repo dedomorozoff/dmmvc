@@ -19,9 +19,9 @@ dmmvc make:crud Post
 ```
 
 This generates:
-- ✅ Model: `internal/models/post.go`
-- ✅ Controller: `internal/controllers/post_controller.go` (with 7 CRUD methods)
-- ✅ Templates: `templates/pages/post/*.html` (index, show, create, edit)
+- Model: `internal/models/post.go`
+- Controller: `internal/controllers/post_controller.go` (with 7 CRUD methods)
+- Templates: `templates/pages/post/*.html` (index, show, create, edit)
 
 ## Step 3: Customize the Model
 
@@ -146,10 +146,10 @@ dmmvc --help
 
 ## Tips
 
-💡 **Use `make:crud`** for quick scaffolding, then customize
-💡 **Use `--resource`** flag for controllers with CRUD methods
-💡 **Use `list`** command to see all your resources
-💡 **Always review** generated code and adapt to your needs
+- **Use `make:crud`** for quick scaffolding, then customize
+- **Use `--resource`** flag for controllers with CRUD methods
+- **Use `list`** command to see all your resources
+- **Always review** generated code and adapt to your needs
 
 ## Next Steps
 
@@ -158,4 +158,4 @@ dmmvc --help
 - Learn about architecture: [ARCHITECTURE.md](ARCHITECTURE.md)
 - Back to [Documentation Index](README.md)
 
-Happy coding! 🚀
+Happy coding!

@@ -1,15 +1,15 @@
-# 🧭 DMMVC Navigation Guide
+# DMMVC Navigation Guide
 
 Quick links to find what you need.
 
-## 🚀 Getting Started
+## Getting Started
 
 **New to DMMVC?** Start here:
 1. [README.md](README.md) - Project overview
 2. [docs/QUICKSTART.md](docs/QUICKSTART.md) - Quick start guide
 3. [docs/QUICKSTART_CLI.md](docs/QUICKSTART_CLI.md) - CLI quick start
 
-## 📚 Documentation
+## Documentation
 
 **All documentation**: [docs/](docs/)
 
@@ -27,7 +27,7 @@ Quick links to find what you need.
 - [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment
 - [Docker Guide](docs/DOCKER.md) - Docker setup
 
-## 🔧 Development
+## Development
 
 ### Build & Run
 ```bash
@@ -50,7 +50,7 @@ dmmvc list                   # List resources
 go run scripts/test-db-connection.go
 ```
 
-## 🐳 Docker
+## Docker
 
 ```bash
 # Start with PostgreSQL
@@ -65,7 +65,7 @@ docker-compose -f docker/docker-compose.postgres.yml down
 
 See [docker/README.md](docker/README.md) for more.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 dmmvc/
@@ -73,23 +73,23 @@ dmmvc/
 ├── internal/     # Application code
 ├── static/       # CSS, JS
 ├── templates/    # HTML templates
-├── docs/         # 📚 Documentation
-├── docker/       # 🐳 Docker files
-└── scripts/      # 🔧 Utilities
+├── docs/         # Documentation
+├── docker/       # Docker files
+└── scripts/      # Utilities
 ```
 
 Full structure: [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
 
-## 🌐 Language
+## Language
 
-- 🇬🇧 English - Most files have `.md` extension
-- 🇷🇺 Russian - Files with `.ru.md` extension
+- English - Most files have `.md` extension
+- Russian - Files with `.ru.md` extension
 
 Example:
 - `README.md` - English
 - `README.ru.md` - Russian
 
-## 🔍 Find Something?
+## Find Something?
 
 ### I want to...
 
@@ -117,19 +117,19 @@ Example:
 **Migrate database**
 → [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md)
 
-## 📝 Configuration
+## Configuration
 
 - `.env.example` - Configuration template
 - Copy to `.env` and customize
 - See [docs/QUICKSTART.md](docs/QUICKSTART.md) for details
 
-## 🆘 Need Help?
+## Need Help?
 
 1. Check [docs/](docs/) for documentation
 2. Read [CHANGELOG.md](CHANGELOG.md) for recent changes
 3. Open an issue on GitHub
 
-## 🎯 Quick Commands
+## Quick Commands
 
 ```bash
 # Development
@@ -150,4 +150,4 @@ make clean                             # Clean up
 
 ---
 
-**Happy coding!** 🚀
+**Happy coding!**

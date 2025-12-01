@@ -1,6 +1,6 @@
 # DMMVC Project Structure
 
-## 📁 Directory Layout
+## Directory Layout
 
 ```
 dmmvc/
@@ -25,7 +25,7 @@ dmmvc/
 │   ├── partials/            # Reusable components
 │   └── pages/               # Page templates
 │
-├── docs/                    # 📚 Documentation
+├── docs/                    # Documentation
 │   ├── README.md            # Documentation index
 │   ├── QUICKSTART.md        # Quick start guide
 │   ├── CLI.md               # CLI tool documentation
@@ -33,12 +33,12 @@ dmmvc/
 │   ├── DOCKER.md            # Docker deployment
 │   └── ...                  # Other documentation
 │
-├── docker/                  # 🐳 Docker configuration
+├── docker/                  # Docker configuration
 │   ├── docker-compose.postgres.yml
 │   ├── init-db.sql
 │   └── README.md
 │
-├── scripts/                 # 🔧 Utility scripts
+├── scripts/                 # Utility scripts
 │   ├── test-db-connection.go
 │   └── README.md
 │
@@ -53,7 +53,7 @@ dmmvc/
 └── README.ru.md             # Main documentation (Russian)
 ```
 
-## 🎯 Key Directories
+## Key Directories
 
 ### `/cmd`
 Application entry points. Each subdirectory is a separate executable:
@@ -96,7 +96,7 @@ Docker-related files:
 ### `/scripts`
 Utility scripts for development and testing
 
-## 📝 Configuration Files
+## Configuration Files
 
 - `.env` - Environment variables (not in git)
 - `.env.example` - Template for environment configuration
@@ -106,7 +106,7 @@ Utility scripts for development and testing
 - `.gitignore` - Files to exclude from git
 - `.dockerignore` - Files to exclude from Docker build
 
-## 🚀 Generated Files
+## Generated Files
 
 These files are generated and should not be committed:
 - `*.exe` - Compiled binaries
@@ -114,13 +114,13 @@ These files are generated and should not be committed:
 - `*.log` - Log files
 - `tmp/` - Temporary files
 
-## 📖 Documentation
+## Documentation
 
 For detailed documentation, see:
 - [docs/README.md](docs/README.md) - Documentation index
 - [README.md](README.md) - Main project README
 
-## 🔧 Development
+## Development
 
 ```bash
 # Build CLI tool
@@ -136,7 +136,7 @@ make test
 make clean
 ```
 
-## 🐳 Docker
+## Docker
 
 ```bash
 # Start with Docker Compose
@@ -146,7 +146,7 @@ docker-compose -f docker/docker-compose.postgres.yml up -d
 docker build -t dmmvc:latest .
 ```
 
-## 📚 Learn More
+## Learn More
 
 - [Quick Start Guide](docs/QUICKSTART.md)
 - [CLI Documentation](docs/CLI.md)

@@ -5,13 +5,13 @@ All notable changes to DMMVC will be documented in this file.
 ## [1.2.0] - 2024-12-02
 
 ### Added
-- ✨ **PostgreSQL Support** - Full support for PostgreSQL database
+- **PostgreSQL Support** - Full support for PostgreSQL database
   - PostgreSQL driver integration (gorm.io/driver/postgres)
   - Connection configuration with DSN and URL formats
   - SSL mode support (disable, require, verify-ca, verify-full)
   - Connection pool configuration
   - PostgreSQL-specific features (JSONB, arrays, full-text search)
-- 📖 PostgreSQL Documentation (POSTGRESQL.md, POSTGRESQL.ru.md)
+- PostgreSQL Documentation (POSTGRESQL.md, POSTGRESQL.ru.md)
   - Installation guides for Windows, Linux, macOS
   - Configuration examples
   - Docker setup with docker-compose
@@ -33,15 +33,15 @@ All notable changes to DMMVC will be documented in this file.
 ## [1.1.0] - 2024-12-02
 
 ### Added
-- ✨ **CLI Tool** - Complete command-line tool for code generation
+- **CLI Tool** - Complete command-line tool for code generation
   - `make:controller` - Create controllers (simple or resource with CRUD)
   - `make:model` - Create models with optional migration hints
   - `make:middleware` - Create middleware
   - `make:page` - Create page templates
   - `make:crud` - Generate complete CRUD scaffolding (model + controller + pages)
   - `list` - List all project resources
-- 📖 CLI Documentation (CLI.md, CLI.ru.md)
-- 🔨 Makefile for easy building and installation
+- CLI Documentation (CLI.md, CLI.ru.md)
+- Makefile for easy building and installation
 - Resource controller templates with full CRUD operations
 - CRUD page templates (index, show, create, edit)
 

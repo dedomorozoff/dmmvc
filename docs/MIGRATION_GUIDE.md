@@ -1,4 +1,4 @@
-[English](MIGRATION_GUIDE.md) | [📚 Docs](README.md)
+[English](MIGRATION_GUIDE.md) | [Docs](README.md)
 
 # Database Migration Guide
 

@@ -1,10 +1,10 @@
-**English** | [Русский](README.ru.md) | [🧭 Navigation](NAVIGATION.md)
+**English** | [Русский](README.ru.md) | [Navigation](NAVIGATION.md)
 
 # DMMVC - Lightweight MVC Web Framework
 
 **DMMVC** is a minimalist MVC web framework in Go, ready for building any web application.
 
-> 📚 **Documentation**: [docs/](docs/) | 🧭 **Navigation**: [NAVIGATION.md](NAVIGATION.md)
+> **Documentation**: [docs/](docs/) | **Navigation**: [NAVIGATION.md](NAVIGATION.md)
 
 ## Features
 
@@ -25,7 +25,7 @@
 - **Migrations** - Automatic database structure creation
 - **SQLite Support** - For quick start
 - **MySQL Support** - For production environment
-- **PostgreSQL Support** - Powerful relational database ✨
+- **PostgreSQL Support** - Powerful relational database
 
 ### Templates
 - **Go Templates** - Template engine
@@ -95,16 +95,16 @@ dmmvc/
 │   ├── layouts/             # Layouts
 │   ├── partials/            # Components
 │   └── pages/               # Pages
-├── docs/                    # 📚 Documentation
-├── docker/                  # 🐳 Docker configuration
-├── scripts/                 # 🔧 Utilities
+├── docs/                    # Documentation
+├── docker/                  # Docker configuration
+├── scripts/                 # Utilities
 ├── .env.example             # Configuration example
 ├── Dockerfile               # Docker image
 ├── Makefile                 # Build commands
 └── README.md                # Documentation
 ```
 
-📖 **Full documentation**: [docs/](docs/)
+**Full documentation**: [docs/](docs/)
 
 ## Configuration
 
@@ -296,7 +296,7 @@ dmmvc make:model Category --migration
 dmmvc list
 ```
 
-📖 **Full documentation**: [docs/CLI.md](docs/CLI.md)
+**Full documentation**: [docs/CLI.md](docs/CLI.md)
 
 ## Database Support
 
@@ -304,14 +304,14 @@ DMMVC supports three types of databases:
 
 - **SQLite** - For development and small projects
 - **MySQL** - Popular relational database
-- **PostgreSQL** - Powerful open-source database ✨
+- **PostgreSQL** - Powerful open-source database
 
-📖 **PostgreSQL Documentation**: [docs/POSTGRESQL.md](docs/POSTGRESQL.md)
+**PostgreSQL Documentation**: [docs/POSTGRESQL.md](docs/POSTGRESQL.md)
 
 ## Roadmap
 
-- [x] CLI tool for code generation ✅
-- [x] PostgreSQL support ✅
+- [x] CLI tool for code generation
+- [x] PostgreSQL support
 - [ ] WebSocket support
 - [ ] API documentation (Swagger)
 - [ ] Caching (Redis)

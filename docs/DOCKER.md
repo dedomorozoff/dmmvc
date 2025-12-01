@@ -1,4 +1,4 @@
-[English](DOCKER.md) | [📚 Docs](README.md)
+[English](DOCKER.md) | [Docs](README.md)
 
 # Docker Deployment Guide
 
