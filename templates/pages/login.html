@@ -1,32 +1,37 @@
 {{define "pages/login.html"}}
-{{template "layouts/base.html" .}}
-{{define "content"}}
-<div class="auth-container">
-    <div class="auth-card">
-        <h1 class="auth-title">Вход в систему</h1>
+{{template "partials/base_head.html" .}}
+{{template "partials/header.html" .}}
 
-        {{if .error}}
-        <div class="alert alert-error">{{.error}}</div>
-        {{end}}
+<main class="main">
+    <div class="container">
+        <div class="auth-form-container">
+            <h1 class="page-title">Вход в систему</h1>
 
-        <form method="POST" action="/login" class="auth-form">
-            <div class="form-group">
-                <label for="username">Имя пользователя</label>
-                <input type="text" id="username" name="username" required autofocus>
+            {{if .error}}
+            <div class="alert alert-error">
+                {{.error}}
             </div>
+            {{end}}
 
-            <div class="form-group">
-                <label for="password">Пароль</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+            <form action="/login" method="POST" class="form">
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Войти</button>
-        </form>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
 
-        <div class="auth-footer">
-            <p>По умолчанию: admin / admin</p>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-{{end}}
+</main>
+
+{{template "partials/footer.html" .}}
+{{template "partials/base_foot.html" .}}
 {{end}}

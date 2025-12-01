@@ -1,6 +1,5 @@
 {{define "pages/home.html"}}
-{{template "layouts/base.html" .}}
-{{define "content"}}
+{{template "partials/base_head.html" .}}
 {{template "partials/header.html" .}}
 
 <main class="main">
@@ -36,5 +35,5 @@
 </main>
 
 {{template "partials/footer.html" .}}
-{{end}}
+{{template "partials/base_foot.html" .}}
 {{end}}

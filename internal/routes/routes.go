@@ -32,7 +32,7 @@ func SetupRouter() *gin.Engine {
 	r.Static("/static", "./static")
 
 	// Загрузка шаблонов
-	r.LoadHTMLGlob("templates/**/*")
+	r.LoadHTMLGlob("templates/**/*.html")
 
 	// Публичные маршруты
 	r.GET("/", controllers.HomePage)

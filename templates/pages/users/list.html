@@ -1,6 +1,5 @@
 {{define "pages/users/list.html"}}
-{{template "layouts/base.html" .}}
-{{define "content"}}
+{{template "partials/base_head.html" .}}
 {{template "partials/header.html" .}}
 
 <main class="main">
@@ -28,11 +27,11 @@
                         <td>{{.Username}}</td>
                         <td>{{.Email}}</td>
                         <td><span class="badge">{{.Role}}</span></td>
-                        <td>
-                            <a href="/admin/users/{{.ID}}/edit" class="btn btn-sm btn-secondary">Редактировать</a>
-                            <form method="POST" action="/admin/users/{{.ID}}/delete" style="display:inline;">
-                                <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Удалить пользователя?')">Удалить</button>
+                        <td class="actions">
+                            <a href="/admin/users/edit/{{.ID}}" class="btn btn-sm btn-secondary">Ред.</a>
+                            <form action="/admin/users/delete/{{.ID}}" method="POST" class="inline-form"
+                                onsubmit="return confirm('Вы уверены?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Уд.</button>
                             </form>
                         </td>
                     </tr>
@@ -44,5 +43,5 @@
 </main>
 
 {{template "partials/footer.html" .}}
-{{end}}
+{{template "partials/base_foot.html" .}}
 {{end}}
