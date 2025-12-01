@@ -1,29 +1,30 @@
 {{define "pages/websocket.html"}}
-{{template "layouts/base.html" .}}
-{{define "content"}}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h3>WebSocket Demo</h3>
-                    <span id="status" class="badge badge-secondary">Disconnected</span>
+{{template "partials/base_head.html" .}}
+{{template "partials/header.html" .}}
+
+<main class="main">
+    <div class="container">
+        <h1 class="page-title">WebSocket Demo</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>WebSocket Connection</h3>
+                <span id="status" class="badge badge-secondary">Disconnected</span>
+            </div>
+            <div class="card-body">
+                <div id="messages" class="border p-3 mb-3" style="height: 300px; overflow-y: auto;">
+                    <!-- Сообщения будут здесь -->
                 </div>
-                <div class="card-body">
-                    <div id="messages" class="border p-3 mb-3" style="height: 300px; overflow-y: auto;">
-                        <!-- Сообщения будут здесь -->
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="messageInput" class="form-control" placeholder="Введите сообщение...">
-                        <div class="input-group-append">
-                            <button id="sendBtn" class="btn btn-primary" disabled>Отправить</button>
-                        </div>
+                <div class="input-group">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Введите сообщение...">
+                    <div class="input-group-append">
+                        <button id="sendBtn" class="btn btn-primary" disabled>Отправить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <script>
 let ws;
@@ -92,5 +93,7 @@ messageInput.addEventListener('keypress', function(e) {
 // Подключение при загрузке страницы
 connect();
 </script>
-{{end}}
+
+{{template "partials/footer.html" .}}
+{{template "partials/base_foot.html" .}}
 {{end}}

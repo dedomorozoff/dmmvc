@@ -1,0 +1,111 @@
+{{define "pages/i18n_demo.html"}}
+{{template "partials/base_head.html" .}}
+{{template "partials/header.html" .}}
+
+<main class="main">
+    <div class="container">
+        <h1 class="page-title">i18n Demo</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Current Language: {{.locale}}</h3>
+            </div>
+            <div class="card-body">
+                <p>This page demonstrates the internationalization (i18n) system.</p>
+                <p>Use the language switcher in the header or the buttons below to change the language.</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Translations Demo</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>App Name:</strong> {{.app_name}}</p>
+                <p><strong>Description:</strong> {{.app_description}}</p>
+                <p><strong>Home:</strong> {{.nav_home}}</p>
+                <p><strong>Dashboard:</strong> {{.nav_dashboard}}</p>
+                <p><strong>Profile:</strong> {{.nav_profile}}</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Common Buttons</h3>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-primary">{{.common_submit}}</button>
+                <button class="btn btn-secondary">{{.common_cancel}}</button>
+                <button class="btn btn-success">{{.common_save}}</button>
+                <button class="btn btn-danger">{{.common_delete}}</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>API Test</h3>
+            </div>
+            <div class="card-body">
+                <button id="getLocalesBtn" class="btn btn-info">Get Available Locales</button>
+                <button id="switchToEnBtn" class="btn btn-primary">Switch to English</button>
+                <button id="switchToRuBtn" class="btn btn-primary">Switch to Russian</button>
+                <div id="apiResult" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+document.getElementById('getLocalesBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/api/locales');
+        const result = await response.json();
+        document.getElementById('apiResult').innerHTML = `
+            <div class="alert alert-info">
+                <strong>Available Locales:</strong> ${result.data.locales.join(', ')}<br>
+                <strong>Current Locale:</strong> ${result.data.current}
+            </div>
+        `;
+    } catch (error) {
+        document.getElementById('apiResult').innerHTML = `
+            <div class="alert alert-danger">Error: ${error.message}</div>
+        `;
+    }
+});
+
+document.getElementById('switchToEnBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/api/locale', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ locale: 'en' })
+        });
+        const result = await response.json();
+        if (result.success) {
+            window.location.reload();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+document.getElementById('switchToRuBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/api/locale', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ locale: 'ru' })
+        });
+        const result = await response.json();
+        if (result.success) {
+            window.location.reload();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+</script>
+
+{{template "partials/footer.html" .}}
+{{template "partials/base_foot.html" .}}
+{{end}}

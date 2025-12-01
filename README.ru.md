@@ -1,10 +1,10 @@
-[English](README.md) | **Русский** | [Навигация](NAVIGATION.md)
+[English](README.md) | **Русский**
 
 # DMMVC - Lightweight MVC Web Framework
 
 **DMMVC** — минималистичный MVC веб-фреймворк на Go, готовый для создания любых веб-приложений.
 
-> **Документация**: [docs/](docs/) | **Навигация**: [NAVIGATION.md](NAVIGATION.md)
+> **Документация**: [docs/](docs/)
 
 ## Особенности
 
@@ -401,7 +401,7 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 - [x] Очереди задач
 - [x] Email отправка
 - [x] Загрузка файлов
-- [ ] Локализация (i18n)
+- [x] Локализация (i18n)
 
 ## Документация
 
@@ -413,5 +413,6 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 - [Очереди задач](docs/QUEUE.ru.md) - Фоновая обработка задач
 - [Отправка Email](docs/EMAIL.ru.md) - SMTP доставка email
 - [Загрузка файлов](docs/UPLOAD.ru.md) - Загрузка и обработка файлов
+- [Интернационализация](docs/I18N.ru.md) - Поддержка нескольких языков
 - [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
 - [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание

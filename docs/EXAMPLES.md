@@ -504,3 +504,141 @@ go hub.Run()
 r.GET("/chat", controllers.ChatPage)
 r.GET("/ws/chat", controllers.ChatHandler(hub))
 ```
+
+
+## Example 8: Internationalization (i18n)
+
+### Using in Controllers
+
+```go
+package controllers
+
+import (
+    "dmmvc/internal/i18n"
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func WelcomePage(c *gin.Context) {
+    username := "John"
+    
+    c.HTML(http.StatusOK, "pages/welcome.html", gin.H{
+        "title": i18n.T(c, "home.welcome"),
+        "greeting": i18n.T(c, "dashboard.welcome", username),
+    })
+}
+
+func APIGreeting(c *gin.Context) {
+    name := c.Query("name")
+    if name == "" {
+        name = "Guest"
+    }
+    
+    c.JSON(http.StatusOK, gin.H{
+        "message": i18n.T(c, "dashboard.welcome", name),
+        "locale": i18n.GetLocale(c),
+    })
+}
+```
+
+### Using in Templates
+
+```html
+{{define "pages/welcome.html"}}
+{{template "partials/base_head.html" .}}
+{{template "partials/header.html" .}}
+
+<main class="main">
+    <div class="container">
+        <h1>{{t "home.welcome"}}</h1>
+        <p>{{t "home.subtitle"}}</p>
+        
+        <div class="buttons">
+            <a href="/dashboard" class="btn btn-primary">
+                {{t "home.get_started"}}
+            </a>
+        </div>
+        
+        <p>{{t "common.loading"}}</p>
+    </div>
+</main>
+
+{{template "partials/footer.html" .}}
+{{template "partials/base_foot.html" .}}
+{{end}}
+```
+
+### Switching Language via API
+
+```javascript
+// Switch to Russian
+async function switchToRussian() {
+    const response = await fetch('/api/locale', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ locale: 'ru' })
+    });
+    
+    if (response.ok) {
+        window.location.reload();
+    }
+}
+
+// Get available languages
+async function getAvailableLanguages() {
+    const response = await fetch('/api/locales');
+    const data = await response.json();
+    console.log('Available:', data.data.locales);
+    console.log('Current:', data.data.current);
+}
+```
+
+### Adding a New Language
+
+1. Create translation file `locales/es.json`:
+
+```json
+{
+  "app.name": "DMMVC",
+  "home.welcome": "Welcome to DMMVC",
+  "nav.home": "Home",
+  "nav.dashboard": "Dashboard"
+}
+```
+
+2. Update `internal/i18n/i18n.go`:
+
+```go
+const (
+    LocaleEN Locale = "en"
+    LocaleRU Locale = "ru"
+    LocaleES Locale = "es"
+)
+
+func (i *I18n) LoadTranslations(dir string) error {
+    locales := []Locale{LocaleEN, LocaleRU, LocaleES}
+    // ...
+}
+```
+
+3. Update middleware to support new language:
+
+```go
+func parseLocale(lang string) Locale {
+    if len(lang) >= 2 {
+        switch lang[:2] {
+        case "en":
+            return LocaleEN
+        case "ru":
+            return LocaleRU
+        case "es":
+            return LocaleES
+        }
+    }
+    return ""
+}
+```
+
+See [i18n Documentation](I18N.md) for more details.

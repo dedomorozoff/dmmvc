@@ -2,6 +2,8 @@ package routes
 
 import (
 	"dmmvc/internal/controllers"
+	"dmmvc/internal/handlers"
+	"dmmvc/internal/i18n"
 	"dmmvc/internal/websocket"
 	"dmmvc/internal/middleware"
 	"os"
@@ -29,6 +31,7 @@ func SetupRouter() *gin.Engine {
 
 	// Middleware
 	r.Use(middleware.RequestLogger())
+	r.Use(i18n.Middleware())
 
 	// Настройка сессий
 	secret := os.Getenv("SESSION_SECRET")
@@ -56,6 +59,11 @@ func SetupRouter() *gin.Engine {
 	// Swagger документация (доступна без авторизации для удобства разработки)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	// I18n API endpoints
+	i18nHandler := handlers.NewI18nHandler()
+	r.POST("/api/locale", i18nHandler.SetLocale)
+	r.GET("/api/locales", i18nHandler.GetLocales)
+
 	// Защищенные маршруты
 	authorized := r.Group("/")
 	authorized.Use(middleware.AuthRequired())
@@ -64,6 +72,7 @@ func SetupRouter() *gin.Engine {
 		authorized.GET("/dashboard", controllers.DashboardPage)
 		authorized.GET("/profile", controllers.ProfilePage)
 		authorized.GET("/websocket", controllers.WebSocketDemo)
+		authorized.GET("/i18n", controllers.I18nDemoPage)
 		
 		// Пример CRUD маршрутов для пользователей (только для админа)
 		admin := authorized.Group("/admin")

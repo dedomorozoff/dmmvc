@@ -2,6 +2,36 @@
 
 All notable changes to DMMVC will be documented in this file.
 
+## [1.4.0] - 2024-12-02
+
+### Added
+- **Internationalization (i18n) Support** - Multi-language support system
+  - Automatic locale detection from query params, cookies, and Accept-Language header
+  - Translation management with JSON files
+  - Template integration with `t` and `locale` functions
+  - Middleware for locale detection and context injection
+  - API endpoints for locale switching and listing available locales
+  - Language switcher UI component with dropdown selector
+  - English and Russian translations included
+  - Thread-safe translation loading and caching
+  - Fallback mechanism to default locale
+- i18n Documentation (I18N.md, I18N.ru.md)
+  - Configuration and usage guide
+  - Template and handler integration examples
+  - API endpoint documentation
+  - Guide for adding new languages
+  - Best practices and troubleshooting
+- Translation files (locales/en.json, locales/ru.json)
+- Language switcher JavaScript component (static/js/i18n.js)
+- Language switcher CSS styles (static/css/i18n.css)
+
+### Changed
+- Updated routes to include i18n middleware and API endpoints
+- Updated main.go to initialize i18n on startup
+- Updated base templates to include i18n scripts and styles
+- Updated README.md and README.ru.md with i18n information
+- Marked "Localization (i18n)" as completed in roadmap
+
 ## [1.3.0] - 2024-12-02
 
 ### Added

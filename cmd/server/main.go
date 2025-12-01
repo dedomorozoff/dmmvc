@@ -4,6 +4,7 @@ import (
 	"dmmvc/internal/cache"
 	"dmmvc/internal/database"
 	"dmmvc/internal/email"
+	"dmmvc/internal/i18n"
 	"dmmvc/internal/logger"
 	"dmmvc/internal/models"
 	"dmmvc/internal/queue"
@@ -69,6 +70,14 @@ func main() {
 
 	// Инициализация сервиса загрузки файлов
 	upload.Init()
+
+	// Инициализация i18n
+	i18nInstance := i18n.GetInstance()
+	if err := i18nInstance.LoadTranslations("locales"); err != nil {
+		logger.Log.Warn("Failed to load translations: ", err)
+	} else {
+		logger.Log.Info("Translations loaded successfully")
+	}
 
 	// Запуск worker для обработки задач (опционально)
 	if os.Getenv("QUEUE_WORKER_ENABLED") == "true" {
