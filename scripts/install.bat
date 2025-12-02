@@ -26,7 +26,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo.
 
-echo [3/5] Installing Swagger CLI...
+echo [3/5] Installing Swagger tool...
 go install github.com/swaggo/swag/cmd/swag@latest
 if %ERRORLEVEL% NEQ 0 (
     echo [WARNING] Failed to install swag, skipping...
@@ -35,6 +35,8 @@ if %ERRORLEVEL% NEQ 0 (
     swag init -g cmd/server/main.go -o docs/swagger --parseDependency --parseInternal
     if %ERRORLEVEL% NEQ 0 (
         echo [WARNING] Failed to generate Swagger docs
+    ) else (
+        echo [OK] Swagger documentation generated
     )
 )
 echo.

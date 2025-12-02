@@ -57,8 +57,19 @@
 git clone https://github.com/dedomorozoff/dmmvc
 cd dmmvc
 
-# Install dependencies
+# Run installation script (recommended)
+# Windows:
+scripts\install.bat
+
+# Linux/macOS:
+chmod +x scripts/install.sh
+./scripts/install.sh
+
+# Or manually:
 go mod tidy
+go install github.com/swaggo/swag/cmd/swag@latest
+swag init -g cmd/server/main.go -o docs/swagger
+go build -o dmmvc cmd/cli/main.go
 
 # Run the server
 go run cmd/server/main.go

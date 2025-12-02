@@ -41,7 +41,7 @@ if not exist "go.sum" (
 REM Build CLI if not exists
 if not exist "dmmvc.exe" (
     echo Building CLI tool...
-    go build -o dmmvc.exe cmd/cli/main.go
+    go build -o dmmvc.exe cmd\cli\main.go
     echo [OK] CLI built
     echo.
 )
@@ -51,11 +51,11 @@ echo Setup Complete!
 echo ========================================
 echo.
 echo Available commands:
-echo   dmmvc --help              - Show CLI help
-echo   dmmvc make:crud User      - Generate CRUD
-echo   go run cmd/server/main.go - Start server
+echo   dmmvc.exe --help           - Show CLI help
+echo   dmmvc.exe make:crud User   - Generate CRUD
+echo   go run cmd\server\main.go  - Start server
 echo.
 echo Starting development server...
 echo.
 
-go run cmd/server/main.go
+go run cmd\server\main.go

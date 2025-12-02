@@ -23,11 +23,16 @@ echo "[2/5] Installing dependencies..."
 go mod download
 echo ""
 
-echo "[3/5] Installing Swagger CLI..."
-go install github.com/swaggo/swag/cmd/swag@latest || echo "[WARNING] Failed to install swag"
-if command -v swag &> /dev/null; then
+echo "[3/5] Installing Swagger tool..."
+if go install github.com/swaggo/swag/cmd/swag@latest; then
     echo "Generating Swagger documentation..."
-    swag init -g cmd/server/main.go -o docs/swagger --parseDependency --parseInternal || echo "[WARNING] Failed to generate Swagger docs"
+    if swag init -g cmd/server/main.go -o docs/swagger --parseDependency --parseInternal; then
+        echo "✓ Swagger documentation generated"
+    else
+        echo "⚠ Failed to generate Swagger docs"
+    fi
+else
+    echo "⚠ Failed to install swag, skipping..."
 fi
 echo ""
 
