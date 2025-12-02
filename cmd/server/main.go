@@ -17,7 +17,7 @@ import (
 )
 
 // @title DMMVC API
-// @version 1.0
+// @version 1.4.0
 // @description Lightweight MVC Web Framework API
 // @termsOfService http://swagger.io/terms/
 

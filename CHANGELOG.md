@@ -2,7 +2,7 @@
 
 All notable changes to DMMVC will be documented in this file.
 
-## [1.4.0] - 2024-12-02
+## [1.4.0] - 2025-12-02
 
 ### Added
 - **Internationalization (i18n) Support** - Multi-language support system
@@ -38,7 +38,7 @@ All notable changes to DMMVC will be documented in this file.
 ### Fixed
 - Fixed template loading on Windows for nested directories (templates/pages/users/)
 
-## [1.3.0] - 2024-12-02
+## [1.3.0] - 2025-12-02
 
 ### Added
 - **WebSocket Support** - Real-time bidirectional communication
@@ -63,7 +63,7 @@ All notable changes to DMMVC will be documented in this file.
 - Updated README.md and README.ru.md with WebSocket information
 - Marked "WebSocket support" as completed in roadmap
 
-## [1.2.0] - 2024-12-02
+## [1.2.0] - 2025-12-02
 
 ### Added
 - **PostgreSQL Support** - Full support for PostgreSQL database
@@ -91,7 +91,7 @@ All notable changes to DMMVC will be documented in this file.
   - Moved Docker files to `docker/` folder
   - Cleaned up root directory for better organization
 
-## [1.1.0] - 2024-12-02
+## [1.1.0] - 2025-12-02
 
 ### Added
 - **CLI Tool** - Complete command-line tool for code generation
