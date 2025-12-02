@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"dmmvc/internal/i18n"
 	"dmmvc/internal/upload"
 	"net/http"
 	"path/filepath"
@@ -231,7 +232,10 @@ func DownloadFile(c *gin.Context) {
 
 // UploadPage отображает страницу загрузки файлов
 func UploadPage(c *gin.Context) {
+	locale := i18n.GetLocale(c)
 	c.HTML(http.StatusOK, "pages/upload.html", gin.H{
-		"title": "File Upload",
+		"title":  i18nT(c, "upload.title"),
+		"locale": i18nLocale(c),
+		"T":      i18n.TFunc(locale),
 	})
 }

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"dmmvc/internal/database"
+	"dmmvc/internal/i18n"
 	"dmmvc/internal/models"
 	"net/http"
 
@@ -19,8 +20,11 @@ func LoginPage(c *gin.Context) {
 		return
 	}
 
+	locale := i18n.GetLocale(c)
 	c.HTML(http.StatusOK, "pages/login.html", gin.H{
-		"title": "Вход",
+		"title":  i18nT(c, "auth.login"),
+		"locale": i18nLocale(c),
+		"T":      i18n.TFunc(locale),
 	})
 }
 
@@ -28,12 +32,15 @@ func LoginPage(c *gin.Context) {
 func LoginPost(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
+	locale := i18n.GetLocale(c)
 
 	var user models.User
 	if err := database.DB.Where("username = ?", username).First(&user).Error; err != nil {
 		c.HTML(http.StatusUnauthorized, "pages/login.html", gin.H{
-			"title": "Вход",
-			"error": "Неверное имя пользователя или пароль",
+			"title":  i18nT(c, "auth.login"),
+			"error":  i18nT(c, "auth.invalid_credentials"),
+			"locale": i18nLocale(c),
+			"T":      i18n.TFunc(locale),
 		})
 		return
 	}
@@ -41,8 +48,10 @@ func LoginPost(c *gin.Context) {
 	// Проверка пароля
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
 		c.HTML(http.StatusUnauthorized, "pages/login.html", gin.H{
-			"title": "Вход",
-			"error": "Неверное имя пользователя или пароль",
+			"title":  i18nT(c, "auth.login"),
+			"error":  i18nT(c, "auth.invalid_credentials"),
+			"locale": i18nLocale(c),
+			"T":      i18n.TFunc(locale),
 		})
 		return
 	}

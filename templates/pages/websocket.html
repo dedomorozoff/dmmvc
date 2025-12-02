@@ -4,21 +4,21 @@
 
 <main class="main">
     <div class="container">
-        <h1 class="page-title">WebSocket Demo</h1>
+        <h1 class="page-title">{{call .T "websocket.title"}}</h1>
         
         <div class="card">
             <div class="card-header">
-                <h3>WebSocket Connection</h3>
-                <span id="status" class="badge badge-secondary">Disconnected</span>
+                <h3>{{call .T "websocket.connection"}}</h3>
+                <span id="status" class="badge badge-secondary">{{call .T "websocket.disconnected"}}</span>
             </div>
             <div class="card-body">
                 <div id="messages" class="border p-3 mb-3" style="height: 300px; overflow-y: auto;">
                     <!-- Сообщения будут здесь -->
                 </div>
                 <div class="input-group">
-                    <input type="text" id="messageInput" class="form-control" placeholder="Введите сообщение...">
+                    <input type="text" id="messageInput" class="form-control" placeholder="{{call .T "websocket.message_placeholder"}}">
                     <div class="input-group-append">
-                        <button id="sendBtn" class="btn btn-primary" disabled>Отправить</button>
+                        <button id="sendBtn" class="btn btn-primary" disabled>{{call .T "websocket.send"}}</button>
                     </div>
                 </div>
             </div>

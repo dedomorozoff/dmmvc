@@ -33,7 +33,7 @@ func SendEmailDirect(c *gin.Context) {
 	if !email.IsEnabled() {
 		c.JSON(http.StatusServiceUnavailable, APIResponse{
 			Success: false,
-			Error:   "Email service is not configured",
+			Error:   i18nT(c, "api.email.not_configured"),
 		})
 		return
 	}
@@ -42,14 +42,14 @@ func SendEmailDirect(c *gin.Context) {
 	if err := email.Send(req.To, req.Subject, req.Body); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to send email: " + err.Error(),
+			Error:   i18nT(c, "api.email.send_failed") + ": " + err.Error(),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Email sent successfully",
+		Message: i18nT(c, "api.email.sent"),
 	})
 }
 
@@ -88,14 +88,14 @@ func SendEmailAsync(c *gin.Context) {
 	if err := queue.EnqueueTask(task, asynq.Queue("default")); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to enqueue task",
+			Error:   i18nT(c, "api.queue.enqueue_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Email queued for sending",
+		Message: i18nT(c, "api.email.queued"),
 	})
 }
 
@@ -123,7 +123,7 @@ func SendWelcomeEmail(c *gin.Context) {
 	if !email.IsEnabled() {
 		c.JSON(http.StatusServiceUnavailable, APIResponse{
 			Success: false,
-			Error:   "Email service is not configured",
+			Error:   i18nT(c, "api.email.not_configured"),
 		})
 		return
 	}
@@ -131,14 +131,14 @@ func SendWelcomeEmail(c *gin.Context) {
 	if err := email.WelcomeEmail(req.To, req.Username); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to send welcome email",
+			Error:   i18nT(c, "api.email.send_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Welcome email sent successfully",
+		Message: i18nT(c, "api.email.welcome_sent"),
 	})
 }
 
@@ -166,7 +166,7 @@ func SendPasswordResetEmail(c *gin.Context) {
 	if !email.IsEnabled() {
 		c.JSON(http.StatusServiceUnavailable, APIResponse{
 			Success: false,
-			Error:   "Email service is not configured",
+			Error:   i18nT(c, "api.email.not_configured"),
 		})
 		return
 	}
@@ -174,14 +174,14 @@ func SendPasswordResetEmail(c *gin.Context) {
 	if err := email.PasswordResetEmail(req.To, req.ResetLink); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to send password reset email",
+			Error:   i18nT(c, "api.email.send_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Password reset email sent successfully",
+		Message: i18nT(c, "api.email.reset_sent"),
 	})
 }
 
@@ -196,9 +196,9 @@ func SendPasswordResetEmail(c *gin.Context) {
 // @Security SessionAuth
 func EmailStatus(c *gin.Context) {
 	enabled := email.IsEnabled()
-	message := "Email service is disabled"
+	message := i18nT(c, "api.email.disabled")
 	if enabled {
-		message = "Email service is enabled"
+		message = i18nT(c, "api.email.enabled")
 	}
 	
 	c.JSON(http.StatusOK, APIResponse{

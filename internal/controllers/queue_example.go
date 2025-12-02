@@ -35,7 +35,7 @@ func EnqueueEmailTask(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to create task",
+			Error:   i18nT(c, "api.queue.task_failed"),
 		})
 		return
 	}
@@ -44,14 +44,14 @@ func EnqueueEmailTask(c *gin.Context) {
 	if err := queue.EnqueueTask(task, asynq.Queue("default")); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to enqueue task",
+			Error:   i18nT(c, "api.queue.enqueue_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Email task enqueued successfully",
+		Message: i18nT(c, "api.queue.email_enqueued"),
 	})
 }
 
@@ -86,7 +86,7 @@ func EnqueueDelayedTask(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to create task",
+			Error:   i18nT(c, "api.queue.task_failed"),
 		})
 		return
 	}
@@ -94,14 +94,14 @@ func EnqueueDelayedTask(c *gin.Context) {
 	if err := queue.EnqueueTaskIn(task, time.Duration(delay)*time.Second); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to enqueue task",
+			Error:   i18nT(c, "api.queue.enqueue_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Delayed email task enqueued successfully",
+		Message: i18nT(c, "api.queue.delayed_enqueued"),
 	})
 }
 
@@ -130,7 +130,7 @@ func EnqueueImageTask(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to create task",
+			Error:   i18nT(c, "api.queue.task_failed"),
 		})
 		return
 	}
@@ -138,14 +138,14 @@ func EnqueueImageTask(c *gin.Context) {
 	if err := queue.EnqueueTask(task, asynq.Queue("default")); err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to enqueue task",
+			Error:   i18nT(c, "api.queue.enqueue_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Image task enqueued successfully",
+		Message: i18nT(c, "api.queue.image_enqueued"),
 	})
 }
 
@@ -162,14 +162,14 @@ func QueueStats(c *gin.Context) {
 	if !queue.IsEnabled() {
 		c.JSON(http.StatusOK, APIResponse{
 			Success: false,
-			Message: "Task queue is disabled",
+			Message: i18nT(c, "api.queue.disabled"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "Task queue is enabled",
+		Message: i18nT(c, "api.queue.enabled"),
 		Data: gin.H{
 			"status": "running",
 		},

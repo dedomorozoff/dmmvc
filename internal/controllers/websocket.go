@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"dmmvc/internal/i18n"
 	"dmmvc/internal/websocket"
 
 	"github.com/gin-gonic/gin"
@@ -42,7 +43,10 @@ func WebSocketHandler(hub *websocket.Hub) gin.HandlerFunc {
 
 // WebSocketDemo страница демонстрации WebSocket
 func WebSocketDemo(c *gin.Context) {
+	locale := i18n.GetLocale(c)
 	c.HTML(http.StatusOK, "pages/websocket.html", gin.H{
-		"title": "WebSocket Demo",
+		"title":  i18nT(c, "websocket.title"),
+		"locale": i18nLocale(c),
+		"T":      i18n.TFunc(locale),
 	})
 }

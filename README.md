@@ -402,5 +402,7 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 - [Email Sending](docs/EMAIL.md) - SMTP email delivery
 - [File Upload](docs/UPLOAD.md) - File upload and processing
 - [Internationalization](docs/I18N.md) - Multi-language support
+- [Quick Start i18n](docs/QUICK_START_I18N.md) - 🌍 Bilingual interface guide
+- [Demo Data](docs/DEMO_DATA.md) - Bilingual demo users and data
 - [Examples](docs/EXAMPLES.md) - Usage examples
 - [Deployment](docs/DEPLOYMENT.md) - Production deployment

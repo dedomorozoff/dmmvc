@@ -21,6 +21,9 @@ import (
 
 // loadTemplates загружает все HTML шаблоны
 func loadTemplates(r *gin.Engine) {
+	// Регистрируем template functions для i18n
+	r.SetFuncMap(i18n.GetTemplateFuncs())
+	
 	// Собираем все HTML файлы из templates и поддиректорий
 	templates := []string{}
 	

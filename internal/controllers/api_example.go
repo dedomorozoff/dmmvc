@@ -33,7 +33,7 @@ func APIUserList(c *gin.Context) {
 	if err := database.DB.Find(&users).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to fetch users",
+			Error:   i18nT(c, "api.user.fetch_failed"),
 		})
 		return
 	}
@@ -62,7 +62,7 @@ func APIUserGet(c *gin.Context) {
 	if err := database.DB.First(&user, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, APIResponse{
 			Success: false,
-			Error:   "User not found",
+			Error:   i18nT(c, "api.user.not_found"),
 		})
 		return
 	}
@@ -106,7 +106,7 @@ func APIUserCreate(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, APIResponse{
 			Success: false,
-			Error:   "Failed to hash password",
+			Error:   i18nT(c, "api.user.hash_failed"),
 		})
 		return
 	}
@@ -120,14 +120,14 @@ func APIUserCreate(c *gin.Context) {
 	if err := database.DB.Create(&user).Error; err != nil {
 		c.JSON(http.StatusBadRequest, APIResponse{
 			Success: false,
-			Error:   "Failed to create user",
+			Error:   i18nT(c, "api.user.create_failed"),
 		})
 		return
 	}
 
 	c.JSON(http.StatusCreated, APIResponse{
 		Success: true,
-		Message: "User created successfully",
+		Message: i18nT(c, "api.user.created"),
 		Data:    user,
 	})
 }
@@ -150,7 +150,7 @@ func APIUserDelete(c *gin.Context) {
 	if err := database.DB.First(&user, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, APIResponse{
 			Success: false,
-			Error:   "User not found",
+			Error:   i18nT(c, "api.user.not_found"),
 		})
 		return
 	}
@@ -159,6 +159,6 @@ func APIUserDelete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, APIResponse{
 		Success: true,
-		Message: "User deleted successfully",
+		Message: i18nT(c, "api.user.deleted"),
 	})
 }

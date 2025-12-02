@@ -16,8 +16,73 @@
                 {{else}}
                 <a href="/login" class="nav-link">Login</a>
                 {{end}}
+                
+                <!-- Language Switcher -->
+                <div class="language-switcher">
+                    <a href="#" onclick="switchLanguage('en'); return false;" 
+                       class="lang-link {{if ne .locale "ru"}}active{{end}}" 
+                       title="Switch to English">🇬🇧 EN</a>
+                    <a href="#" onclick="switchLanguage('ru'); return false;" 
+                       class="lang-link {{if eq .locale "ru"}}active{{end}}" 
+                       title="Переключить на русский">🇷🇺 RU</a>
+                </div>
             </nav>
         </div>
     </div>
 </header>
+
+<style>
+.language-switcher {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-link {
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.lang-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.lang-link.active {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.lang-link:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .language-switcher {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        gap: 0.3rem;
+    }
+    
+    .lang-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+</style>
 {{end}}

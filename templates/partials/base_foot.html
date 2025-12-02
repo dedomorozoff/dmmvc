@@ -1,6 +1,20 @@
 {{define "partials/base_foot.html"}}
 <script src="/static/js/app.js"></script>
 <script src="/static/js/i18n.js"></script>
+
+<script>
+// Language switcher function
+function switchLanguage(lang) {
+    // Get current URL
+    const url = new URL(window.location.href);
+    
+    // Set or update lang parameter
+    url.searchParams.set('lang', lang);
+    
+    // Reload page with new language
+    window.location.href = url.toString();
+}
+</script>
 </body>
 
 </html>

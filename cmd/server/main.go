@@ -52,6 +52,9 @@ func main() {
 	
 	// Создание администратора по умолчанию
 	database.SeedAdmin()
+	
+	// Создание демо пользователей (опционально)
+	database.SeedDemoUsers()
 
 	// Подключение к Redis (опционально)
 	if err := cache.Connect(); err != nil {

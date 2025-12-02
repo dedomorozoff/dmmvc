@@ -9,8 +9,11 @@ import (
 
 // HomePage отображает главную страницу
 func HomePage(c *gin.Context) {
+	locale := i18n.GetLocale(c)
 	c.HTML(http.StatusOK, "pages/home.html", gin.H{
-		"title": i18nT(c, "nav.home"),
+		"title":  i18nT(c, "nav.home"),
+		"locale": i18nLocale(c),
+		"T":      i18n.TFunc(locale),
 	})
 }
 
@@ -18,11 +21,14 @@ func HomePage(c *gin.Context) {
 func DashboardPage(c *gin.Context) {
 	username, _ := c.Get("username")
 	role, _ := c.Get("role")
+	locale := i18n.GetLocale(c)
 
 	c.HTML(http.StatusOK, "pages/dashboard.html", gin.H{
 		"title":    i18nT(c, "dashboard.title"),
 		"username": username,
 		"role":     role,
+		"locale":   i18nLocale(c),
+		"T":        i18n.TFunc(locale),
 	})
 }
 
@@ -30,11 +36,14 @@ func DashboardPage(c *gin.Context) {
 func ProfilePage(c *gin.Context) {
 	username, _ := c.Get("username")
 	role, _ := c.Get("role")
+	locale := i18n.GetLocale(c)
 
 	c.HTML(http.StatusOK, "pages/profile.html", gin.H{
 		"title":    i18nT(c, "profile.title"),
 		"username": username,
 		"role":     role,
+		"locale":   i18nLocale(c),
+		"T":        i18n.TFunc(locale),
 	})
 }
 
