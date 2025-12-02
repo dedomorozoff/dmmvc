@@ -36,9 +36,8 @@ echo "[3/5] Installing dependencies..."
 go get github.com/gin-gonic/gin@latest
 go get github.com/joho/godotenv@latest
 go get gorm.io/gorm@latest
-go get gorm.io/driver/sqlite@latest
+go get github.com/glebarez/sqlite@latest
 go get go.uber.org/zap@latest
-go get modernc.org/sqlite@latest
 echo ""
 
 echo "[4/5] Creating project structure..."
@@ -111,9 +110,8 @@ package database
 import (
     "log"
     "os"
-    "gorm.io/driver/sqlite"
+    "github.com/glebarez/sqlite"
     "gorm.io/gorm"
-    _ "modernc.org/sqlite"
 )
 
 var DB *gorm.DB
@@ -130,7 +128,7 @@ func Connect() {
     }
 
     var err error
-    // Use pure Go SQLite driver
+    // Use pure Go SQLite driver (no CGO required)
     DB, err = gorm.Open(sqlite.Open(dbDSN), &gorm.Config{})
     if err != nil {
         log.Fatal("Failed to connect to database:", err)
