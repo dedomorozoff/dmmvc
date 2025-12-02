@@ -19,15 +19,23 @@ echo "[1/4] Checking Go installation..."
 go version
 echo ""
 
-echo "[2/4] Installing dependencies..."
+echo "[2/5] Installing dependencies..."
 go mod download
 echo ""
 
-echo "[3/4] Building CLI tool..."
+echo "[3/5] Installing Swagger CLI..."
+go install github.com/swaggo/swag/cmd/swag@latest || echo "[WARNING] Failed to install swag"
+if command -v swag &> /dev/null; then
+    echo "Generating Swagger documentation..."
+    swag init -g cmd/server/main.go -o docs/swagger --parseDependency --parseInternal || echo "[WARNING] Failed to generate Swagger docs"
+fi
+echo ""
+
+echo "[4/5] Building CLI tool..."
 go build -o dmmvc cmd/cli/main.go
 echo ""
 
-echo "[4/4] Installing CLI globally..."
+echo "[5/5] Installing CLI globally..."
 GOPATH=${GOPATH:-$(go env GOPATH)}
 GOBIN=${GOBIN:-$GOPATH/bin}
 
