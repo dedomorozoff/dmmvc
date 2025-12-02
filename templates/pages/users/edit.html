@@ -13,7 +13,7 @@
             </div>
             {{end}}
 
-            <form action="/admin/users/update/{{.user.ID}}" method="POST" class="form">
+            <form action="/admin/users/{{.user.ID}}/update" method="POST" class="form">
                 <div class="form-group">
                     <label for="username">Имя пользователя</label>
                     <input type="text" id="username" name="username" class="form-control" value="{{.user.Username}}"

@@ -29,9 +29,20 @@ var once sync.Once
 // GetInstance returns singleton instance of I18n
 func GetInstance() *I18n {
 	once.Do(func() {
+		// Read default locale from environment
+		defaultLocale := LocaleEN
+		if envLocale := os.Getenv("DEFAULT_LOCALE"); envLocale != "" {
+			switch envLocale {
+			case "en":
+				defaultLocale = LocaleEN
+			case "ru":
+				defaultLocale = LocaleRU
+			}
+		}
+		
 		instance = &I18n{
 			translations:  make(map[Locale]map[string]string),
-			defaultLocale: LocaleEN,
+			defaultLocale: defaultLocale,
 		}
 	})
 	return instance
@@ -98,6 +109,13 @@ func (i *I18n) SetDefaultLocale(locale Locale) {
 	i.mu.Lock()
 	defer i.mu.Unlock()
 	i.defaultLocale = locale
+}
+
+// GetDefaultLocale returns the default locale
+func (i *I18n) GetDefaultLocale() Locale {
+	i.mu.RLock()
+	defer i.mu.RUnlock()
+	return i.defaultLocale
 }
 
 // GetAvailableLocales returns list of available locales

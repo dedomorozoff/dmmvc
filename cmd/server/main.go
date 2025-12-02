@@ -76,7 +76,11 @@ func main() {
 	if err := i18nInstance.LoadTranslations("locales"); err != nil {
 		logger.Log.Warn("Failed to load translations: ", err)
 	} else {
+		defaultLocale := i18nInstance.GetDefaultLocale()
+		availableLocales := i18nInstance.GetAvailableLocales()
 		logger.Log.Info("Translations loaded successfully")
+		logger.Log.Infof("Default locale: %s", defaultLocale)
+		logger.Log.Infof("Available locales: %v", availableLocales)
 	}
 
 	// Запуск worker для обработки задач (опционально)

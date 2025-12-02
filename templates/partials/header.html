@@ -4,16 +4,17 @@
         <div class="header-content">
             <h1 class="logo">DMMVC</h1>
             <nav class="nav">
-                <a href="/" class="nav-link">Главная</a>
+                <a href="/" class="nav-link">Home</a>
                 {{if .username}}
                 <a href="/dashboard" class="nav-link">Dashboard</a>
-                <a href="/profile" class="nav-link">Профиль</a>
+                <a href="/profile" class="nav-link">Profile</a>
+                <a href="/i18n" class="nav-link">🌍 Language</a>
                 {{if eq .role "admin"}}
-                <a href="/admin/users" class="nav-link">Пользователи</a>
+                <a href="/admin/users" class="nav-link">Users</a>
                 {{end}}
-                <a href="/logout" class="nav-link">Выход ({{.username}})</a>
+                <a href="/logout" class="nav-link">Logout ({{.username}})</a>
                 {{else}}
-                <a href="/login" class="nav-link">Вход</a>
+                <a href="/login" class="nav-link">Login</a>
                 {{end}}
             </nav>
         </div>

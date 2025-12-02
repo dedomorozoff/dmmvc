@@ -43,8 +43,8 @@ func detectLocale(c *gin.Context) Locale {
 		}
 	}
 
-	// 4. Default to English
-	return LocaleEN
+	// 4. Default to configured default locale
+	return GetInstance().GetDefaultLocale()
 }
 
 // parseLocale parses locale string
@@ -68,7 +68,7 @@ func GetLocale(c *gin.Context) Locale {
 			return l
 		}
 	}
-	return LocaleEN
+	return GetInstance().GetDefaultLocale()
 }
 
 // T is a helper function to translate in gin handlers

@@ -391,18 +391,6 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 
 **Documentation**: [docs/UPLOAD.md](docs/UPLOAD.md)
 
-## Roadmap
-
-- [x] CLI tool for code generation
-- [x] PostgreSQL support
-- [x] WebSocket support
-- [x] API documentation (Swagger)
-- [x] Caching (Redis)
-- [x] Task queues
-- [x] Email sending
-- [x] File upload helper
-- [x] Localization (i18n)
-
 ## Documentation
 
 - [CLI Tool](docs/CLI.md) - Code generation commands

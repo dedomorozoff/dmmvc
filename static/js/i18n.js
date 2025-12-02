@@ -18,41 +18,10 @@ class LanguageSwitcher {
     }
 
     init() {
-        // Create language switcher if not exists
-        if (!document.getElementById('language-switcher')) {
-            this.createSwitcher();
-        }
-
-        // Add event listeners
-        this.attachEventListeners();
-    }
-
-    createSwitcher() {
-        const header = document.querySelector('.header');
-        if (!header) return;
-
-        const switcher = document.createElement('div');
-        switcher.id = 'language-switcher';
-        switcher.className = 'language-switcher';
-        switcher.innerHTML = `
-            <select id="locale-select" class="locale-select">
-                <option value="en" ${this.currentLocale === 'en' ? 'selected' : ''}>English</option>
-                <option value="ru" ${this.currentLocale === 'ru' ? 'selected' : ''}>Русский</option>
-            </select>
-        `;
-
-        // Insert before nav or at the end of header
-        const nav = header.querySelector('.nav');
-        if (nav) {
-            header.insertBefore(switcher, nav);
-        } else {
-            header.appendChild(switcher);
-        }
-    }
-
-    attachEventListeners() {
+        // Set current locale in select
         const select = document.getElementById('locale-select');
         if (select) {
+            select.value = this.currentLocale;
             select.addEventListener('change', (e) => {
                 this.changeLocale(e.target.value);
             });

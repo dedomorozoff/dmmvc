@@ -391,18 +391,6 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 
 **Документация**: [docs/UPLOAD.ru.md](docs/UPLOAD.ru.md)
 
-## Roadmap
-
-- [x] CLI инструмент для генерации кода
-- [x] Поддержка PostgreSQL
-- [x] WebSocket поддержка
-- [x] API документация (Swagger)
-- [x] Кеширование (Redis)
-- [x] Очереди задач
-- [x] Email отправка
-- [x] Загрузка файлов
-- [x] Локализация (i18n)
-
 ## Документация
 
 - [CLI Инструмент](docs/CLI.ru.md) - Команды генерации кода

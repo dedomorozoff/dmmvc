@@ -7,6 +7,7 @@ import (
 	"dmmvc/internal/websocket"
 	"dmmvc/internal/middleware"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -17,6 +18,29 @@ import (
 	
 	_ "dmmvc/docs/swagger"
 )
+
+// loadTemplates загружает все HTML шаблоны
+func loadTemplates(r *gin.Engine) {
+	// Собираем все HTML файлы из templates и поддиректорий
+	templates := []string{}
+	
+	// Partials
+	partials, _ := filepath.Glob("templates/partials/*.html")
+	templates = append(templates, partials...)
+	
+	// Pages
+	pages, _ := filepath.Glob("templates/pages/*.html")
+	templates = append(templates, pages...)
+	
+	// Pages/users
+	users, _ := filepath.Glob("templates/pages/users/*.html")
+	templates = append(templates, users...)
+	
+	// Загружаем все найденные шаблоны
+	if len(templates) > 0 {
+		r.LoadHTMLFiles(templates...)
+	}
+}
 
 // SetupRouter настраивает все маршруты приложения
 func SetupRouter() *gin.Engine {
@@ -45,7 +69,8 @@ func SetupRouter() *gin.Engine {
 	r.Static("/static", "./static")
 
 	// Загрузка шаблонов
-	r.LoadHTMLGlob("templates/**/*.html")
+	// Используем несколько паттернов для поддержки вложенных директорий
+	loadTemplates(r)
 
 	// Публичные маршруты
 	r.GET("/", controllers.HomePage)

@@ -15,6 +15,7 @@ All notable changes to DMMVC will be documented in this file.
   - English and Russian translations included
   - Thread-safe translation loading and caching
   - Fallback mechanism to default locale
+  - Configurable default locale via DEFAULT_LOCALE environment variable
 - i18n Documentation (I18N.md, I18N.ru.md)
   - Configuration and usage guide
   - Template and handler integration examples
@@ -27,10 +28,15 @@ All notable changes to DMMVC will be documented in this file.
 
 ### Changed
 - Updated routes to include i18n middleware and API endpoints
+- Updated routes to use filepath.Glob for better Windows compatibility with nested templates
 - Updated main.go to initialize i18n on startup
 - Updated base templates to include i18n scripts and styles
 - Updated README.md and README.ru.md with i18n information
+- Updated .env.example with DEFAULT_LOCALE configuration
 - Marked "Localization (i18n)" as completed in roadmap
+
+### Fixed
+- Fixed template loading on Windows for nested directories (templates/pages/users/)
 
 ## [1.3.0] - 2024-12-02
 

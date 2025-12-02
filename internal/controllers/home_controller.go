@@ -10,7 +10,7 @@ import (
 // HomePage отображает главную страницу
 func HomePage(c *gin.Context) {
 	c.HTML(http.StatusOK, "pages/home.html", gin.H{
-		"title": "Главная",
+		"title": i18nT(c, "nav.home"),
 	})
 }
 
@@ -20,7 +20,7 @@ func DashboardPage(c *gin.Context) {
 	role, _ := c.Get("role")
 
 	c.HTML(http.StatusOK, "pages/dashboard.html", gin.H{
-		"title":    "Панель управления",
+		"title":    i18nT(c, "dashboard.title"),
 		"username": username,
 		"role":     role,
 	})
@@ -32,7 +32,7 @@ func ProfilePage(c *gin.Context) {
 	role, _ := c.Get("role")
 
 	c.HTML(http.StatusOK, "pages/profile.html", gin.H{
-		"title":    "Профиль",
+		"title":    i18nT(c, "profile.title"),
 		"username": username,
 		"role":     role,
 	})
