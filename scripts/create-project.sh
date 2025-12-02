@@ -50,13 +50,13 @@ echo ""
 echo "[5/5] Creating initial files..."
 
 # Create main.go
-cat > cmd/server/main.go << 'EOF'
+cat > cmd/server/main.go << EOF
 package main
 
 import (
-    "dmmvc/internal/database"
-    "dmmvc/internal/logger"
-    "dmmvc/internal/routes"
+    "${PROJECT_NAME}/internal/controllers"
+    "github.com/dedomorozoff/dmmvc/pkg/database"
+    "github.com/dedomorozoff/dmmvc/pkg/logger"
     "github.com/gin-gonic/gin"
     "github.com/joho/godotenv"
     "log"
@@ -75,14 +75,86 @@ func main() {
 
     // Setup Gin
     r := gin.Default()
-    routes.Setup(r)
+
+    // Load templates
+    r.LoadHTMLGlob("templates/**/*")
+    r.Static("/static", "./static")
+
+    // Setup routes
+    r.GET("/", controllers.HomeHandler)
 
     // Start server
     port := os.Getenv("PORT")
     if port == "" {
         port = "8080"
     }
+    log.Printf("Server starting on port %s", port)
     log.Fatal(r.Run(":" + port))
+}
+EOF
+
+# Create home controller
+cat > internal/controllers/home.go << 'EOF'
+package controllers
+
+import (
+    "github.com/gin-gonic/gin"
+    "net/http"
+)
+
+func HomeHandler(c *gin.Context) {
+    c.HTML(http.StatusOK, "home.html", gin.H{
+        "title": "Welcome",
+    })
+}
+EOF
+
+# Create base layout
+cat > templates/layouts/base.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    {{ template "content" . }}
+</body>
+</html>
+EOF
+
+# Create home page
+cat > templates/pages/home.html << EOF
+{{ define "content" }}
+<div class="container">
+    <h1>Welcome to ${PROJECT_NAME}</h1>
+    <p>Your DMMVC application is running!</p>
+</div>
+{{ end }}
+EOF
+
+# Create basic CSS
+cat > static/css/style.css << 'EOF'
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #333;
 }
 EOF
 

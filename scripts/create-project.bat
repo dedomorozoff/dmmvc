@@ -52,9 +52,9 @@ REM Create main.go
 echo package main
 echo.
 echo import ^(
-echo     "dmmvc/internal/database"
-echo     "dmmvc/internal/logger"
-echo     "dmmvc/internal/routes"
+echo     "%PROJECT_NAME%/internal/controllers"
+echo     "github.com/dedomorozoff/dmmvc/pkg/database"
+echo     "github.com/dedomorozoff/dmmvc/pkg/logger"
 echo     "github.com/gin-gonic/gin"
 echo     "github.com/joho/godotenv"
 echo     "log"
@@ -73,13 +73,20 @@ echo     database.Init^(^)
 echo.
 echo     // Setup Gin
 echo     r := gin.Default^(^)
-echo     routes.Setup^(r^)
+echo.
+echo     // Load templates
+echo     r.LoadHTMLGlob^("templates/**/*"^)
+echo     r.Static^("/static", "./static"^)
+echo.
+echo     // Setup routes
+echo     r.GET^("/", controllers.HomeHandler^)
 echo.
 echo     // Start server
 echo     port := os.Getenv^("PORT"^)
 echo     if port == "" {
 echo         port = "8080"
 echo     }
+echo     log.Printf^("Server starting on port %%s", port^)
 echo     log.Fatal^(r.Run^(":" + port^)^)
 echo }
 ) > cmd\server\main.go
@@ -129,6 +136,71 @@ echo.
 echo # Temp
 echo tmp/
 ) > .gitignore
+
+REM Create home controller
+(
+echo package controllers
+echo.
+echo import ^(
+echo     "github.com/gin-gonic/gin"
+echo     "net/http"
+echo ^)
+echo.
+echo func HomeHandler^(c *gin.Context^) {
+echo     c.HTML^(http.StatusOK, "home.html", gin.H{
+echo         "title": "Welcome",
+echo     }^)
+echo }
+) > internal\controllers\home.go
+
+REM Create base layout
+(
+echo ^<!DOCTYPE html^>
+echo ^<html lang="en"^>
+echo ^<head^>
+echo     ^<meta charset="UTF-8"^>
+echo     ^<meta name="viewport" content="width=device-width, initial-scale=1.0"^>
+echo     ^<title^>{{ .title }}^</title^>
+echo     ^<link rel="stylesheet" href="/static/css/style.css"^>
+echo ^</head^>
+echo ^<body^>
+echo     {{ template "content" . }}
+echo ^</body^>
+echo ^</html^>
+) > templates\layouts\base.html
+
+REM Create home page
+(
+echo {{ define "content" }}
+echo ^<div class="container"^>
+echo     ^<h1^>Welcome to %PROJECT_NAME%^</h1^>
+echo     ^<p^>Your DMMVC application is running!^</p^>
+echo ^</div^>
+echo {{ end }}
+) > templates\pages\home.html
+
+REM Create basic CSS
+(
+echo body {
+echo     font-family: Arial, sans-serif;
+echo     margin: 0;
+echo     padding: 20px;
+echo     background-color: #f5f5f5;
+echo }
+echo.
+echo .container {
+echo     max-width: 800px;
+echo     margin: 0 auto;
+echo     background: white;
+echo     padding: 40px;
+echo     border-radius: 8px;
+echo     box-shadow: 0 2px 4px rgba^(0,0,0,0.1^);
+echo }
+echo.
+echo h1 {
+echo     color: #333;
+echo }
+) > static\css\style.css
 
 REM Create README
 (
