@@ -1,4 +1,4 @@
-[English](README.md) | **Русский**
+[English](README.md) | **Русский** | [Шпаргалка](CHEATSHEET.ru.md)
 
 # DMMVC - Lightweight MVC Web Framework
 
@@ -52,6 +52,43 @@
 
 ### Установка
 
+#### Вариант 1: Автоматическая установка (рекомендуется)
+
+**Linux/macOS:**
+```bash
+# Клонируйте репозиторий
+git clone https://github.com/dedomorozoff/dmmvc
+cd dmmvc
+
+# Сделайте скрипт исполняемым и запустите
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+**Windows:**
+```bash
+# Клонируйте репозиторий
+git clone https://github.com/dedomorozoff/dmmvc
+cd dmmvc
+
+# Запустите установочный скрипт
+scripts\install.bat
+```
+
+#### Вариант 2: Установка через Go
+
+```bash
+# Установить CLI глобально
+go install github.com/dedomorozoff/dmmvc/cmd/cli@latest
+
+# Или локально
+git clone https://github.com/dedomorozoff/dmmvc
+cd dmmvc
+make install-go
+```
+
+#### Вариант 3: Ручная установка
+
 ```bash
 # Клонируйте репозиторий
 git clone https://github.com/dedomorozoff/dmmvc
@@ -60,8 +97,76 @@ cd dmmvc
 # Установите зависимости
 go mod tidy
 
+# Соберите CLI
+make build
+
+# Установите глобально (опционально)
+make install
+
 # Запустите сервер
 go run cmd/server/main.go
+```
+
+### Создание нового проекта
+
+После установки CLI вы можете создать новый проект:
+
+**Linux/macOS:**
+```bash
+# Создать новый проект
+chmod +x scripts/create-project.sh
+./scripts/create-project.sh my-app
+
+# Перейти в проект
+cd my-app
+
+# Установить зависимости
+go mod tidy
+
+# Запустить сервер
+go run cmd/server/main.go
+```
+
+**Windows:**
+```bash
+# Создать новый проект
+scripts\create-project.bat my-app
+
+# Перейти в проект
+cd my-app
+
+# Установить зависимости
+go mod tidy
+
+# Запустить сервер
+go run cmd/server/main.go
+```
+
+### Помощник разработки (Linux/macOS)
+
+Используйте скрипт `dev.sh` для упрощения разработки:
+
+```bash
+# Показать доступные команды
+./scripts/dev.sh help
+
+# Установить зависимости
+./scripts/dev.sh install
+
+# Собрать CLI и сервер
+./scripts/dev.sh build
+
+# Запустить сервер разработки
+./scripts/dev.sh run
+
+# Запустить тесты
+./scripts/dev.sh test
+
+# Форматировать код
+./scripts/dev.sh fmt
+
+# Генерировать Swagger документацию
+./scripts/dev.sh swagger
 ```
 
 ### Первый вход
@@ -393,7 +498,12 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 
 ## Документация
 
+### Начало работы
+- [Установка](docs/INSTALLATION.ru.md) - Подробное руководство по установке
 - [CLI Инструмент](docs/CLI.ru.md) - Команды генерации кода
+- [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
+
+### Возможности
 - [PostgreSQL](docs/POSTGRESQL.ru.md) - Настройка PostgreSQL
 - [WebSocket](docs/WEBSOCKET.ru.md) - Реал-тайм коммуникация
 - [Swagger API](docs/SWAGGER.ru.md) - API документация
@@ -402,5 +512,7 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 - [Отправка Email](docs/EMAIL.ru.md) - SMTP доставка email
 - [Загрузка файлов](docs/UPLOAD.ru.md) - Загрузка и обработка файлов
 - [Интернационализация](docs/I18N.ru.md) - Поддержка нескольких языков
-- [Примеры](docs/EXAMPLES.ru.md) - Примеры использования
+
+### Развертывание
 - [Развертывание](docs/DEPLOYMENT.ru.md) - Production развертывание
+- [Скрипты](scripts/README.md) - Утилиты для разработки

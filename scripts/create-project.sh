@@ -1,0 +1,192 @@
+#!/bin/bash
+# DMMVC Project Creation Script
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "Usage: ./create-project.sh [project-name]"
+    echo "Example: ./create-project.sh my-app"
+    exit 1
+fi
+
+PROJECT_NAME="$1"
+PROJECT_DIR="$(pwd)/$PROJECT_NAME"
+
+echo "========================================"
+echo "Creating new DMMVC project: $PROJECT_NAME"
+echo "========================================"
+echo ""
+
+# Check if directory exists
+if [ -d "$PROJECT_DIR" ]; then
+    echo "[ERROR] Directory '$PROJECT_NAME' already exists"
+    exit 1
+fi
+
+echo "[1/5] Creating project directory..."
+mkdir -p "$PROJECT_DIR"
+cd "$PROJECT_DIR"
+echo ""
+
+echo "[2/5] Initializing Go module..."
+go mod init "$PROJECT_NAME"
+echo ""
+
+echo "[3/5] Adding DMMVC framework..."
+go get github.com/dedomorozoff/dmmvc@latest
+echo ""
+
+echo "[4/5] Creating project structure..."
+mkdir -p cmd/server
+mkdir -p internal/controllers
+mkdir -p internal/models
+mkdir -p static/css
+mkdir -p static/js
+mkdir -p templates/layouts
+mkdir -p templates/pages
+mkdir -p templates/partials
+echo ""
+
+echo "[5/5] Creating initial files..."
+
+# Create main.go
+cat > cmd/server/main.go << 'EOF'
+package main
+
+import (
+    "dmmvc/internal/database"
+    "dmmvc/internal/logger"
+    "dmmvc/internal/routes"
+    "github.com/gin-gonic/gin"
+    "github.com/joho/godotenv"
+    "log"
+    "os"
+)
+
+func main() {
+    // Load .env
+    godotenv.Load()
+
+    // Initialize logger
+    logger.Init()
+
+    // Initialize database
+    database.Init()
+
+    // Setup Gin
+    r := gin.Default()
+    routes.Setup(r)
+
+    // Start server
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+    log.Fatal(r.Run(":" + port))
+}
+EOF
+
+# Create .env
+cat > .env << EOF
+PORT=8080
+GIN_MODE=debug
+DB_TYPE=sqlite
+DB_DSN=${PROJECT_NAME}.db
+SESSION_SECRET=change-this-secret-key
+LOG_LEVEL=info
+LOG_FILE=${PROJECT_NAME}.log
+DEBUG=true
+EOF
+
+# Create .gitignore
+cat > .gitignore << 'EOF'
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+dmmvc
+server
+
+# Test files
+*.test
+
+# Output
+*.out
+
+# Database
+*.db
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Uploads
+uploads/
+
+# Temp
+tmp/
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+EOF
+
+# Create README
+cat > README.md << EOF
+# $PROJECT_NAME
+
+DMMVC-based web application
+
+## Quick Start
+
+\`\`\`bash
+# Install dependencies
+go mod tidy
+
+# Run server
+go run cmd/server/main.go
+\`\`\`
+
+Open http://localhost:8080
+
+## Development
+
+\`\`\`bash
+# Run tests
+go test ./...
+
+# Build
+go build -o server cmd/server/main.go
+
+# Run binary
+./server
+\`\`\`
+
+## Documentation
+
+- [DMMVC Documentation](https://github.com/dedomorozoff/dmmvc)
+EOF
+
+echo ""
+echo "========================================"
+echo "Project created successfully!"
+echo "========================================"
+echo ""
+echo "Next steps:"
+echo "  cd $PROJECT_NAME"
+echo "  go mod tidy"
+echo "  go run cmd/server/main.go"
+echo ""
+echo "Happy coding!"

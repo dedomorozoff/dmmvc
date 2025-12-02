@@ -1,4 +1,4 @@
-**English** | [Русский](README.ru.md)
+**English** | [Русский](README.ru.md) | [Cheat Sheet](CHEATSHEET.md)
 
 # DMMVC - Lightweight MVC Web Framework
 
