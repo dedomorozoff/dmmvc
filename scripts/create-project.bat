@@ -36,6 +36,7 @@ go get github.com/joho/godotenv@latest
 go get gorm.io/gorm@latest
 go get gorm.io/driver/sqlite@latest
 go get go.uber.org/zap@latest
+go get modernc.org/sqlite@latest
 echo.
 
 echo [4/5] Creating project structure...
@@ -156,6 +157,7 @@ echo     "log"
 echo     "os"
 echo     "gorm.io/driver/sqlite"
 echo     "gorm.io/gorm"
+echo     _ "modernc.org/sqlite"
 echo ^)
 echo.
 echo var DB *gorm.DB
@@ -172,6 +174,7 @@ echo         dbDSN = "%PROJECT_NAME%.db"
 echo     }
 echo.
 echo     var err error
+echo     // Use pure Go SQLite driver
 echo     DB, err = gorm.Open^(sqlite.Open^(dbDSN^), ^&gorm.Config{}^)
 echo     if err != nil {
 echo         log.Fatal^("Failed to connect to database:", err^)

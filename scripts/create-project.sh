@@ -38,6 +38,7 @@ go get github.com/joho/godotenv@latest
 go get gorm.io/gorm@latest
 go get gorm.io/driver/sqlite@latest
 go get go.uber.org/zap@latest
+go get modernc.org/sqlite@latest
 echo ""
 
 echo "[4/5] Creating project structure..."
@@ -112,6 +113,7 @@ import (
     "os"
     "gorm.io/driver/sqlite"
     "gorm.io/gorm"
+    _ "modernc.org/sqlite"
 )
 
 var DB *gorm.DB
@@ -128,6 +130,7 @@ func Connect() {
     }
 
     var err error
+    // Use pure Go SQLite driver
     DB, err = gorm.Open(sqlite.Open(dbDSN), &gorm.Config{})
     if err != nil {
         log.Fatal("Failed to connect to database:", err)
