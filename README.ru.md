@@ -75,19 +75,14 @@ cd dmmvc
 scripts\install.bat
 ```
 
-#### Вариант 2: Установка через Go
+Скрипт установки автоматически:
+- Установит зависимости
+- Установит инструмент Swagger (swag)
+- Сгенерирует документацию API
+- Соберет CLI инструмент
+- Установит CLI глобально
 
-```bash
-# Установить CLI глобально
-go install github.com/dedomorozoff/dmmvc/cmd/cli@latest
-
-# Или локально
-git clone https://github.com/dedomorozoff/dmmvc
-cd dmmvc
-make install-go
-```
-
-#### Вариант 3: Ручная установка
+#### Вариант 2: Ручная установка
 
 ```bash
 # Клонируйте репозиторий
@@ -97,11 +92,14 @@ cd dmmvc
 # Установите зависимости
 go mod tidy
 
-# Соберите CLI
-make build
+# Установите Swagger
+go install github.com/swaggo/swag/cmd/swag@latest
 
-# Установите глобально (опционально)
-make install
+# Сгенерируйте документацию API
+swag init -g cmd/server/main.go -o docs/swagger
+
+# Соберите CLI
+go build -o dmmvc cmd/cli/main.go
 
 # Запустите сервер
 go run cmd/server/main.go

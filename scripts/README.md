@@ -9,7 +9,7 @@ Utility scripts for DMMVC framework installation and development.
 | Installation | `install.sh` | `install.bat` | Install DMMVC CLI globally |
 | Create Project | `create-project.sh` | `create-project.bat` | Create new DMMVC project |
 | Quick Start | `quickstart.sh` | `quickstart.bat` | Setup and run in one command |
-| Development | `dev.sh` | - | Development helper tasks |
+| Development | `dev.sh` | `dev.bat` | Development helper tasks |
 | Testing | `test.sh` | `test.bat` | Run tests with options |
 | Docker Build | `docker-build.sh` | `docker-build.bat` | Build Docker image |
 | Uninstall | `uninstall.sh` | - | Remove DMMVC CLI |
@@ -28,6 +28,8 @@ chmod +x scripts/install.sh
 **What it does:**
 - Checks Go installation
 - Downloads dependencies
+- Installs Swagger tool (swag)
+- Generates API documentation
 - Builds CLI tool
 - Installs CLI globally to `$GOPATH/bin`
 
@@ -42,6 +44,8 @@ scripts\install.bat
 **What it does:**
 - Checks Go installation
 - Downloads dependencies
+- Installs Swagger tool (swag)
+- Generates API documentation
 - Builds CLI tool
 - Installs CLI globally to `%GOPATH%\bin`
 
@@ -98,13 +102,20 @@ scripts\quickstart.bat
 
 ## Development Helper
 
-### dev.sh (Linux/macOS)
+### dev.sh / dev.bat
 
 Development helper script with common tasks.
+
+**Linux/macOS:**
 
 ```bash
 chmod +x scripts/dev.sh
 ./scripts/dev.sh [command]
+```
+
+**Windows:**
+```bash
+scripts\dev.bat [command]
 ```
 
 **Available commands:**
@@ -124,6 +135,14 @@ chmod +x scripts/dev.sh
 **Examples:**
 
 ```bash
+# Linux/macOS
+./scripts/dev.sh install
+./scripts/dev.sh run
+
+# Windows
+scripts\dev.bat install
+scripts\dev.bat run
+
 # Install dependencies
 ./scripts/dev.sh install
 
@@ -137,8 +156,14 @@ chmod +x scripts/dev.sh
 ./scripts/dev.sh fmt
 ./scripts/dev.sh lint
 
+# Generate Swagger docs
+./scripts/dev.sh swagger
+
 # Build everything
 ./scripts/dev.sh build
+
+# Clean build artifacts
+./scripts/dev.sh clean
 ```
 
 ## Testing

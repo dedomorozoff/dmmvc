@@ -18,7 +18,7 @@ echo [1/4] Checking Go installation...
 go version
 echo.
 
-echo [2/4] Installing dependencies...
+echo [2/5] Installing dependencies...
 go mod download
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to download dependencies
@@ -26,7 +26,22 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo.
 
-echo [3/4] Building CLI tool...
+echo [3/5] Installing Swagger tool...
+go install github.com/swaggo/swag/cmd/swag@latest
+if %ERRORLEVEL% NEQ 0 (
+    echo [WARNING] Failed to install swag, skipping...
+) else (
+    echo Generating Swagger documentation...
+    swag init -g cmd/server/main.go -o docs/swagger
+    if %ERRORLEVEL% NEQ 0 (
+        echo [WARNING] Failed to generate Swagger docs
+    ) else (
+        echo [OK] Swagger documentation generated
+    )
+)
+echo.
+
+echo [4/5] Building CLI tool...
 go build -o dmmvc.exe cmd/cli/main.go
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to build CLI
@@ -34,7 +49,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo.
 
-echo [4/4] Installing CLI globally...
+echo [5/5] Installing CLI globally...
 if not defined GOPATH (
     echo [WARNING] GOPATH not set, using default Go bin directory
     go install ./cmd/cli
