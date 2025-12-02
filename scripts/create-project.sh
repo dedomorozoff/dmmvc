@@ -32,13 +32,19 @@ echo "[2/5] Initializing Go module..."
 go mod init "$PROJECT_NAME"
 echo ""
 
-echo "[3/5] Adding DMMVC framework..."
-go get github.com/dedomorozoff/dmmvc@latest
+echo "[3/5] Installing dependencies..."
+go get github.com/gin-gonic/gin@latest
+go get github.com/joho/godotenv@latest
+go get gorm.io/gorm@latest
+go get gorm.io/driver/sqlite@latest
+go get go.uber.org/zap@latest
 echo ""
 
 echo "[4/5] Creating project structure..."
 mkdir -p cmd/server
 mkdir -p internal/controllers
+mkdir -p internal/database
+mkdir -p internal/logger
 mkdir -p internal/models
 mkdir -p static/css
 mkdir -p static/js
@@ -55,8 +61,8 @@ package main
 
 import (
     "${PROJECT_NAME}/internal/controllers"
-    "github.com/dedomorozoff/dmmvc/pkg/database"
-    "github.com/dedomorozoff/dmmvc/pkg/logger"
+    "${PROJECT_NAME}/internal/database"
+    "${PROJECT_NAME}/internal/logger"
     "github.com/gin-gonic/gin"
     "github.com/joho/godotenv"
     "log"
@@ -65,13 +71,15 @@ import (
 
 func main() {
     // Load .env
-    godotenv.Load()
+    if err := godotenv.Load(); err != nil {
+        log.Println("No .env file found")
+    }
 
     // Initialize logger
     logger.Init()
 
     // Initialize database
-    database.Init()
+    database.Connect()
 
     // Setup Gin
     r := gin.Default()
@@ -89,7 +97,62 @@ func main() {
         port = "8080"
     }
     log.Printf("Server starting on port %s", port)
-    log.Fatal(r.Run(":" + port))
+    if err := r.Run(":" + port); err != nil {
+        log.Fatal(err)
+    }
+}
+EOF
+
+# Create database package
+cat > internal/database/database.go << EOF
+package database
+
+import (
+    "log"
+    "os"
+    "gorm.io/driver/sqlite"
+    "gorm.io/gorm"
+)
+
+var DB *gorm.DB
+
+func Connect() {
+    dbType := os.Getenv("DB_TYPE")
+    dbDSN := os.Getenv("DB_DSN")
+
+    if dbType == "" {
+        dbType = "sqlite"
+    }
+    if dbDSN == "" {
+        dbDSN = "${PROJECT_NAME}.db"
+    }
+
+    var err error
+    DB, err = gorm.Open(sqlite.Open(dbDSN), &gorm.Config{})
+    if err != nil {
+        log.Fatal("Failed to connect to database:", err)
+    }
+    log.Println("Database connected")
+}
+EOF
+
+# Create logger package
+cat > internal/logger/logger.go << 'EOF'
+package logger
+
+import (
+    "go.uber.org/zap"
+    "log"
+)
+
+var Log *zap.SugaredLogger
+
+func Init() {
+    logger, err := zap.NewDevelopment()
+    if err != nil {
+        log.Fatal("Failed to initialize logger:", err)
+    }
+    Log = logger.Sugar()
 }
 EOF
 

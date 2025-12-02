@@ -30,13 +30,19 @@ echo [2/5] Initializing Go module...
 go mod init %PROJECT_NAME%
 echo.
 
-echo [3/5] Adding DMMVC framework...
-go get github.com/dedomorozoff/dmmvc@latest
+echo [3/5] Installing dependencies...
+go get github.com/gin-gonic/gin@latest
+go get github.com/joho/godotenv@latest
+go get gorm.io/gorm@latest
+go get gorm.io/driver/sqlite@latest
+go get go.uber.org/zap@latest
 echo.
 
 echo [4/5] Creating project structure...
 mkdir cmd\server
 mkdir internal\controllers
+mkdir internal\database
+mkdir internal\logger
 mkdir internal\models
 mkdir static\css
 mkdir static\js
@@ -53,8 +59,8 @@ echo package main
 echo.
 echo import ^(
 echo     "%PROJECT_NAME%/internal/controllers"
-echo     "github.com/dedomorozoff/dmmvc/pkg/database"
-echo     "github.com/dedomorozoff/dmmvc/pkg/logger"
+echo     "%PROJECT_NAME%/internal/database"
+echo     "%PROJECT_NAME%/internal/logger"
 echo     "github.com/gin-gonic/gin"
 echo     "github.com/joho/godotenv"
 echo     "log"
@@ -63,13 +69,15 @@ echo ^)
 echo.
 echo func main^(^) {
 echo     // Load .env
-echo     godotenv.Load^(^)
+echo     if err := godotenv.Load^(^); err != nil {
+echo         log.Println^("No .env file found"^)
+echo     }
 echo.
 echo     // Initialize logger
 echo     logger.Init^(^)
 echo.
 echo     // Initialize database
-echo     database.Init^(^)
+echo     database.Connect^(^)
 echo.
 echo     // Setup Gin
 echo     r := gin.Default^(^)
@@ -87,7 +95,9 @@ echo     if port == "" {
 echo         port = "8080"
 echo     }
 echo     log.Printf^("Server starting on port %%s", port^)
-echo     log.Fatal^(r.Run^(":" + port^)^)
+echo     if err := r.Run^(":" + port^); err != nil {
+echo         log.Fatal^(err^)
+echo     }
 echo }
 ) > cmd\server\main.go
 
@@ -136,6 +146,59 @@ echo.
 echo # Temp
 echo tmp/
 ) > .gitignore
+
+REM Create database package
+(
+echo package database
+echo.
+echo import ^(
+echo     "log"
+echo     "os"
+echo     "gorm.io/driver/sqlite"
+echo     "gorm.io/gorm"
+echo ^)
+echo.
+echo var DB *gorm.DB
+echo.
+echo func Connect^(^) {
+echo     dbType := os.Getenv^("DB_TYPE"^)
+echo     dbDSN := os.Getenv^("DB_DSN"^)
+echo.
+echo     if dbType == "" {
+echo         dbType = "sqlite"
+echo     }
+echo     if dbDSN == "" {
+echo         dbDSN = "%PROJECT_NAME%.db"
+echo     }
+echo.
+echo     var err error
+echo     DB, err = gorm.Open^(sqlite.Open^(dbDSN^), ^&gorm.Config{}^)
+echo     if err != nil {
+echo         log.Fatal^("Failed to connect to database:", err^)
+echo     }
+echo     log.Println^("Database connected"^)
+echo }
+) > internal\database\database.go
+
+REM Create logger package
+(
+echo package logger
+echo.
+echo import ^(
+echo     "go.uber.org/zap"
+echo     "log"
+echo ^)
+echo.
+echo var Log *zap.SugaredLogger
+echo.
+echo func Init^(^) {
+echo     logger, err := zap.NewDevelopment^(^)
+echo     if err != nil {
+echo         log.Fatal^("Failed to initialize logger:", err^)
+echo     }
+echo     Log = logger.Sugar^(^)
+echo }
+) > internal\logger\logger.go
 
 REM Create home controller
 (
