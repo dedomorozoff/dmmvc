@@ -14,6 +14,7 @@ func Middleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		locale := detectLocale(c)
 		c.Set(LocaleContextKey, locale)
+		c.Set("i18n_enabled", true)
 		c.Next()
 	}
 }

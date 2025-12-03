@@ -2,6 +2,45 @@
 
 All notable changes to DMMVC will be documented in this file.
 
+## [1.5.0] - 2025-12-04
+
+### Added
+- **Feature Toggles System** - Modular feature management
+  - Enable/disable WebSocket, Redis, Swagger, File Upload, i18n, Queue, and Email features
+  - Environment variable configuration (WEBSOCKET_ENABLE, REDIS_ENABLE, etc.)
+  - All features disabled by default - enable only what you need
+  - Conditional initialization of features
+  - Conditional route registration
+  - Reduced dependencies for disabled features
+  - Feature status logging on startup
+  - Dashboard UI showing enabled/disabled features with instructions
+  - Navigation menu items conditionally displayed based on enabled features
+- New config package (internal/config/features.go)
+- New middleware for injecting feature status (internal/middleware/features.go)
+- Feature toggles documentation (docs/FEATURES.md, docs/FEATURES.ru.md)
+- Quick start guides (docs/QUICKSTART_FEATURES.md, docs/QUICKSTART_FEATURES.ru.md)
+- Feature cheatsheet (docs/FEATURES_CHEATSHEET.md)
+- Feature configuration in .env.example and .env
+- Dependency update documentation (docs/UPDATING.md, docs/UPDATING.ru.md)
+
+### Changed
+- Updated cmd/server/main.go to conditionally initialize features
+- Updated internal/routes/routes.go to conditionally register routes
+- Updated README.md and README.ru.md with feature toggles information
+- All templates now use static English text (home, login, dashboard, profile, user management)
+- Language switcher hidden when i18n is disabled
+- Controllers updated to support both i18n-enabled and disabled modes
+- User management pages (list, create, edit) converted to English
+- **Updated all dependencies to latest versions**:
+  - gorilla/websocket: v1.5.1 → v1.5.3
+  - go-sql-driver/mysql: v1.8.1 → v1.9.3
+  - jackc/pgx/v5: v5.6.0 → v5.7.6
+  - glebarez/go-sqlite: v1.21.2 → v1.22.0
+  - modernc.org/sqlite: v1.23.1 → v1.40.1
+  - spf13/cast: v1.7.0 → v1.10.0
+  - golang.org/x/time: v0.12.0 → v0.14.0
+  - And other indirect dependencies
+
 ## [1.4.0] - 2025-12-02
 
 ### Added

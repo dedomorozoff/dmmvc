@@ -11,6 +11,7 @@
 ### Architecture
 - **MVC Pattern** - Model-View-Controller
 - **Modular Structure** - Extensible architecture
+- **Feature Toggles** - Enable/disable features as needed ([docs/FEATURES.md](docs/FEATURES.md))
 - **Middleware System** - Request processing
 - **Routing** - Route system
 
@@ -404,7 +405,13 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 
 ## Documentation
 
+### Core
+- [Feature Toggles](docs/FEATURES.md) - Enable/disable framework features
+- [Quick Start Features](docs/QUICKSTART_FEATURES.md) - Feature configuration guide
 - [CLI Tool](docs/CLI.md) - Code generation commands
+- [Updating Dependencies](docs/UPDATING.md) - Keep packages up to date
+
+### Features
 - [PostgreSQL](docs/POSTGRESQL.md) - PostgreSQL setup guide
 - [WebSocket](docs/WEBSOCKET.md) - Real-time communication
 - [Swagger API](docs/SWAGGER.md) - API documentation
@@ -413,6 +420,8 @@ upload.CreateThumbnail(fileInfo.Path, 300, 300)
 - [Email Sending](docs/EMAIL.md) - SMTP email delivery
 - [File Upload](docs/UPLOAD.md) - File upload and processing
 - [Internationalization](docs/I18N.md) - Multi-language support
+
+### Guides
 - [Quick Start i18n](docs/QUICK_START_I18N.md) - 🌍 Bilingual interface guide
 - [Demo Data](docs/DEMO_DATA.md) - Bilingual demo users and data
 - [Examples](docs/EXAMPLES.md) - Usage examples

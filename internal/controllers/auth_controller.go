@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"dmmvc/internal/database"
-	"dmmvc/internal/i18n"
 	"dmmvc/internal/models"
 	"net/http"
 
@@ -20,39 +19,45 @@ func LoginPage(c *gin.Context) {
 		return
 	}
 
-	locale := i18n.GetLocale(c)
-	c.HTML(http.StatusOK, "pages/login.html", gin.H{
-		"title":  i18nT(c, "auth.login"),
-		"locale": i18nLocale(c),
-		"T":      i18n.TFunc(locale),
-	})
+	features, _ := c.Get("features")
+	data := gin.H{
+		"title":    "Login",
+		"features": features,
+	}
+	
+	// Add i18n support if enabled
+	addI18nData(c, data)
+	
+	c.HTML(http.StatusOK, "pages/login.html", data)
 }
 
 // LoginPost обрабатывает форму входа
 func LoginPost(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
-	locale := i18n.GetLocale(c)
+	features, _ := c.Get("features")
 
 	var user models.User
 	if err := database.DB.Where("username = ?", username).First(&user).Error; err != nil {
-		c.HTML(http.StatusUnauthorized, "pages/login.html", gin.H{
-			"title":  i18nT(c, "auth.login"),
-			"error":  i18nT(c, "auth.invalid_credentials"),
-			"locale": i18nLocale(c),
-			"T":      i18n.TFunc(locale),
-		})
+		data := gin.H{
+			"title":    "Login",
+			"error":    "Invalid username or password",
+			"features": features,
+		}
+		addI18nData(c, data)
+		c.HTML(http.StatusUnauthorized, "pages/login.html", data)
 		return
 	}
 
 	// Проверка пароля
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		c.HTML(http.StatusUnauthorized, "pages/login.html", gin.H{
-			"title":  i18nT(c, "auth.login"),
-			"error":  i18nT(c, "auth.invalid_credentials"),
-			"locale": i18nLocale(c),
-			"T":      i18n.TFunc(locale),
-		})
+		data := gin.H{
+			"title":    "Login",
+			"error":    "Invalid username or password",
+			"features": features,
+		}
+		addI18nData(c, data)
+		c.HTML(http.StatusUnauthorized, "pages/login.html", data)
 		return
 	}
 

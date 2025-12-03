@@ -9,42 +9,55 @@ import (
 
 // HomePage отображает главную страницу
 func HomePage(c *gin.Context) {
-	locale := i18n.GetLocale(c)
-	c.HTML(http.StatusOK, "pages/home.html", gin.H{
-		"title":  i18nT(c, "nav.home"),
-		"locale": i18nLocale(c),
-		"T":      i18n.TFunc(locale),
-	})
+	features, _ := c.Get("features")
+	
+	data := gin.H{
+		"title":    "Home",
+		"features": features,
+	}
+	
+	// Add i18n support if enabled
+	addI18nData(c, data)
+	
+	c.HTML(http.StatusOK, "pages/home.html", data)
 }
 
 // DashboardPage отображает панель управления
 func DashboardPage(c *gin.Context) {
 	username, _ := c.Get("username")
 	role, _ := c.Get("role")
-	locale := i18n.GetLocale(c)
+	features, _ := c.Get("features")
 
-	c.HTML(http.StatusOK, "pages/dashboard.html", gin.H{
-		"title":    i18nT(c, "dashboard.title"),
+	data := gin.H{
+		"title":    "Dashboard",
 		"username": username,
 		"role":     role,
-		"locale":   i18nLocale(c),
-		"T":        i18n.TFunc(locale),
-	})
+		"features": features,
+	}
+	
+	// Add i18n support if enabled
+	addI18nData(c, data)
+	
+	c.HTML(http.StatusOK, "pages/dashboard.html", data)
 }
 
 // ProfilePage отображает профиль пользователя
 func ProfilePage(c *gin.Context) {
 	username, _ := c.Get("username")
 	role, _ := c.Get("role")
-	locale := i18n.GetLocale(c)
+	features, _ := c.Get("features")
 
-	c.HTML(http.StatusOK, "pages/profile.html", gin.H{
-		"title":    i18nT(c, "profile.title"),
+	data := gin.H{
+		"title":    "Profile",
 		"username": username,
 		"role":     role,
-		"locale":   i18nLocale(c),
-		"T":        i18n.TFunc(locale),
-	})
+		"features": features,
+	}
+	
+	// Add i18n support if enabled
+	addI18nData(c, data)
+	
+	c.HTML(http.StatusOK, "pages/profile.html", data)
 }
 
 // I18nDemoPage displays i18n demo page
@@ -78,4 +91,27 @@ func i18nT(c *gin.Context, key string, args ...interface{}) string {
 
 func i18nLocale(c *gin.Context) string {
 	return string(i18n.GetLocale(c))
+}
+
+// addI18nData adds i18n support to template data if i18n is enabled
+func addI18nData(c *gin.Context, data gin.H) {
+	featuresVal, exists := c.Get("features")
+	if !exists {
+		return
+	}
+	
+	// Check if i18n is enabled via context (set by middleware)
+	if i18nEnabled, exists := c.Get("i18n_enabled"); exists && i18nEnabled.(bool) {
+		locale := i18n.GetLocale(c)
+		data["locale"] = i18nLocale(c)
+		data["T"] = i18n.TFunc(locale)
+	} else {
+		// Fallback: provide dummy function that returns the key
+		data["locale"] = "en"
+		data["T"] = func(key string, args ...interface{}) string {
+			return key
+		}
+	}
+	
+	_ = featuresVal // avoid unused variable warning
 }

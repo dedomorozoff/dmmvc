@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"dmmvc/internal/config"
 	"dmmvc/internal/controllers"
 	"dmmvc/internal/handlers"
 	"dmmvc/internal/i18n"
@@ -49,16 +50,27 @@ func loadTemplates(r *gin.Engine) {
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// Инициализация WebSocket Hub
-	hub := websocket.NewHub()
-	go hub.Run()
+	// Получаем конфигурацию функций
+	features := config.GetFeatures()
+
+	// Инициализация WebSocket Hub (если включено)
+	var hub *websocket.Hub
+	if features.WebSocket {
+		hub = websocket.NewHub()
+		go hub.Run()
+	}
 
 	// Настройка доверенных прокси
 	r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
 
 	// Middleware
 	r.Use(middleware.RequestLogger())
-	r.Use(i18n.Middleware())
+	r.Use(middleware.InjectFeatures())
+	
+	// I18n middleware (если включено)
+	if features.I18n {
+		r.Use(i18n.Middleware())
+	}
 
 	// Настройка сессий
 	secret := os.Getenv("SESSION_SECRET")
@@ -81,16 +93,22 @@ func SetupRouter() *gin.Engine {
 	r.POST("/login", controllers.LoginPost)
 	r.GET("/logout", controllers.Logout)
 
-	// WebSocket маршрут
-	r.GET("/ws", controllers.WebSocketHandler(hub))
+	// WebSocket маршрут (если включено)
+	if features.WebSocket {
+		r.GET("/ws", controllers.WebSocketHandler(hub))
+	}
 
-	// Swagger документация (доступна без авторизации для удобства разработки)
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// Swagger документация (если включено)
+	if features.Swagger {
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	}
 
-	// I18n API endpoints
-	i18nHandler := handlers.NewI18nHandler()
-	r.POST("/api/locale", i18nHandler.SetLocale)
-	r.GET("/api/locales", i18nHandler.GetLocales)
+	// I18n API endpoints (если включено)
+	if features.I18n {
+		i18nHandler := handlers.NewI18nHandler()
+		r.POST("/api/locale", i18nHandler.SetLocale)
+		r.GET("/api/locales", i18nHandler.GetLocales)
+	}
 
 	// Защищенные маршруты
 	authorized := r.Group("/")
@@ -99,8 +117,16 @@ func SetupRouter() *gin.Engine {
 	{
 		authorized.GET("/dashboard", controllers.DashboardPage)
 		authorized.GET("/profile", controllers.ProfilePage)
-		authorized.GET("/websocket", controllers.WebSocketDemo)
-		authorized.GET("/i18n", controllers.I18nDemoPage)
+		
+		// WebSocket demo (если включено)
+		if features.WebSocket {
+			authorized.GET("/websocket", controllers.WebSocketDemo)
+		}
+		
+		// I18n demo (если включено)
+		if features.I18n {
+			authorized.GET("/i18n", controllers.I18nDemoPage)
+		}
 		
 		// Пример CRUD маршрутов для пользователей (только для админа)
 		admin := authorized.Group("/admin")
@@ -121,34 +147,44 @@ func SetupRouter() *gin.Engine {
 			api.POST("/users", controllers.APIUserCreate)
 			api.DELETE("/users/:id", controllers.APIUserDelete)
 
-			// Cache примеры
-			api.GET("/users/cached", controllers.CachedUserList)
-			api.POST("/cache/clear", controllers.ClearUserCache)
-			api.GET("/cache/stats", controllers.CacheStats)
+			// Cache примеры (если Redis включен)
+			if features.Redis {
+				api.GET("/users/cached", controllers.CachedUserList)
+				api.POST("/cache/clear", controllers.ClearUserCache)
+				api.GET("/cache/stats", controllers.CacheStats)
+			}
 
-			// Queue примеры
-			api.POST("/queue/email", controllers.EnqueueEmailTask)
-			api.POST("/queue/email/delayed", controllers.EnqueueDelayedTask)
-			api.POST("/queue/image", controllers.EnqueueImageTask)
-			api.GET("/queue/stats", controllers.QueueStats)
+			// Queue примеры (если очередь включена)
+			if features.Queue {
+				api.POST("/queue/email", controllers.EnqueueEmailTask)
+				api.POST("/queue/email/delayed", controllers.EnqueueDelayedTask)
+				api.POST("/queue/image", controllers.EnqueueImageTask)
+				api.GET("/queue/stats", controllers.QueueStats)
+			}
 
-			// Email примеры
-			api.POST("/email/send", controllers.SendEmailDirect)
-			api.POST("/email/send/async", controllers.SendEmailAsync)
-			api.POST("/email/welcome", controllers.SendWelcomeEmail)
-			api.POST("/email/password-reset", controllers.SendPasswordResetEmail)
-			api.GET("/email/status", controllers.EmailStatus)
+			// Email примеры (если email включен)
+			if features.Email {
+				api.POST("/email/send", controllers.SendEmailDirect)
+				api.POST("/email/send/async", controllers.SendEmailAsync)
+				api.POST("/email/welcome", controllers.SendWelcomeEmail)
+				api.POST("/email/password-reset", controllers.SendPasswordResetEmail)
+				api.GET("/email/status", controllers.EmailStatus)
+			}
 
-			// Upload примеры
-			api.POST("/upload/file", controllers.UploadSingleFile)
-			api.POST("/upload/files", controllers.UploadMultipleFiles)
-			api.POST("/upload/image", controllers.UploadImage)
-			api.GET("/upload/file/:filename", controllers.DownloadFile)
-			api.DELETE("/upload/file/:filename", controllers.DeleteUploadedFile)
+			// Upload примеры (если загрузка файлов включена)
+			if features.FileUpload {
+				api.POST("/upload/file", controllers.UploadSingleFile)
+				api.POST("/upload/files", controllers.UploadMultipleFiles)
+				api.POST("/upload/image", controllers.UploadImage)
+				api.GET("/upload/file/:filename", controllers.DownloadFile)
+				api.DELETE("/upload/file/:filename", controllers.DeleteUploadedFile)
+			}
 		}
 
-		// Upload страница
-		authorized.GET("/upload", controllers.UploadPage)
+		// Upload страница (если загрузка файлов включена)
+		if features.FileUpload {
+			authorized.GET("/upload", controllers.UploadPage)
+		}
 	}
 
 	return r

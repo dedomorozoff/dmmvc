@@ -4,7 +4,7 @@
 
 <main class="main">
     <div class="container">
-        <h1 class="page-title">{{call .T "profile.title"}}</h1>
+        <h1 class="page-title">Profile</h1>
 
         <div class="profile-card">
             <div class="profile-header">
@@ -19,15 +19,15 @@
 
             <div class="profile-details">
                 <div class="detail-item">
-                    <span class="label">{{call .T "profile.user_id"}}:</span>
+                    <span class="label">User ID:</span>
                     <span class="value">{{.user_id}}</span>
                 </div>
-                <!-- Здесь можно добавить email и другие поля -->
+                <!-- Add email and other fields here -->
             </div>
 
             <div class="profile-actions">
-                <button class="btn btn-secondary">{{call .T "profile.edit"}}</button>
-                <button class="btn btn-outline">{{call .T "profile.change_password"}}</button>
+                <button class="btn btn-secondary">Edit Profile</button>
+                <button class="btn btn-outline">Change Password</button>
             </div>
         </div>
     </div>

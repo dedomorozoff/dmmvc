@@ -5,7 +5,7 @@
 <main class="main">
     <div class="container">
         <div class="auth-form-container">
-            <h1 class="page-title">{{call .T "auth.login_title"}}</h1>
+            <h1 class="page-title">Login</h1>
 
             {{if .error}}
             <div class="alert alert-error">
@@ -15,17 +15,17 @@
 
             <form action="/login" method="POST" class="form">
                 <div class="form-group">
-                    <label for="username">{{call .T "auth.username"}}</label>
+                    <label for="username">Username</label>
                     <input type="text" id="username" name="username" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">{{call .T "auth.password"}}</label>
+                    <label for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-control" required>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-block">{{call .T "auth.login_button"}}</button>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </div>
             </form>
         </div>

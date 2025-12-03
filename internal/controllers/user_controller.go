@@ -14,17 +14,22 @@ import (
 func UserList(c *gin.Context) {
 	var users []models.User
 	database.DB.Find(&users)
+	features, _ := c.Get("features")
 
 	c.HTML(http.StatusOK, "pages/users/list.html", gin.H{
-		"title": "Пользователи",
-		"users": users,
+		"title":    "Users",
+		"users":    users,
+		"features": features,
 	})
 }
 
 // UserCreate отображает форму создания пользователя
 func UserCreate(c *gin.Context) {
+	features, _ := c.Get("features")
+	
 	c.HTML(http.StatusOK, "pages/users/create.html", gin.H{
-		"title": "Создать пользователя",
+		"title":    "Create User",
+		"features": features,
 	})
 }
 
@@ -34,13 +39,15 @@ func UserStore(c *gin.Context) {
 	email := c.PostForm("email")
 	password := c.PostForm("password")
 	role := c.PostForm("role")
+	features, _ := c.Get("features")
 
 	// Хеширование пароля
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "pages/users/create.html", gin.H{
-			"title": "Создать пользователя",
-			"error": "Ошибка при создании пользователя",
+			"title":    "Create User",
+			"error":    "Error creating user",
+			"features": features,
 		})
 		return
 	}
@@ -54,8 +61,9 @@ func UserStore(c *gin.Context) {
 
 	if err := database.DB.Create(&user).Error; err != nil {
 		c.HTML(http.StatusInternalServerError, "pages/users/create.html", gin.H{
-			"title": "Создать пользователя",
-			"error": "Ошибка при создании пользователя: " + err.Error(),
+			"title":    "Create User",
+			"error":    "Error creating user: " + err.Error(),
+			"features": features,
 		})
 		return
 	}
@@ -67,6 +75,7 @@ func UserStore(c *gin.Context) {
 func UserEdit(c *gin.Context) {
 	id := c.Param("id")
 	var user models.User
+	features, _ := c.Get("features")
 
 	if err := database.DB.First(&user, id).Error; err != nil {
 		c.Redirect(http.StatusFound, "/admin/users")
@@ -74,8 +83,9 @@ func UserEdit(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "pages/users/edit.html", gin.H{
-		"title": "Редактировать пользователя",
-		"user":  user,
+		"title":    "Edit User",
+		"user":     user,
+		"features": features,
 	})
 }
 
@@ -83,6 +93,7 @@ func UserEdit(c *gin.Context) {
 func UserUpdate(c *gin.Context) {
 	id := c.Param("id")
 	var user models.User
+	features, _ := c.Get("features")
 
 	if err := database.DB.First(&user, id).Error; err != nil {
 		c.Redirect(http.StatusFound, "/admin/users")
@@ -99,9 +110,10 @@ func UserUpdate(c *gin.Context) {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
 		if err != nil {
 			c.HTML(http.StatusInternalServerError, "pages/users/edit.html", gin.H{
-				"title": "Редактировать пользователя",
-				"user":  user,
-				"error": "Ошибка при обновлении пароля",
+				"title":    "Edit User",
+				"user":     user,
+				"error":    "Error updating password",
+				"features": features,
 			})
 			return
 		}
@@ -110,9 +122,10 @@ func UserUpdate(c *gin.Context) {
 
 	if err := database.DB.Save(&user).Error; err != nil {
 		c.HTML(http.StatusInternalServerError, "pages/users/edit.html", gin.H{
-			"title": "Редактировать пользователя",
-			"user":  user,
-			"error": "Ошибка при обновлении пользователя: " + err.Error(),
+			"title":    "Edit User",
+			"user":     user,
+			"error":    "Error updating user: " + err.Error(),
+			"features": features,
 		})
 		return
 	}

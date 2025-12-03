@@ -5,80 +5,81 @@
 <main class="main">
     <div class="container">
         <div class="hero">
-            <h1 class="hero-title">{{call .T "home.welcome"}}</h1>
-            <p class="hero-subtitle">{{call .T "home.subtitle"}}</p>
+            <h1 class="hero-title">Welcome to DMMVC</h1>
+            <p class="hero-subtitle">Lightweight MVC Web Framework in Go</p>
             <div class="hero-buttons">
-                <a href="/login" class="btn btn-primary">{{call .T "nav.login"}}</a>
-                <a href="/dashboard" class="btn btn-secondary">{{call .T "nav.dashboard"}}</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/tree/main/docs" target="_blank" class="btn btn-outline">📚 {{call .T "home.documentation"}}</a>
+                <a href="/login" class="btn btn-primary">Login</a>
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/tree/main/docs" target="_blank" class="btn btn-outline">📚 Documentation</a>
             </div>
         </div>
 
         <div class="features">
             <div class="feature-card">
-                <h3>🏗️ {{call .T "home.feature.mvc.title"}}</h3>
-                <p>{{call .T "home.feature.mvc.desc"}}</p>
+                <h3>🏗️ MVC Architecture</h3>
+                <p>Clean Model-View-Controller pattern for organized code</p>
             </div>
             <div class="feature-card">
-                <h3>🔒 {{call .T "home.feature.security.title"}}</h3>
-                <p>{{call .T "home.feature.security.desc"}}</p>
+                <h3>🔒 Security</h3>
+                <p>Built-in authentication and session management</p>
             </div>
             <div class="feature-card">
-                <h3>💾 {{call .T "home.feature.database.title"}}</h3>
-                <p>{{call .T "home.feature.database.desc"}}</p>
+                <h3>💾 Database</h3>
+                <p>GORM ORM with SQLite, MySQL, and PostgreSQL support</p>
             </div>
             <div class="feature-card">
-                <h3>📝 {{call .T "home.feature.logging.title"}}</h3>
-                <p>{{call .T "home.feature.logging.desc"}}</p>
+                <h3>📝 Logging</h3>
+                <p>Structured logging with Logrus</p>
             </div>
             <div class="feature-card">
-                <h3>🚀 {{call .T "home.feature.websocket.title"}}</h3>
-                <p>{{call .T "home.feature.websocket.desc"}}</p>
+                <h3>🚀 WebSocket</h3>
+                <p>Real-time communication support</p>
             </div>
             <div class="feature-card">
-                <h3>📊 {{call .T "home.feature.api.title"}}</h3>
-                <p>{{call .T "home.feature.api.desc"}}</p>
+                <h3>📊 API Documentation</h3>
+                <p>Swagger/OpenAPI integration</p>
             </div>
             <div class="feature-card">
-                <h3>⚡ {{call .T "home.feature.cache.title"}}</h3>
-                <p>{{call .T "home.feature.cache.desc"}}</p>
+                <h3>⚡ Redis Cache</h3>
+                <p>High-performance caching layer</p>
             </div>
             <div class="feature-card">
-                <h3>📧 {{call .T "home.feature.email.title"}}</h3>
-                <p>{{call .T "home.feature.email.desc"}}</p>
+                <h3>📧 Email</h3>
+                <p>SMTP email sending with templates</p>
             </div>
             <div class="feature-card">
-                <h3>📁 {{call .T "home.feature.upload.title"}}</h3>
-                <p>{{call .T "home.feature.upload.desc"}}</p>
+                <h3>📁 File Upload</h3>
+                <p>File handling and image processing</p>
             </div>
             <div class="feature-card">
-                <h3>🌍 {{call .T "home.feature.i18n.title"}}</h3>
-                <p>{{call .T "home.feature.i18n.desc"}}</p>
+                <h3>🌍 Internationalization</h3>
+                <p>Multi-language support (i18n)</p>
             </div>
             <div class="feature-card">
-                <h3>🛠️ {{call .T "home.feature.cli.title"}}</h3>
-                <p>{{call .T "home.feature.cli.desc"}}</p>
+                <h3>🛠️ CLI Tools</h3>
+                <p>Command-line utilities for development</p>
             </div>
             <div class="feature-card">
-                <h3>🐳 {{call .T "home.feature.docker.title"}}</h3>
-                <p>{{call .T "home.feature.docker.desc"}}</p>
+                <h3>🐳 Docker Ready</h3>
+                <p>Containerization support included</p>
             </div>
         </div>
 
         <div class="documentation-section" style="margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
-            <h2 style="margin-bottom: 1.5rem; text-align: center;">📖 {{call .T "home.documentation"}}</h2>
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">📖 Documentation</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/CLI{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">{{call .T "home.doc.cli"}}</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/POSTGRESQL{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">PostgreSQL</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/WEBSOCKET{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">WebSocket</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/SWAGGER{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">Swagger API</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/CACHE{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">Redis Cache</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/QUEUE{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">{{call .T "home.doc.queue"}}</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/EMAIL{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">Email</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/UPLOAD{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">{{call .T "home.doc.upload"}}</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/I18N{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">i18n</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/EXAMPLES{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">{{call .T "home.doc.examples"}}</a>
-                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/DEPLOYMENT{{if eq .locale "ru"}}.ru{{end}}.md" target="_blank" class="doc-link">{{call .T "home.doc.deployment"}}</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/CLI.md" target="_blank" class="doc-link">CLI Tools</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/POSTGRESQL.md" target="_blank" class="doc-link">PostgreSQL</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/WEBSOCKET.md" target="_blank" class="doc-link">WebSocket</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/SWAGGER.md" target="_blank" class="doc-link">Swagger API</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/CACHE.md" target="_blank" class="doc-link">Redis Cache</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/QUEUE.md" target="_blank" class="doc-link">Task Queue</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/EMAIL.md" target="_blank" class="doc-link">Email</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/UPLOAD.md" target="_blank" class="doc-link">File Upload</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/I18N.md" target="_blank" class="doc-link">i18n</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/FEATURES.md" target="_blank" class="doc-link">Feature Toggles</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/EXAMPLES.md" target="_blank" class="doc-link">Examples</a>
+                <a href="https://github.com/dedomorozoff/dmmvc/blob/main/docs/DEPLOYMENT.md" target="_blank" class="doc-link">Deployment</a>
             </div>
         </div>
     </div>

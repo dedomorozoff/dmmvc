@@ -8,7 +8,17 @@
                 {{if .username}}
                 <a href="/dashboard" class="nav-link">Dashboard</a>
                 <a href="/profile" class="nav-link">Profile</a>
-                <a href="/i18n" class="nav-link">🌍 Language</a>
+                {{if .features}}
+                    {{if .features.I18n}}
+                    <a href="/i18n" class="nav-link">🌍 Language</a>
+                    {{end}}
+                    {{if .features.FileUpload}}
+                    <a href="/upload" class="nav-link">📁 Upload</a>
+                    {{end}}
+                    {{if .features.WebSocket}}
+                    <a href="/websocket" class="nav-link">🔌 WebSocket</a>
+                    {{end}}
+                {{end}}
                 {{if eq .role "admin"}}
                 <a href="/admin/users" class="nav-link">Users</a>
                 {{end}}
@@ -17,15 +27,19 @@
                 <a href="/login" class="nav-link">Login</a>
                 {{end}}
                 
-                <!-- Language Switcher -->
-                <div class="language-switcher">
-                    <a href="#" onclick="switchLanguage('en'); return false;" 
-                       class="lang-link {{if ne .locale "ru"}}active{{end}}" 
-                       title="Switch to English">🇬🇧 EN</a>
-                    <a href="#" onclick="switchLanguage('ru'); return false;" 
-                       class="lang-link {{if eq .locale "ru"}}active{{end}}" 
-                       title="Переключить на русский">🇷🇺 RU</a>
-                </div>
+                <!-- Language Switcher (only if i18n is enabled) -->
+                {{if .features}}
+                    {{if .features.I18n}}
+                    <div class="language-switcher">
+                        <a href="#" onclick="switchLanguage('en'); return false;" 
+                           class="lang-link {{if ne .locale "ru"}}active{{end}}" 
+                           title="Switch to English">🇬🇧 EN</a>
+                        <a href="#" onclick="switchLanguage('ru'); return false;" 
+                           class="lang-link {{if eq .locale "ru"}}active{{end}}" 
+                           title="Переключить на русский">🇷🇺 RU</a>
+                    </div>
+                    {{end}}
+                {{end}}
             </nav>
         </div>
     </div>
